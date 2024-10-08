@@ -46,12 +46,14 @@
             ActiveBCheckBox = new CheckBox();
             mbMaxPingTextBox = new TextBox();
             MaxPingLabel = new Label();
-            textBox1 = new TextBox();
-            mbPingLogLabel = new Label();
-            mbStartPingMonitorButton = new Button();
-            mbStopPingMonitorButton = new Button();
+            mbPingLogTextBox = new TextBox();
             mbButtonRun = new Button();
             mbButtonStop = new Button();
+            mbTestPingIntervalTextBox = new TextBox();
+            PingIntervalLabel = new Label();
+            mbTestPingRetryCountTextBox = new TextBox();
+            PingRetryCountLabel = new Label();
+            mbPingLogCheckBox = new CheckBox();
             SuspendLayout();
             // 
             // mbLabelB
@@ -211,44 +213,17 @@
             MaxPingLabel.TabIndex = 3;
             MaxPingLabel.Text = "Max Ping";
             // 
-            // textBox1
+            // mbPingLogTextBox
             // 
-            textBox1.Location = new Point(612, 48);
-            textBox1.Multiline = true;
-            textBox1.Name = "textBox1";
-            textBox1.Size = new Size(332, 375);
-            textBox1.TabIndex = 5;
-            // 
-            // mbPingLogLabel
-            // 
-            mbPingLogLabel.AutoSize = true;
-            mbPingLogLabel.Location = new Point(612, 25);
-            mbPingLogLabel.Name = "mbPingLogLabel";
-            mbPingLogLabel.Size = new Size(95, 20);
-            mbPingLogLabel.TabIndex = 3;
-            mbPingLogLabel.Text = "Ping Monitor";
-            // 
-            // mbStartPingMonitorButton
-            // 
-            mbStartPingMonitorButton.Location = new Point(613, 431);
-            mbStartPingMonitorButton.Name = "mbStartPingMonitorButton";
-            mbStartPingMonitorButton.Size = new Size(127, 29);
-            mbStartPingMonitorButton.TabIndex = 6;
-            mbStartPingMonitorButton.Text = "Start Monitor";
-            mbStartPingMonitorButton.UseVisualStyleBackColor = true;
-            // 
-            // mbStopPingMonitorButton
-            // 
-            mbStopPingMonitorButton.Location = new Point(816, 429);
-            mbStopPingMonitorButton.Name = "mbStopPingMonitorButton";
-            mbStopPingMonitorButton.Size = new Size(127, 29);
-            mbStopPingMonitorButton.TabIndex = 6;
-            mbStopPingMonitorButton.Text = "Stop Monitor";
-            mbStopPingMonitorButton.UseVisualStyleBackColor = true;
+            mbPingLogTextBox.Location = new Point(612, 48);
+            mbPingLogTextBox.Multiline = true;
+            mbPingLogTextBox.Name = "mbPingLogTextBox";
+            mbPingLogTextBox.Size = new Size(332, 415);
+            mbPingLogTextBox.TabIndex = 5;
             // 
             // mbButtonRun
             // 
-            mbButtonRun.Location = new Point(191, 317);
+            mbButtonRun.Location = new Point(197, 394);
             mbButtonRun.Name = "mbButtonRun";
             mbButtonRun.Size = new Size(94, 29);
             mbButtonRun.TabIndex = 7;
@@ -257,32 +232,78 @@
             // 
             // mbButtonStop
             // 
-            mbButtonStop.Location = new Point(313, 317);
+            mbButtonStop.Location = new Point(297, 394);
             mbButtonStop.Name = "mbButtonStop";
             mbButtonStop.Size = new Size(94, 29);
             mbButtonStop.TabIndex = 7;
             mbButtonStop.Text = "Stop";
             mbButtonStop.UseVisualStyleBackColor = true;
             // 
+            // mbTestPingIntervalTextBox
+            // 
+            mbTestPingIntervalTextBox.Location = new Point(223, 298);
+            mbTestPingIntervalTextBox.Name = "mbTestPingIntervalTextBox";
+            mbTestPingIntervalTextBox.Size = new Size(168, 27);
+            mbTestPingIntervalTextBox.TabIndex = 2;
+            mbTestPingIntervalTextBox.Text = "1";
+            // 
+            // PingIntervalLabel
+            // 
+            PingIntervalLabel.AutoSize = true;
+            PingIntervalLabel.Location = new Point(110, 301);
+            PingIntervalLabel.Name = "PingIntervalLabel";
+            PingIntervalLabel.Size = new Size(111, 20);
+            PingIntervalLabel.TabIndex = 3;
+            PingIntervalLabel.Text = "Ping Interval (s)";
+            // 
+            // mbTestPingRetryCountTextBox
+            // 
+            mbTestPingRetryCountTextBox.Location = new Point(223, 331);
+            mbTestPingRetryCountTextBox.Name = "mbTestPingRetryCountTextBox";
+            mbTestPingRetryCountTextBox.Size = new Size(168, 27);
+            mbTestPingRetryCountTextBox.TabIndex = 2;
+            mbTestPingRetryCountTextBox.Text = "3";
+            // 
+            // PingRetryCountLabel
+            // 
+            PingRetryCountLabel.AutoSize = true;
+            PingRetryCountLabel.Location = new Point(98, 334);
+            PingRetryCountLabel.Name = "PingRetryCountLabel";
+            PingRetryCountLabel.Size = new Size(119, 20);
+            PingRetryCountLabel.TabIndex = 3;
+            PingRetryCountLabel.Text = "Ping Retry Count";
+            // 
+            // mbPingLogCheckBox
+            // 
+            mbPingLogCheckBox.AutoSize = true;
+            mbPingLogCheckBox.Location = new Point(612, 21);
+            mbPingLogCheckBox.Name = "mbPingLogCheckBox";
+            mbPingLogCheckBox.Size = new Size(85, 24);
+            mbPingLogCheckBox.TabIndex = 8;
+            mbPingLogCheckBox.Text = "PingLog";
+            mbPingLogCheckBox.UseVisualStyleBackColor = true;
+            // 
             // mbForm1
             // 
             AutoScaleDimensions = new SizeF(8F, 20F);
             AutoScaleMode = AutoScaleMode.Font;
             ClientSize = new Size(956, 475);
+            Controls.Add(mbPingLogCheckBox);
             Controls.Add(mbButtonStop);
             Controls.Add(mbButtonRun);
-            Controls.Add(mbStopPingMonitorButton);
-            Controls.Add(mbStartPingMonitorButton);
-            Controls.Add(textBox1);
+            Controls.Add(mbPingLogTextBox);
             Controls.Add(ActiveBCheckBox);
             Controls.Add(ActiveACheckBox);
-            Controls.Add(mbPingLogLabel);
+            Controls.Add(PingRetryCountLabel);
+            Controls.Add(PingIntervalLabel);
             Controls.Add(MaxPingLabel);
             Controls.Add(DNS2Label);
             Controls.Add(DNS1Label);
             Controls.Add(GatewayLabel);
             Controls.Add(MaskLabel);
             Controls.Add(IPLabel);
+            Controls.Add(mbTestPingRetryCountTextBox);
+            Controls.Add(mbTestPingIntervalTextBox);
             Controls.Add(mbMaxPingTextBox);
             Controls.Add(mbDNS2TextBox);
             Controls.Add(mbDNS1TextBox);
@@ -318,11 +339,13 @@
         private CheckBox ActiveBCheckBox;
         private TextBox mbMaxPingTextBox;
         private Label MaxPingLabel;
-        private TextBox textBox1;
-        private Label mbPingLogLabel;
-        private Button mbStartPingMonitorButton;
-        private Button mbStopPingMonitorButton;
+        private TextBox mbPingLogTextBox;
         private Button mbButtonRun;
         private Button mbButtonStop;
+        private TextBox mbTestPingIntervalTextBox;
+        private Label PingIntervalLabel;
+        private TextBox mbTestPingRetryCountTextBox;
+        private Label PingRetryCountLabel;
+        private CheckBox mbPingLogCheckBox;
     }
 }
