@@ -55,6 +55,8 @@
             mbPingLogCheckBox = new CheckBox();
             mbRetryPbar = new ProgressBar();
             mbPingPbar = new ProgressBar();
+            checkBoxDhcpA = new CheckBox();
+            checkBoxDhcpB = new CheckBox();
             SuspendLayout();
             // 
             // mbIPTextBoxA
@@ -168,7 +170,7 @@
             ActiveACheckBox.AutoSize = true;
             ActiveACheckBox.Checked = true;
             ActiveACheckBox.CheckState = CheckState.Checked;
-            ActiveACheckBox.Location = new Point(12, 15);
+            ActiveACheckBox.Location = new Point(12, 21);
             ActiveACheckBox.Name = "ActiveACheckBox";
             ActiveACheckBox.Size = new Size(41, 24);
             ActiveACheckBox.TabIndex = 4;
@@ -292,11 +294,36 @@
             mbPingPbar.Size = new Size(168, 27);
             mbPingPbar.TabIndex = 9;
             // 
+            // checkBoxDhcpA
+            // 
+            checkBoxDhcpA.AutoSize = true;
+            checkBoxDhcpA.Enabled = false;
+            checkBoxDhcpA.Location = new Point(59, 21);
+            checkBoxDhcpA.Name = "checkBoxDhcpA";
+            checkBoxDhcpA.Size = new Size(70, 24);
+            checkBoxDhcpA.TabIndex = 10;
+            checkBoxDhcpA.Text = "DHCP";
+            checkBoxDhcpA.UseVisualStyleBackColor = true;
+            // 
+            // checkBoxDhcpB
+            // 
+            checkBoxDhcpB.AutoSize = true;
+            checkBoxDhcpB.Enabled = false;
+            checkBoxDhcpB.Location = new Point(462, 21);
+            checkBoxDhcpB.Name = "checkBoxDhcpB";
+            checkBoxDhcpB.RightToLeft = RightToLeft.Yes;
+            checkBoxDhcpB.Size = new Size(70, 24);
+            checkBoxDhcpB.TabIndex = 10;
+            checkBoxDhcpB.Text = "DHCP";
+            checkBoxDhcpB.UseVisualStyleBackColor = true;
+            // 
             // mbForm1
             // 
             AutoScaleDimensions = new SizeF(8F, 20F);
             AutoScaleMode = AutoScaleMode.Font;
             ClientSize = new Size(956, 475);
+            Controls.Add(checkBoxDhcpB);
+            Controls.Add(checkBoxDhcpA);
             Controls.Add(mbPingPbar);
             Controls.Add(mbRetryPbar);
             Controls.Add(mbPingLogCheckBox);
@@ -358,5 +385,7 @@
         private CheckBox mbPingLogCheckBox;
         private ProgressBar mbRetryPbar;
         private ProgressBar mbPingPbar;
+        private CheckBox checkBoxDhcpA;
+        private CheckBox checkBoxDhcpB;
     }
 }
