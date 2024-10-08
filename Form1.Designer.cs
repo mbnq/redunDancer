@@ -28,7 +28,6 @@
         /// </summary>
         private void InitializeComponent()
         {
-            mbLabelB = new Label();
             mbIPTextBoxA = new TextBox();
             mbMaskTextBoxA = new TextBox();
             mbGatewayTextBoxA = new TextBox();
@@ -55,15 +54,6 @@
             PingRetryCountLabel = new Label();
             mbPingLogCheckBox = new CheckBox();
             SuspendLayout();
-            // 
-            // mbLabelB
-            // 
-            mbLabelB.AutoSize = true;
-            mbLabelB.Location = new Point(925, 15);
-            mbLabelB.Name = "mbLabelB";
-            mbLabelB.Size = new Size(18, 20);
-            mbLabelB.TabIndex = 0;
-            mbLabelB.Text = "B";
             // 
             // mbIPTextBoxA
             // 
@@ -218,6 +208,8 @@
             mbPingLogTextBox.Location = new Point(612, 48);
             mbPingLogTextBox.Multiline = true;
             mbPingLogTextBox.Name = "mbPingLogTextBox";
+            mbPingLogTextBox.ReadOnly = true;
+            mbPingLogTextBox.ScrollBars = ScrollBars.Both;
             mbPingLogTextBox.Size = new Size(332, 415);
             mbPingLogTextBox.TabIndex = 5;
             // 
@@ -276,6 +268,8 @@
             // mbPingLogCheckBox
             // 
             mbPingLogCheckBox.AutoSize = true;
+            mbPingLogCheckBox.Checked = true;
+            mbPingLogCheckBox.CheckState = CheckState.Checked;
             mbPingLogCheckBox.Location = new Point(612, 21);
             mbPingLogCheckBox.Name = "mbPingLogCheckBox";
             mbPingLogCheckBox.Size = new Size(85, 24);
@@ -313,7 +307,6 @@
             Controls.Add(mbMaskTextBoxA);
             Controls.Add(mbIPTextBoxB);
             Controls.Add(mbIPTextBoxA);
-            Controls.Add(mbLabelB);
             Name = "mbForm1";
             Text = "redunDancer";
             ResumeLayout(false);
@@ -321,7 +314,6 @@
         }
 
         #endregion
-        private Label mbLabelB;
         private TextBox mbIPTextBoxA;
         private TextBox mbMaskTextBoxA;
         private TextBox mbGatewayTextBoxA;
