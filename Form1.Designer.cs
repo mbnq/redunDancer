@@ -63,6 +63,7 @@
             dummyLabelMax = new Label();
             DeviceSelectDropDownA = new ComboBox();
             DeviceSelectDropDownB = new ComboBox();
+            networkDevicesLabel = new Label();
             SuspendLayout();
             // 
             // mbIPTextBoxA
@@ -385,6 +386,15 @@
             DeviceSelectDropDownB.Size = new Size(199, 28);
             DeviceSelectDropDownB.TabIndex = 13;
             // 
+            // networkDevicesLabel
+            // 
+            networkDevicesLabel.AutoSize = true;
+            networkDevicesLabel.Location = new Point(216, 153);
+            networkDevicesLabel.Name = "networkDevicesLabel";
+            networkDevicesLabel.Size = new Size(154, 20);
+            networkDevicesLabel.TabIndex = 3;
+            networkDevicesLabel.Text = "<- Network Device ->";
+            // 
             // mbForm1
             // 
             AutoScaleDimensions = new SizeF(8F, 20F);
@@ -411,6 +421,7 @@
             Controls.Add(MaxPingLabel);
             Controls.Add(DNS2Label);
             Controls.Add(DNS1Label);
+            Controls.Add(networkDevicesLabel);
             Controls.Add(GatewayLabel);
             Controls.Add(MaskLabel);
             Controls.Add(IPLabel);
@@ -467,5 +478,6 @@
         private Label dummyLabelMax;
         private ComboBox DeviceSelectDropDownA;
         private ComboBox DeviceSelectDropDownB;
+        private Label networkDevicesLabel;
     }
 }

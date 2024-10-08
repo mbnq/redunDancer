@@ -1,14 +1,17 @@
-using redunDancer.Properties;
-using System;
+
+/* 
+
+    www.mbnq.pl 2024 
+    https://mbnq.pl/
+    mbnq00 on gmail
+
+*/
+
 using System.ComponentModel;
 using System.Diagnostics;
-using System.Linq;
 using System.Net.NetworkInformation;
-using System.Net.Security;
 using System.Net.Sockets;
-using System.Threading;
-using System.Threading.Tasks;
-using System.Windows.Forms;
+using System.Management;
 
 namespace redunDancer
 {
@@ -72,6 +75,8 @@ namespace redunDancer
             mbMaxPingTextBox.Enabled = unblock;
             mbTestPingIntervalTextBox.Enabled = unblock;
             mbTestPingRetryCountTextBox.Enabled = unblock;
+            DeviceSelectDropDownA.Enabled = unblock;
+            DeviceSelectDropDownB.Enabled = unblock;
         }
         private void InitializePingWorker()
         {
@@ -144,18 +149,23 @@ namespace redunDancer
 
         private string? GetCurrentIPAddress()
         {
-            foreach (NetworkInterface ni in NetworkInterface.GetAllNetworkInterfaces())
+            string? adapterName = GetSelectedAdapterName(useSettingA);
+
+            if (adapterName == null)
+                return null;
+
+            NetworkInterface? ni = NetworkInterface.GetAllNetworkInterfaces()
+                .FirstOrDefault(n => n.Name == adapterName);
+
+            if (ni != null && ni.OperationalStatus == OperationalStatus.Up &&
+                ni.NetworkInterfaceType != NetworkInterfaceType.Loopback &&
+                ni.Supports(NetworkInterfaceComponent.IPv4))
             {
-                if (ni.OperationalStatus == OperationalStatus.Up &&
-                    ni.NetworkInterfaceType != NetworkInterfaceType.Loopback &&
-                    ni.Supports(NetworkInterfaceComponent.IPv4))
+                foreach (UnicastIPAddressInformation ip in ni.GetIPProperties().UnicastAddresses)
                 {
-                    foreach (UnicastIPAddressInformation ip in ni.GetIPProperties().UnicastAddresses)
+                    if (ip.Address.AddressFamily == AddressFamily.InterNetwork)
                     {
-                        if (ip.Address.AddressFamily == AddressFamily.InterNetwork)
-                        {
-                            return ip.Address.ToString();
-                        }
+                        return ip.Address.ToString();
                     }
                 }
             }
@@ -411,36 +421,33 @@ namespace redunDancer
         {
             try
             {
-                string? adapterName = GetDefaultAdapterName();
+                string? adapterName = GetNetshInterfaceName(useSettingA);
 
                 if (adapterName == null)
                 {
                     LogPingResult("Failed to retrieve network adapter.");
-                    return; // Exit the method if adapterName is null
+                    return;
                 }
 
-                // At this point, adapterName is guaranteed not to be null
                 if (string.IsNullOrWhiteSpace(ip) || string.IsNullOrWhiteSpace(mask) || string.IsNullOrWhiteSpace(gateway))
                 {
-                    // If any IP settings are empty, set to DHCP
+                    // Set to DHCP
                     SetDHCP(adapterName);
-                    // Wait for DHCP to assign IP
                     Task.Delay(2000).Wait();
-                    // Retrieve IP settings but do not update text boxes
                     GetIPSettings(adapterName, useSettingA, false);
                 }
                 else
                 {
                     // Set static IP settings
-                    string setIPCmd = $"interface ip set address name=\"{adapterName}\" source=static addr={ip} mask={mask} gateway={gateway} gwmetric=1";
-                    string setDNSCmd1 = $"interface ip set dns name=\"{adapterName}\" source=static addr={mbDNS1TextBox.Text} register=PRIMARY";
-                    string setDNSCmd2 = $"interface ip add dns name=\"{adapterName}\" addr={mbDNS2TextBox.Text} index=2";
+                    string setIPCmd = $"interface ip set address name=\"{adapterName}\" static {ip} {mask} {gateway} 1";
+                    string setDNSCmd1 = $"interface ip set dnsservers name=\"{adapterName}\" static {mbDNS1TextBox.Text} primary";
+                    string setDNSCmd2 = $"interface ip add dnsservers name=\"{adapterName}\" address={mbDNS2TextBox.Text} index=2";
 
                     RunNetshCommand(setIPCmd);
                     RunNetshCommand(setDNSCmd1);
                     RunNetshCommand(setDNSCmd2);
 
-                    LogPingResult($"Network settings applied: IP={ip}, Mask={mask}, Gateway={gateway}, DNS1={mbDNS1TextBox.Text}, DNS2={mbDNS2TextBox.Text}");
+                    LogPingResult($"Network settings applied to {adapterName}: IP={ip}, Mask={mask}, Gateway={gateway}, DNS1={mbDNS1TextBox.Text}, DNS2={mbDNS2TextBox.Text}");
                 }
             }
             catch (Exception ex)
@@ -448,18 +455,20 @@ namespace redunDancer
                 LogPingResult($"Error applying network settings: {ex.Message}");
             }
         }
+
         private void SetDHCP(string adapterName)
         {
-            string dhcpIPCmd = $"interface ip set address name=\"{adapterName}\" source=dhcp";
-            string dhcpDNSCmd = $"interface ip set dns name=\"{adapterName}\" source=dhcp";
+            string dhcpIPCmd = $"interface ip set address name=\"{adapterName}\" dhcp";
+            string dhcpDNSCmd = $"interface ip set dnsservers name=\"{adapterName}\" dhcp";
             RunNetshCommand(dhcpIPCmd);
             RunNetshCommand(dhcpDNSCmd);
-            LogPingResult("Set network settings to DHCP.");
+            LogPingResult($"Set network settings to DHCP on adapter {adapterName}.");
         }
+
         private void GetIPSettings(string adapterName, bool isSettingA, bool populateTextBoxes)
         {
             NetworkInterface? adapter = NetworkInterface.GetAllNetworkInterfaces()
-                .FirstOrDefault(ni => ni.Name == adapterName);
+                .FirstOrDefault(ni => GetNetshInterfaceNameById(ni.Id) == adapterName);
 
             if (adapter != null)
             {
@@ -515,55 +524,6 @@ namespace redunDancer
                 }
             }
         }
-        private void GetIPSettings2(string adapterName, bool isSettingA, bool populateTextBoxes)
-        {
-            NetworkInterface? adapter = NetworkInterface.GetAllNetworkInterfaces()
-                .FirstOrDefault(ni => ni.Name == adapterName);
-
-            if (adapter != null)
-            {
-                var ipProperties = adapter.GetIPProperties();
-                var unicastAddress = ipProperties.UnicastAddresses
-                    .FirstOrDefault(ua => ua.Address.AddressFamily == AddressFamily.InterNetwork);
-
-                if (unicastAddress != null)
-                {
-                    string ip = unicastAddress.Address.ToString();
-                    string mask = unicastAddress.IPv4Mask.ToString();
-                    string gateway = ipProperties.GatewayAddresses
-                        .FirstOrDefault()?.Address.ToString() ?? "";
-
-                    LogPingResult($"Obtained IP settings from DHCP: IP={ip}, Mask={mask}, Gateway={gateway}");
-
-                    // Populate the text boxes if requested
-                    if (populateTextBoxes)
-                    {
-                        if (isSettingA)
-                        {
-                            Invoke(new Action(() =>
-                            {
-                                mbIPTextBoxA.Text = ip;
-                                mbMaskTextBoxA.Text = mask;
-                                mbGatewayTextBoxA.Text = gateway;
-                            }));
-                        }
-                        else
-                        {
-                            Invoke(new Action(() =>
-                            {
-                                mbIPTextBoxB.Text = ip;
-                                mbMaskTextBoxB.Text = mask;
-                                mbGatewayTextBoxB.Text = gateway;
-                            }));
-                        }
-                    }
-                }
-                else
-                {
-                    LogPingResult("Failed to obtain IP settings from DHCP.");
-                }
-            }
-        }
 
         private string? GetDefaultAdapterName()
         {
@@ -573,7 +533,88 @@ namespace redunDancer
                     ni.NetworkInterfaceType != NetworkInterfaceType.Loopback &&
                     ni.Supports(NetworkInterfaceComponent.IPv4))
                 {
-                    return ni.Name;
+                    return GetNetshInterfaceNameById(ni.Id);
+                }
+            }
+            return null;
+        }
+
+        private string? GetSelectedAdapterName(bool isSettingA)
+        {
+            string? selectedAdapter = null;
+
+            if (isSettingA)
+            {
+                if (DeviceSelectDropDownA.InvokeRequired)
+                {
+                    DeviceSelectDropDownA.Invoke(new MethodInvoker(delegate
+                    {
+                        selectedAdapter = DeviceSelectDropDownA.SelectedItem?.ToString();
+                    }));
+                }
+                else
+                {
+                    selectedAdapter = DeviceSelectDropDownA.SelectedItem?.ToString();
+                }
+            }
+            else
+            {
+                if (DeviceSelectDropDownB.InvokeRequired)
+                {
+                    DeviceSelectDropDownB.Invoke(new MethodInvoker(delegate
+                    {
+                        selectedAdapter = DeviceSelectDropDownB.SelectedItem?.ToString();
+                    }));
+                }
+                else
+                {
+                    selectedAdapter = DeviceSelectDropDownB.SelectedItem?.ToString();
+                }
+            }
+
+            if (string.IsNullOrEmpty(selectedAdapter) || selectedAdapter == "Windows Default")
+            {
+                return GetDefaultAdapterName();
+            }
+            else
+            {
+                return selectedAdapter;
+            }
+        }
+
+        private string? GetNetshInterfaceName(bool isSettingA)
+        {
+            string? adapterName = GetSelectedAdapterName(isSettingA);
+            if (adapterName == null)
+                return null;
+
+            return GetNetshInterfaceNameByAdapterName(adapterName);
+        }
+
+        private string? GetNetshInterfaceNameByAdapterName(string adapterName)
+        {
+            NetworkInterface? ni = NetworkInterface.GetAllNetworkInterfaces()
+                .FirstOrDefault(n => n.Name == adapterName);
+
+            if (ni != null)
+            {
+                return GetNetshInterfaceNameById(ni.Id);
+            }
+            return null;
+        }
+
+        private string? GetNetshInterfaceNameById(string adapterId)
+        {
+            string query = $"SELECT * FROM Win32_NetworkAdapter WHERE GUID = '{adapterId}'";
+            using (ManagementObjectSearcher searcher = new ManagementObjectSearcher(query))
+            {
+                foreach (ManagementObject obj in searcher.Get())
+                {
+                    string? netConnectionID = obj["NetConnectionID"]?.ToString();
+                    if (!string.IsNullOrEmpty(netConnectionID))
+                    {
+                        return netConnectionID;
+                    }
                 }
             }
             return null;
@@ -581,6 +622,8 @@ namespace redunDancer
 
         private void RunNetshCommand(string command)
         {
+            LogPingResult($"Running netsh command: {command}");
+
             ProcessStartInfo psi = new ProcessStartInfo("netsh", command)
             {
                 RedirectStandardOutput = true,
