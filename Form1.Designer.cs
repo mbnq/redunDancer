@@ -61,6 +61,8 @@
             mbAutoStartCheckBox = new CheckBox();
             dummyLabelMin = new Label();
             dummyLabelMax = new Label();
+            DeviceSelectDropDownA = new ComboBox();
+            DeviceSelectDropDownB = new ComboBox();
             SuspendLayout();
             // 
             // mbIPTextBoxA
@@ -89,7 +91,7 @@
             // 
             // mbIPTextBoxB
             // 
-            mbIPTextBoxB.Location = new Point(381, 51);
+            mbIPTextBoxB.Location = new Point(381, 47);
             mbIPTextBoxB.Name = "mbIPTextBoxB";
             mbIPTextBoxB.Size = new Size(198, 27);
             mbIPTextBoxB.TabIndex = 1;
@@ -367,11 +369,29 @@
             dummyLabelMax.TabIndex = 12;
             dummyLabelMax.Text = "max |";
             // 
+            // DeviceSelectDropDownA
+            // 
+            DeviceSelectDropDownA.FormattingEnabled = true;
+            DeviceSelectDropDownA.Location = new Point(8, 150);
+            DeviceSelectDropDownA.Name = "DeviceSelectDropDownA";
+            DeviceSelectDropDownA.Size = new Size(199, 28);
+            DeviceSelectDropDownA.TabIndex = 13;
+            // 
+            // DeviceSelectDropDownB
+            // 
+            DeviceSelectDropDownB.FormattingEnabled = true;
+            DeviceSelectDropDownB.Location = new Point(381, 150);
+            DeviceSelectDropDownB.Name = "DeviceSelectDropDownB";
+            DeviceSelectDropDownB.Size = new Size(199, 28);
+            DeviceSelectDropDownB.TabIndex = 13;
+            // 
             // mbForm1
             // 
             AutoScaleDimensions = new SizeF(8F, 20F);
             AutoScaleMode = AutoScaleMode.Font;
             ClientSize = new Size(956, 475);
+            Controls.Add(DeviceSelectDropDownB);
+            Controls.Add(DeviceSelectDropDownA);
             Controls.Add(dummyLabelMax);
             Controls.Add(dummyLabelMin);
             Controls.Add(mbAutoStartCheckBox);
@@ -445,5 +465,7 @@
         private CheckBox mbAutoStartCheckBox;
         private Label dummyLabelMin;
         private Label dummyLabelMax;
+        private ComboBox DeviceSelectDropDownA;
+        private ComboBox DeviceSelectDropDownB;
     }
 }
