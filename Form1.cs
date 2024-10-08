@@ -26,6 +26,7 @@ namespace redunDancer
 
             InitializeComponent();
             InitializePingWorker();
+            InitializeNetworkDevices();
 
             using (MemoryStream ms = new MemoryStream(Properties.Resources.mbRedunDancer))
             {
@@ -77,6 +78,31 @@ namespace redunDancer
             pingWorker = new BackgroundWorker();
             pingWorker.DoWork += PingWorker_DoWork;
             pingWorker.WorkerSupportsCancellation = true;
+        }
+
+        private void InitializeNetworkDevices()
+        {
+            // Add default options
+            DeviceSelectDropDownA.Items.Clear();
+            DeviceSelectDropDownA.Items.Add("Windows Default");
+            DeviceSelectDropDownB.Items.Clear();
+            DeviceSelectDropDownB.Items.Add("Windows Default");
+
+            // Get all network interfaces (network devices)
+            var networkInterfaces = NetworkInterface.GetAllNetworkInterfaces();
+
+            // Populate the drop-down lists for both A and B
+            foreach (var ni in networkInterfaces)
+            {
+                string deviceName = ni.Name; // Get the name of the network device
+
+                DeviceSelectDropDownA.Items.Add(deviceName);
+                DeviceSelectDropDownB.Items.Add(deviceName);
+            }
+
+            // Set "Windows Default" as the initially selected option
+            DeviceSelectDropDownA.SelectedIndex = 0;
+            DeviceSelectDropDownB.SelectedIndex = 0;
         }
 
         private void DetectCurrentIP()
