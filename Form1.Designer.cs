@@ -178,9 +178,11 @@
             ActiveBCheckBox.AutoSize = true;
             ActiveBCheckBox.Location = new Point(538, 21);
             ActiveBCheckBox.Name = "ActiveBCheckBox";
+            ActiveBCheckBox.RightToLeft = RightToLeft.Yes;
             ActiveBCheckBox.Size = new Size(40, 24);
             ActiveBCheckBox.TabIndex = 4;
             ActiveBCheckBox.Text = "B";
+            ActiveBCheckBox.TextAlign = ContentAlignment.TopLeft;
             ActiveBCheckBox.UseVisualStyleBackColor = true;
             // 
             // mbMaxPingTextBox
@@ -269,9 +271,9 @@
             mbPingLogCheckBox.CheckState = CheckState.Checked;
             mbPingLogCheckBox.Location = new Point(612, 21);
             mbPingLogCheckBox.Name = "mbPingLogCheckBox";
-            mbPingLogCheckBox.Size = new Size(85, 24);
+            mbPingLogCheckBox.Size = new Size(56, 24);
             mbPingLogCheckBox.TabIndex = 8;
-            mbPingLogCheckBox.Text = "PingLog";
+            mbPingLogCheckBox.Text = "Log";
             mbPingLogCheckBox.UseVisualStyleBackColor = true;
             // 
             // mbForm1
