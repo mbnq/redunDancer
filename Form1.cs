@@ -1,3 +1,4 @@
+using redunDancer.Properties;
 using System;
 using System.ComponentModel;
 using System.Diagnostics;
@@ -22,9 +23,15 @@ namespace redunDancer
         public mbForm1()
         {
             initializing = true;
+
             InitializeComponent();
             InitializePingWorker();
-            
+
+            using (MemoryStream ms = new MemoryStream(Properties.Resources.mbRedunDancer))
+            {
+                this.Icon = new Icon(ms);
+            }
+
             // Attach event handlers to the buttons and checkboxes
             mbButtonRun.Click += mbButtonRun_Click;
             mbButtonStop.Click += mbButtonStop_Click;
