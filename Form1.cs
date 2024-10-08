@@ -24,7 +24,7 @@ namespace redunDancer
             initializing = true;
             InitializeComponent();
             InitializePingWorker();
-
+            
             // Attach event handlers to the buttons and checkboxes
             mbButtonRun.Click += mbButtonRun_Click;
             mbButtonStop.Click += mbButtonStop_Click;
@@ -47,6 +47,8 @@ namespace redunDancer
             mbPingPbar.Value = 0;
             checkBoxDhcpA.Checked = false;
             checkBoxDhcpB.Checked = false;
+
+            this.TopMost = mbAlwaysOnTopCheckBox.Checked;
         }
         private void unblockSettings(bool unblock)
         {

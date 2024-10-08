@@ -57,6 +57,7 @@
             mbPingPbar = new ProgressBar();
             checkBoxDhcpA = new CheckBox();
             checkBoxDhcpB = new CheckBox();
+            mbAlwaysOnTopCheckBox = new CheckBox();
             SuspendLayout();
             // 
             // mbIPTextBoxA
@@ -317,11 +318,24 @@
             checkBoxDhcpB.Text = "DHCP";
             checkBoxDhcpB.UseVisualStyleBackColor = true;
             // 
+            // mbAlwaysOnTopCheckBox
+            // 
+            mbAlwaysOnTopCheckBox.AutoSize = true;
+            mbAlwaysOnTopCheckBox.Checked = true;
+            mbAlwaysOnTopCheckBox.CheckState = CheckState.Checked;
+            mbAlwaysOnTopCheckBox.Location = new Point(212, 439);
+            mbAlwaysOnTopCheckBox.Name = "mbAlwaysOnTopCheckBox";
+            mbAlwaysOnTopCheckBox.Size = new Size(127, 24);
+            mbAlwaysOnTopCheckBox.TabIndex = 11;
+            mbAlwaysOnTopCheckBox.Text = "Always on Top";
+            mbAlwaysOnTopCheckBox.UseVisualStyleBackColor = true;
+            // 
             // mbForm1
             // 
             AutoScaleDimensions = new SizeF(8F, 20F);
             AutoScaleMode = AutoScaleMode.Font;
             ClientSize = new Size(956, 475);
+            Controls.Add(mbAlwaysOnTopCheckBox);
             Controls.Add(checkBoxDhcpB);
             Controls.Add(checkBoxDhcpA);
             Controls.Add(mbPingPbar);
@@ -387,5 +401,6 @@
         private ProgressBar mbPingPbar;
         private CheckBox checkBoxDhcpA;
         private CheckBox checkBoxDhcpB;
+        private CheckBox mbAlwaysOnTopCheckBox;
     }
 }
