@@ -53,6 +53,8 @@
             mbTestPingRetryCountTextBox = new TextBox();
             PingRetryCountLabel = new Label();
             mbPingLogCheckBox = new CheckBox();
+            mbRetryPbar = new ProgressBar();
+            mbPingPbar = new ProgressBar();
             SuspendLayout();
             // 
             // mbIPTextBoxA
@@ -214,7 +216,7 @@
             // 
             // mbButtonRun
             // 
-            mbButtonRun.Location = new Point(197, 394);
+            mbButtonRun.Location = new Point(12, 434);
             mbButtonRun.Name = "mbButtonRun";
             mbButtonRun.Size = new Size(94, 29);
             mbButtonRun.TabIndex = 7;
@@ -223,7 +225,7 @@
             // 
             // mbButtonStop
             // 
-            mbButtonStop.Location = new Point(297, 394);
+            mbButtonStop.Location = new Point(112, 434);
             mbButtonStop.Name = "mbButtonStop";
             mbButtonStop.Size = new Size(94, 29);
             mbButtonStop.TabIndex = 7;
@@ -276,11 +278,27 @@
             mbPingLogCheckBox.Text = "Log";
             mbPingLogCheckBox.UseVisualStyleBackColor = true;
             // 
+            // mbRetryPbar
+            // 
+            mbRetryPbar.Location = new Point(397, 331);
+            mbRetryPbar.Name = "mbRetryPbar";
+            mbRetryPbar.Size = new Size(168, 27);
+            mbRetryPbar.TabIndex = 9;
+            // 
+            // mbPingPbar
+            // 
+            mbPingPbar.Location = new Point(397, 265);
+            mbPingPbar.Name = "mbPingPbar";
+            mbPingPbar.Size = new Size(168, 27);
+            mbPingPbar.TabIndex = 9;
+            // 
             // mbForm1
             // 
             AutoScaleDimensions = new SizeF(8F, 20F);
             AutoScaleMode = AutoScaleMode.Font;
             ClientSize = new Size(956, 475);
+            Controls.Add(mbPingPbar);
+            Controls.Add(mbRetryPbar);
             Controls.Add(mbPingLogCheckBox);
             Controls.Add(mbButtonStop);
             Controls.Add(mbButtonRun);
@@ -338,5 +356,7 @@
         private TextBox mbTestPingRetryCountTextBox;
         private Label PingRetryCountLabel;
         private CheckBox mbPingLogCheckBox;
+        private ProgressBar mbRetryPbar;
+        private ProgressBar mbPingPbar;
     }
 }

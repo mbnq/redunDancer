@@ -33,6 +33,9 @@ namespace redunDancer
             // Detect current IP and set initial settings
             DetectCurrentIP();
 
+            mbRetryPbar.Value = 0;
+            mbPingPbar.Value = 0;
+
             initializing = false; // Initialization complete
         }
 
@@ -196,6 +199,7 @@ namespace redunDancer
                 if (!int.TryParse(mbMaxPingTextBox.Text, out maxPing))
                 {
                     maxPing = 100; // Default value
+                    mbPingPbar.Maximum = maxPing;
                 }
 
                 if (!int.TryParse(mbTestPingIntervalTextBox.Text, out interval))
@@ -207,6 +211,7 @@ namespace redunDancer
                 if (!int.TryParse(mbTestPingRetryCountTextBox.Text, out retryCount))
                 {
                     retryCount = 3; // Default value
+                    mbRetryPbar.Maximum = retryCount;
                 }
 
                 string? currentIP = GetCurrentIPAddress();
@@ -220,12 +225,15 @@ namespace redunDancer
                         {
                             consecutiveFailures = 0;
                             LogPingResult($"Ping to {ipAddress} successful: {reply.RoundtripTime} ms | Current IP: {currentIP}");
+                            mbPingPbar.Value = (int)Math.Min(reply.RoundtripTime, mbPingPbar.Maximum);
                         }
                         else
                         {
                             consecutiveFailures++;
                             LogPingResult($"Ping to {ipAddress} failed or exceeded max ping: {(reply.Status == IPStatus.Success ? reply.RoundtripTime.ToString() : "N/A")} ms | Current IP: {currentIP}");
+                            mbPingPbar.Value = mbPingPbar.Maximum;
                         }
+                        mbRetryPbar.Value = consecutiveFailures;
                     }
                 }
                 catch (Exception ex)
@@ -325,34 +333,35 @@ namespace redunDancer
             try
             {
                 string? adapterName = GetDefaultAdapterName();
-                if (!string.IsNullOrEmpty(adapterName))
+
+                if (adapterName == null)
                 {
-                    if (string.IsNullOrWhiteSpace(ip) || string.IsNullOrWhiteSpace(mask) || string.IsNullOrWhiteSpace(gateway))
-                    {
-                        // If any IP settings are empty, set to DHCP
-                        SetDHCP(adapterName);
-                        // Wait for DHCP to assign IP
-                        Task.Delay(2000).Wait();
-                        // Retrieve and populate IP settings but do not update text boxes
-                        GetIPSettings(adapterName, useSettingA, false);
-                    }
-                    else
-                    {
-                        // Set static IP settings
-                        string setIPCmd = $"interface ip set address name=\"{adapterName}\" source=static addr={ip} mask={mask} gateway={gateway} gwmetric=1";
-                        string setDNSCmd1 = $"interface ip set dns name=\"{adapterName}\" source=static addr={mbDNS1TextBox.Text} register=PRIMARY";
-                        string setDNSCmd2 = $"interface ip add dns name=\"{adapterName}\" addr={mbDNS2TextBox.Text} index=2";
+                    LogPingResult("Failed to retrieve network adapter.");
+                    return; // Exit the method if adapterName is null
+                }
 
-                        RunNetshCommand(setIPCmd);
-                        RunNetshCommand(setDNSCmd1);
-                        RunNetshCommand(setDNSCmd2);
-
-                        LogPingResult($"Network settings applied: IP={ip}, Mask={mask}, Gateway={gateway}, DNS1={mbDNS1TextBox.Text}, DNS2={mbDNS2TextBox.Text}");
-                    }
+                // At this point, adapterName is guaranteed not to be null
+                if (string.IsNullOrWhiteSpace(ip) || string.IsNullOrWhiteSpace(mask) || string.IsNullOrWhiteSpace(gateway))
+                {
+                    // If any IP settings are empty, set to DHCP
+                    SetDHCP(adapterName);
+                    // Wait for DHCP to assign IP
+                    Task.Delay(2000).Wait();
+                    // Retrieve IP settings but do not update text boxes
+                    GetIPSettings(adapterName, useSettingA, false);
                 }
                 else
                 {
-                    LogPingResult("Failed to retrieve network adapter.");
+                    // Set static IP settings
+                    string setIPCmd = $"interface ip set address name=\"{adapterName}\" source=static addr={ip} mask={mask} gateway={gateway} gwmetric=1";
+                    string setDNSCmd1 = $"interface ip set dns name=\"{adapterName}\" source=static addr={mbDNS1TextBox.Text} register=PRIMARY";
+                    string setDNSCmd2 = $"interface ip add dns name=\"{adapterName}\" addr={mbDNS2TextBox.Text} index=2";
+
+                    RunNetshCommand(setIPCmd);
+                    RunNetshCommand(setDNSCmd1);
+                    RunNetshCommand(setDNSCmd2);
+
+                    LogPingResult($"Network settings applied: IP={ip}, Mask={mask}, Gateway={gateway}, DNS1={mbDNS1TextBox.Text}, DNS2={mbDNS2TextBox.Text}");
                 }
             }
             catch (Exception ex)
@@ -360,6 +369,7 @@ namespace redunDancer
                 LogPingResult($"Error applying network settings: {ex.Message}");
             }
         }
+
 
         private void SetDHCP(string adapterName)
         {
