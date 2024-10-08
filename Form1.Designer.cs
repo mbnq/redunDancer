@@ -106,17 +106,17 @@
             // 
             // mbDNS1TextBox
             // 
-            mbDNS1TextBox.Location = new Point(223, 198);
+            mbDNS1TextBox.Location = new Point(250, 163);
             mbDNS1TextBox.Name = "mbDNS1TextBox";
-            mbDNS1TextBox.Size = new Size(168, 27);
+            mbDNS1TextBox.Size = new Size(125, 27);
             mbDNS1TextBox.TabIndex = 2;
             mbDNS1TextBox.Text = "8.8.8.8";
             // 
             // mbDNS2TextBox
             // 
-            mbDNS2TextBox.Location = new Point(223, 231);
+            mbDNS2TextBox.Location = new Point(250, 196);
             mbDNS2TextBox.Name = "mbDNS2TextBox";
-            mbDNS2TextBox.Size = new Size(168, 27);
+            mbDNS2TextBox.Size = new Size(125, 27);
             mbDNS2TextBox.TabIndex = 2;
             mbDNS2TextBox.Text = "8.8.4.4";
             // 
@@ -150,7 +150,7 @@
             // DNS1Label
             // 
             DNS1Label.AutoSize = true;
-            DNS1Label.Location = new Point(148, 201);
+            DNS1Label.Location = new Point(197, 166);
             DNS1Label.Name = "DNS1Label";
             DNS1Label.Size = new Size(47, 20);
             DNS1Label.TabIndex = 3;
@@ -159,7 +159,7 @@
             // DNS2Label
             // 
             DNS2Label.AutoSize = true;
-            DNS2Label.Location = new Point(148, 234);
+            DNS2Label.Location = new Point(197, 199);
             DNS2Label.Name = "DNS2Label";
             DNS2Label.Size = new Size(47, 20);
             DNS2Label.TabIndex = 3;
@@ -191,7 +191,7 @@
             // 
             // mbMaxPingTextBox
             // 
-            mbMaxPingTextBox.Location = new Point(223, 265);
+            mbMaxPingTextBox.Location = new Point(236, 283);
             mbMaxPingTextBox.Name = "mbMaxPingTextBox";
             mbMaxPingTextBox.Size = new Size(168, 27);
             mbMaxPingTextBox.TabIndex = 2;
@@ -200,7 +200,7 @@
             // MaxPingLabel
             // 
             MaxPingLabel.AutoSize = true;
-            MaxPingLabel.Location = new Point(147, 268);
+            MaxPingLabel.Location = new Point(160, 286);
             MaxPingLabel.Name = "MaxPingLabel";
             MaxPingLabel.Size = new Size(70, 20);
             MaxPingLabel.TabIndex = 3;
@@ -236,7 +236,7 @@
             // 
             // mbTestPingIntervalTextBox
             // 
-            mbTestPingIntervalTextBox.Location = new Point(223, 298);
+            mbTestPingIntervalTextBox.Location = new Point(236, 250);
             mbTestPingIntervalTextBox.Name = "mbTestPingIntervalTextBox";
             mbTestPingIntervalTextBox.Size = new Size(168, 27);
             mbTestPingIntervalTextBox.TabIndex = 2;
@@ -245,7 +245,7 @@
             // PingIntervalLabel
             // 
             PingIntervalLabel.AutoSize = true;
-            PingIntervalLabel.Location = new Point(110, 301);
+            PingIntervalLabel.Location = new Point(123, 253);
             PingIntervalLabel.Name = "PingIntervalLabel";
             PingIntervalLabel.Size = new Size(111, 20);
             PingIntervalLabel.TabIndex = 3;
@@ -253,7 +253,7 @@
             // 
             // mbTestPingRetryCountTextBox
             // 
-            mbTestPingRetryCountTextBox.Location = new Point(223, 331);
+            mbTestPingRetryCountTextBox.Location = new Point(236, 316);
             mbTestPingRetryCountTextBox.Name = "mbTestPingRetryCountTextBox";
             mbTestPingRetryCountTextBox.Size = new Size(168, 27);
             mbTestPingRetryCountTextBox.TabIndex = 2;
@@ -262,7 +262,7 @@
             // PingRetryCountLabel
             // 
             PingRetryCountLabel.AutoSize = true;
-            PingRetryCountLabel.Location = new Point(98, 334);
+            PingRetryCountLabel.Location = new Point(111, 319);
             PingRetryCountLabel.Name = "PingRetryCountLabel";
             PingRetryCountLabel.Size = new Size(119, 20);
             PingRetryCountLabel.TabIndex = 3;
@@ -282,14 +282,14 @@
             // 
             // mbRetryPbar
             // 
-            mbRetryPbar.Location = new Point(397, 331);
+            mbRetryPbar.Location = new Point(410, 316);
             mbRetryPbar.Name = "mbRetryPbar";
             mbRetryPbar.Size = new Size(168, 27);
             mbRetryPbar.TabIndex = 9;
             // 
             // mbPingPbar
             // 
-            mbPingPbar.Location = new Point(397, 265);
+            mbPingPbar.Location = new Point(410, 283);
             mbPingPbar.Name = "mbPingPbar";
             mbPingPbar.Size = new Size(168, 27);
             mbPingPbar.TabIndex = 9;

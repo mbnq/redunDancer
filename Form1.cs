@@ -3,6 +3,7 @@ using System.ComponentModel;
 using System.Diagnostics;
 using System.Linq;
 using System.Net.NetworkInformation;
+using System.Net.Security;
 using System.Net.Sockets;
 using System.Threading;
 using System.Threading.Tasks;
@@ -33,12 +34,35 @@ namespace redunDancer
             // Detect current IP and set initial settings
             DetectCurrentIP();
 
-            mbRetryPbar.Value = 0;
-            mbPingPbar.Value = 0;
+            InitializeMain();
+            unblockSettings(true);
 
             initializing = false; // Initialization complete
         }
-
+        private void InitializeMain()
+        {
+            mbRetryPbar.Maximum = int.Parse(mbTestPingRetryCountTextBox.Text);
+            mbRetryPbar.Value = 0;
+            mbPingPbar.Maximum = int.Parse(mbMaxPingTextBox.Text);
+            mbPingPbar.Value = 0;
+            checkBoxDhcpA.Checked = false;
+            checkBoxDhcpB.Checked = false;
+        }
+        private void unblockSettings(bool unblock)
+        {
+            mbButtonRun.Enabled = unblock;
+            mbIPTextBoxA.Enabled = unblock;
+            mbIPTextBoxB.Enabled = unblock;
+            mbMaskTextBoxA.Enabled = unblock;
+            mbMaskTextBoxB.Enabled = unblock;
+            mbGatewayTextBoxA.Enabled = unblock;
+            mbGatewayTextBoxB.Enabled = unblock;
+            mbDNS1TextBox.Enabled = unblock;
+            mbDNS2TextBox.Enabled = unblock;
+            mbMaxPingTextBox.Enabled = unblock;
+            mbTestPingIntervalTextBox.Enabled = unblock;
+            mbTestPingRetryCountTextBox.Enabled = unblock;
+        }
         private void InitializePingWorker()
         {
             pingWorker = new BackgroundWorker();
@@ -165,6 +189,8 @@ namespace redunDancer
 
         private void mbButtonRun_Click(object? sender, EventArgs e)
         {
+            InitializeMain();
+            unblockSettings(false);
             if (pingWorker != null && !pingWorker.IsBusy)
             {
                 consecutiveFailures = 0; // Reset failures
@@ -175,6 +201,8 @@ namespace redunDancer
 
         private void mbButtonStop_Click(object? sender, EventArgs e)
         {
+            InitializeMain();
+            unblockSettings(true);
             if (pingWorker != null && pingWorker.IsBusy)
             {
                 pingWorker.CancelAsync();
@@ -199,7 +227,6 @@ namespace redunDancer
                 if (!int.TryParse(mbMaxPingTextBox.Text, out maxPing))
                 {
                     maxPing = 100; // Default value
-                    mbPingPbar.Maximum = maxPing;
                 }
 
                 if (!int.TryParse(mbTestPingIntervalTextBox.Text, out interval))
@@ -211,7 +238,6 @@ namespace redunDancer
                 if (!int.TryParse(mbTestPingRetryCountTextBox.Text, out retryCount))
                 {
                     retryCount = 3; // Default value
-                    mbRetryPbar.Maximum = retryCount;
                 }
 
                 string? currentIP = GetCurrentIPAddress();
@@ -233,7 +259,6 @@ namespace redunDancer
                             LogPingResult($"Ping to {ipAddress} failed or exceeded max ping: {(reply.Status == IPStatus.Success ? reply.RoundtripTime.ToString() : "N/A")} ms | Current IP: {currentIP}");
                             mbPingPbar.Value = mbPingPbar.Maximum;
                         }
-                        mbRetryPbar.Value = consecutiveFailures;
                     }
                 }
                 catch (Exception ex)
@@ -249,6 +274,7 @@ namespace redunDancer
                     postSwitchDelayMultiplier = 2; // Double the delay after switching
                 }
 
+                mbRetryPbar.Value = consecutiveFailures;
                 SleepWithCancellation(interval * postSwitchDelayMultiplier);
 
                 // Reset the multiplier back to 1 after the extended delay
@@ -258,7 +284,26 @@ namespace redunDancer
                 }
             }
         }
-
+        private void LogPingResult(string message)
+        {
+            if (mbPingLogTextBox.InvokeRequired)
+            {
+                mbPingLogTextBox.Invoke(new Action(() =>
+                {
+                    if (mbPingLogCheckBox.Checked)
+                    {
+                        mbPingLogTextBox.AppendText($"{DateTime.Now}: {message}\r\n");
+                    }
+                }));
+            }
+            else
+            {
+                if (mbPingLogCheckBox.Checked)
+                {
+                    mbPingLogTextBox.AppendText($"{DateTime.Now}: {message}\r\n");
+                }
+            }
+        }
         private void SleepWithCancellation(int milliseconds)
         {
             int sleepInterval = 100; // Sleep in 100ms intervals
@@ -305,26 +350,25 @@ namespace redunDancer
         {
             LogPingResult($"Applying settings: IP={ip}, Mask={mask}, Gateway={gateway}");
             SetNetworkSettings(ip, mask, gateway);
-        }
 
-        private void LogPingResult(string message)
-        {
-            if (mbPingLogTextBox.InvokeRequired)
+            // Determine if we are using DHCP and update the corresponding checkbox
+            bool isUsingDHCP = string.IsNullOrWhiteSpace(ip) || string.IsNullOrWhiteSpace(mask) || string.IsNullOrWhiteSpace(gateway);
+
+            if (useSettingA)
             {
-                mbPingLogTextBox.Invoke(new Action(() =>
+                Invoke(new Action(() =>
                 {
-                    if (mbPingLogCheckBox.Checked)
-                    {
-                        mbPingLogTextBox.AppendText($"{DateTime.Now}: {message}\r\n");
-                    }
+                    checkBoxDhcpA.Checked = isUsingDHCP;
+                    checkBoxDhcpA.Enabled = false; // Disable to show it's an indicator
                 }));
             }
             else
             {
-                if (mbPingLogCheckBox.Checked)
+                Invoke(new Action(() =>
                 {
-                    mbPingLogTextBox.AppendText($"{DateTime.Now}: {message}\r\n");
-                }
+                    checkBoxDhcpB.Checked = isUsingDHCP;
+                    checkBoxDhcpB.Enabled = false; // Disable to show it's an indicator
+                }));
             }
         }
 
@@ -369,8 +413,6 @@ namespace redunDancer
                 LogPingResult($"Error applying network settings: {ex.Message}");
             }
         }
-
-
         private void SetDHCP(string adapterName)
         {
             string dhcpIPCmd = $"interface ip set address name=\"{adapterName}\" source=dhcp";
@@ -379,8 +421,66 @@ namespace redunDancer
             RunNetshCommand(dhcpDNSCmd);
             LogPingResult("Set network settings to DHCP.");
         }
-
         private void GetIPSettings(string adapterName, bool isSettingA, bool populateTextBoxes)
+        {
+            NetworkInterface? adapter = NetworkInterface.GetAllNetworkInterfaces()
+                .FirstOrDefault(ni => ni.Name == adapterName);
+
+            if (adapter != null)
+            {
+                var ipProperties = adapter.GetIPProperties();
+                var unicastAddress = ipProperties.UnicastAddresses
+                    .FirstOrDefault(ua => ua.Address.AddressFamily == AddressFamily.InterNetwork);
+
+                if (unicastAddress != null)
+                {
+                    string ip = unicastAddress.Address.ToString();
+                    string mask = unicastAddress.IPv4Mask.ToString();
+                    string gateway = ipProperties.GatewayAddresses
+                        .FirstOrDefault()?.Address.ToString() ?? "";
+
+                    LogPingResult($"Obtained IP settings: IP={ip}, Mask={mask}, Gateway={gateway}");
+
+                    // Determine if DHCP is being used
+                    bool isUsingDHCP = string.IsNullOrWhiteSpace(ip) || string.IsNullOrWhiteSpace(mask) || string.IsNullOrWhiteSpace(gateway);
+
+                    // Update the checkboxes for DHCP
+                    if (isSettingA)
+                    {
+                        Invoke(new Action(() =>
+                        {
+                            checkBoxDhcpA.Checked = isUsingDHCP;
+                            checkBoxDhcpA.Enabled = false; // Disable to show it's an indicator
+                            if (populateTextBoxes)
+                            {
+                                mbIPTextBoxA.Text = ip;
+                                mbMaskTextBoxA.Text = mask;
+                                mbGatewayTextBoxA.Text = gateway;
+                            }
+                        }));
+                    }
+                    else
+                    {
+                        Invoke(new Action(() =>
+                        {
+                            checkBoxDhcpB.Checked = isUsingDHCP;
+                            checkBoxDhcpB.Enabled = false; // Disable to show it's an indicator
+                            if (populateTextBoxes)
+                            {
+                                mbIPTextBoxB.Text = ip;
+                                mbMaskTextBoxB.Text = mask;
+                                mbGatewayTextBoxB.Text = gateway;
+                            }
+                        }));
+                    }
+                }
+                else
+                {
+                    LogPingResult("Failed to obtain IP settings.");
+                }
+            }
+        }
+        private void GetIPSettings2(string adapterName, bool isSettingA, bool populateTextBoxes)
         {
             NetworkInterface? adapter = NetworkInterface.GetAllNetworkInterfaces()
                 .FirstOrDefault(ni => ni.Name == adapterName);
