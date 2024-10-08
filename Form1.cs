@@ -5,6 +5,8 @@ using System.Net.NetworkInformation;
 using System.Net.Sockets;
 using System.Threading;
 using System.Windows.Forms;
+using System.Linq;
+using System.Threading.Tasks;
 
 namespace redunDancer
 {
@@ -15,6 +17,8 @@ namespace redunDancer
         private int consecutiveFailures = 0;
         private bool checkboxesLocked = false;
         private bool initializing = true;
+        private DateTime lastSwitchTime = DateTime.MinValue;
+        private TimeSpan minUptime = TimeSpan.FromSeconds(60); // Adjust as needed
 
         public mbForm1()
         {
@@ -69,6 +73,7 @@ namespace redunDancer
                     useSettingA = true;
                     ActiveACheckBox.Checked = true;
                     ActiveBCheckBox.Checked = false;
+                    ApplySettings(mbIPTextBoxA.Text, mbMaskTextBoxA.Text, mbGatewayTextBoxA.Text);
                     LogPingResult("Current IP does not match Settings A or B. Defaulting to Setting A.");
                 }
             }
@@ -178,8 +183,9 @@ namespace redunDancer
         {
             while (pingWorker != null && !pingWorker.CancellationPending)
             {
-                // Get the IP, ping settings, and retry count from textboxes
-                string ipAddress = useSettingA ? mbDNS1TextBox.Text : mbDNS2TextBox.Text;
+                // Always ping the same DNS server(s)
+                string[] dnsAddresses = { mbDNS1TextBox.Text, mbDNS2TextBox.Text };
+                bool pingSuccess = false;
 
                 // Parse values safely, handle exceptions
                 int maxPing;
@@ -204,27 +210,38 @@ namespace redunDancer
 
                 string? currentIP = GetCurrentIPAddress();
 
-                try
+                foreach (string ipAddress in dnsAddresses)
                 {
-                    using (Ping ping = new Ping())
+                    try
                     {
-                        PingReply reply = ping.Send(ipAddress);
-                        if (reply.Status == IPStatus.Success && reply.RoundtripTime <= maxPing)
+                        using (Ping ping = new Ping())
                         {
-                            consecutiveFailures = 0;
-                            LogPingResult($"Ping to {ipAddress} successful: {reply.RoundtripTime} ms | Current IP: {currentIP}");
-                        }
-                        else
-                        {
-                            consecutiveFailures++;
-                            LogPingResult($"Ping to {ipAddress} failed or exceeded max ping: {(reply.Status == IPStatus.Success ? reply.RoundtripTime.ToString() : "N/A")} ms | Current IP: {currentIP}");
+                            PingReply reply = ping.Send(ipAddress);
+                            if (reply.Status == IPStatus.Success && reply.RoundtripTime <= maxPing)
+                            {
+                                pingSuccess = true;
+                                LogPingResult($"Ping to {ipAddress} successful: {reply.RoundtripTime} ms | Current IP: {currentIP}");
+                                break;
+                            }
+                            else
+                            {
+                                LogPingResult($"Ping to {ipAddress} failed or exceeded max ping: {(reply.Status == IPStatus.Success ? reply.RoundtripTime.ToString() : "N/A")} ms | Current IP: {currentIP}");
+                            }
                         }
                     }
+                    catch (Exception ex)
+                    {
+                        LogPingResult($"Ping to {ipAddress} failed: {ex.Message} | Current IP: {currentIP}");
+                    }
                 }
-                catch (Exception ex)
+
+                if (pingSuccess)
+                {
+                    consecutiveFailures = 0;
+                }
+                else
                 {
                     consecutiveFailures++;
-                    LogPingResult($"Ping to {ipAddress} failed: {ex.Message} | Current IP: {currentIP}");
                 }
 
                 if (consecutiveFailures >= retryCount)
@@ -233,12 +250,20 @@ namespace redunDancer
                     consecutiveFailures = 0;
                 }
 
-                Thread.Sleep(interval); // Pause between pings
+                Thread.Sleep(interval);
             }
         }
 
         private void SwitchSettings()
         {
+            if ((DateTime.Now - lastSwitchTime) < minUptime)
+            {
+                LogPingResult("Minimum uptime not reached. Not switching settings.");
+                return;
+            }
+
+            lastSwitchTime = DateTime.Now;
+
             useSettingA = !useSettingA;
 
             if (useSettingA && ActiveACheckBox.Checked)
@@ -258,13 +283,12 @@ namespace redunDancer
                 LogPingResult("No active settings to switch to.");
             }
 
-            // Lock checkboxes after switching
             StartCheckboxLock();
         }
 
         private void ApplySettings(string ip, string mask, string gateway)
         {
-            LogPingResult($"Switched to settings: IP={ip}, Mask={mask}, Gateway={gateway}");
+            LogPingResult($"Applying settings: IP={ip}, Mask={mask}, Gateway={gateway}");
             SetNetworkSettings(ip, mask, gateway);
         }
 
@@ -296,16 +320,28 @@ namespace redunDancer
                 string? adapterName = GetDefaultAdapterName();
                 if (!string.IsNullOrEmpty(adapterName))
                 {
-                    // Build the netsh commands
-                    string setIPCmd = $"interface ip set address name=\"{adapterName}\" source=static addr={ip} mask={mask} gateway={gateway} gwmetric=1";
-                    string setDNSCmd1 = $"interface ip set dns name=\"{adapterName}\" source=static addr={mbDNS1TextBox.Text} register=PRIMARY";
-                    string setDNSCmd2 = $"interface ip add dns name=\"{adapterName}\" addr={mbDNS2TextBox.Text} index=2";
+                    if (string.IsNullOrWhiteSpace(ip) || string.IsNullOrWhiteSpace(mask) || string.IsNullOrWhiteSpace(gateway))
+                    {
+                        // If any IP settings are empty, set to DHCP
+                        SetDHCP(adapterName);
+                        // Wait a moment for DHCP to assign IP
+                        Task.Delay(2000).Wait();
+                        // Retrieve and populate IP settings
+                        GetIPSettings(adapterName, useSettingA);
+                    }
+                    else
+                    {
+                        // Set static IP settings
+                        string setIPCmd = $"interface ip set address name=\"{adapterName}\" source=static addr={ip} mask={mask} gateway={gateway} gwmetric=1";
+                        string setDNSCmd1 = $"interface ip set dns name=\"{adapterName}\" source=static addr={mbDNS1TextBox.Text} register=PRIMARY";
+                        string setDNSCmd2 = $"interface ip add dns name=\"{adapterName}\" addr={mbDNS2TextBox.Text} index=2";
 
-                    RunNetshCommand(setIPCmd);
-                    RunNetshCommand(setDNSCmd1);
-                    RunNetshCommand(setDNSCmd2);
+                        RunNetshCommand(setIPCmd);
+                        RunNetshCommand(setDNSCmd1);
+                        RunNetshCommand(setDNSCmd2);
 
-                    LogPingResult($"Network settings applied: IP={ip}, Mask={mask}, Gateway={gateway}, DNS1={mbDNS1TextBox.Text}, DNS2={mbDNS2TextBox.Text}");
+                        LogPingResult($"Network settings applied: IP={ip}, Mask={mask}, Gateway={gateway}, DNS1={mbDNS1TextBox.Text}, DNS2={mbDNS2TextBox.Text}");
+                    }
                 }
                 else
                 {
@@ -316,6 +352,62 @@ namespace redunDancer
             {
                 LogPingResult($"Error applying network settings: {ex.Message}");
             }
+        }
+
+        private void GetIPSettings(string adapterName, bool isSettingA)
+        {
+            NetworkInterface? adapter = NetworkInterface.GetAllNetworkInterfaces()
+                .FirstOrDefault(ni => ni.Name == adapterName);
+
+            if (adapter != null)
+            {
+                var ipProperties = adapter.GetIPProperties();
+                var unicastAddress = ipProperties.UnicastAddresses
+                    .FirstOrDefault(ua => ua.Address.AddressFamily == AddressFamily.InterNetwork);
+
+                if (unicastAddress != null)
+                {
+                    string ip = unicastAddress.Address.ToString();
+                    string mask = unicastAddress.IPv4Mask.ToString();
+                    string gateway = ipProperties.GatewayAddresses
+                        .FirstOrDefault()?.Address.ToString() ?? "";
+
+                    LogPingResult($"Obtained IP settings from DHCP: IP={ip}, Mask={mask}, Gateway={gateway}");
+
+                    // Populate the text boxes
+                    if (isSettingA)
+                    {
+                        Invoke(new Action(() =>
+                        {
+                            mbIPTextBoxA.Text = ip;
+                            mbMaskTextBoxA.Text = mask;
+                            mbGatewayTextBoxA.Text = gateway;
+                        }));
+                    }
+                    else
+                    {
+                        Invoke(new Action(() =>
+                        {
+                            mbIPTextBoxB.Text = ip;
+                            mbMaskTextBoxB.Text = mask;
+                            mbGatewayTextBoxB.Text = gateway;
+                        }));
+                    }
+                }
+                else
+                {
+                    LogPingResult("Failed to obtain IP settings from DHCP.");
+                }
+            }
+        }
+
+        private void SetDHCP(string adapterName)
+        {
+            string dhcpIPCmd = $"interface ip set address name=\"{adapterName}\" source=dhcp";
+            string dhcpDNSCmd = $"interface ip set dns name=\"{adapterName}\" source=dhcp";
+            RunNetshCommand(dhcpIPCmd);
+            RunNetshCommand(dhcpDNSCmd);
+            LogPingResult("Set network settings to DHCP.");
         }
 
         private string? GetDefaultAdapterName()
@@ -337,6 +429,7 @@ namespace redunDancer
             ProcessStartInfo psi = new ProcessStartInfo("netsh", command)
             {
                 RedirectStandardOutput = true,
+                RedirectStandardError = true, // Capture errors
                 UseShellExecute = false,
                 CreateNoWindow = true,
                 Verb = "runas" // Run as administrator
@@ -346,7 +439,17 @@ namespace redunDancer
             {
                 process.WaitForExit();
                 string output = process.StandardOutput.ReadToEnd();
-                LogPingResult(output);
+                string error = process.StandardError.ReadToEnd();
+
+                if (!string.IsNullOrEmpty(output))
+                {
+                    LogPingResult(output);
+                }
+
+                if (!string.IsNullOrEmpty(error))
+                {
+                    LogPingResult($"Error: {error}");
+                }
             }
         }
     }

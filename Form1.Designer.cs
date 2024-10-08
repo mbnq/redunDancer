@@ -85,7 +85,6 @@
             mbIPTextBoxB.Name = "mbIPTextBoxB";
             mbIPTextBoxB.Size = new Size(198, 27);
             mbIPTextBoxB.TabIndex = 1;
-            mbIPTextBoxB.Text = "192.168.1.16";
             // 
             // mbMaskTextBoxB
             // 
@@ -93,7 +92,6 @@
             mbMaskTextBoxB.Name = "mbMaskTextBoxB";
             mbMaskTextBoxB.Size = new Size(198, 27);
             mbMaskTextBoxB.TabIndex = 1;
-            mbMaskTextBoxB.Text = "255.255.255.0";
             // 
             // mbGatewayTextBoxB
             // 
@@ -101,7 +99,6 @@
             mbGatewayTextBoxB.Name = "mbGatewayTextBoxB";
             mbGatewayTextBoxB.Size = new Size(198, 27);
             mbGatewayTextBoxB.TabIndex = 1;
-            mbGatewayTextBoxB.Text = "192.168.1.1";
             // 
             // mbDNS1TextBox
             // 
