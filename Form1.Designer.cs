@@ -61,7 +61,7 @@
             mbIPTextBoxA.Name = "mbIPTextBoxA";
             mbIPTextBoxA.Size = new Size(198, 27);
             mbIPTextBoxA.TabIndex = 1;
-            mbIPTextBoxA.Text = "192.168.4.1";
+            mbIPTextBoxA.Text = "192.168.4.128";
             // 
             // mbMaskTextBoxA
             // 

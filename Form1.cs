@@ -14,9 +14,11 @@ namespace redunDancer
         private bool useSettingA;
         private int consecutiveFailures = 0;
         private bool checkboxesLocked = false;
+        private bool initializing = true;
 
         public mbForm1()
         {
+            initializing = true;
             InitializeComponent();
             InitializePingWorker();
 
@@ -29,9 +31,7 @@ namespace redunDancer
             // Detect current IP and set initial settings
             DetectCurrentIP();
 
-            // Ensure checkboxes are mutually exclusive
-            ActiveACheckBox.Checked = true;
-            ActiveBCheckBox.Checked = false;
+            initializing = false; // Initialization complete
         }
 
         private void InitializePingWorker()
@@ -107,24 +107,26 @@ namespace redunDancer
 
         private void ActiveACheckBox_CheckedChanged(object? sender, EventArgs e)
         {
-            if (checkboxesLocked) return;
+            if (initializing || checkboxesLocked) return;
 
             if (ActiveACheckBox.Checked)
             {
                 ActiveBCheckBox.Checked = false;
                 useSettingA = true;
+                ApplySettings(mbIPTextBoxA.Text, mbMaskTextBoxA.Text, mbGatewayTextBoxA.Text);
                 StartCheckboxLock();
             }
         }
 
         private void ActiveBCheckBox_CheckedChanged(object? sender, EventArgs e)
         {
-            if (checkboxesLocked) return;
+            if (initializing || checkboxesLocked) return;
 
             if (ActiveBCheckBox.Checked)
             {
                 ActiveACheckBox.Checked = false;
                 useSettingA = false;
+                ApplySettings(mbIPTextBoxB.Text, mbMaskTextBoxB.Text, mbGatewayTextBoxB.Text);
                 StartCheckboxLock();
             }
         }
