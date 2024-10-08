@@ -31,24 +31,18 @@ namespace redunDancer
             InitializePingWorker();
             InitializeNetworkDevices();
 
-            using (MemoryStream ms = new MemoryStream(Properties.Resources.mbRedunDancer))
-            {
-                this.Icon = new Icon(ms);
-            }
+            using (MemoryStream ms = new MemoryStream(Properties.Resources.mbRedunDancer)) { this.Icon = new Icon(ms); }
 
-            // Attach event handlers to the buttons and checkboxes
             mbButtonRun.Click += mbButtonRun_Click;
             mbButtonStop.Click += mbButtonStop_Click;
             ActiveACheckBox.CheckedChanged += ActiveACheckBox_CheckedChanged;
             ActiveBCheckBox.CheckedChanged += ActiveBCheckBox_CheckedChanged;
 
-            // Detect current IP and set initial settings
             DetectCurrentIP();
-
             InitializeMain();
             unblockSettings(true);
 
-            initializing = false; // Initialization complete
+            initializing = false;
         }
         private void InitializeMain()
         {
@@ -84,32 +78,28 @@ namespace redunDancer
             pingWorker.DoWork += PingWorker_DoWork;
             pingWorker.WorkerSupportsCancellation = true;
         }
-
         private void InitializeNetworkDevices()
         {
-            // Add default options
             DeviceSelectDropDownA.Items.Clear();
             DeviceSelectDropDownA.Items.Add("Windows Default");
             DeviceSelectDropDownB.Items.Clear();
             DeviceSelectDropDownB.Items.Add("Windows Default");
 
-            // Get all network interfaces (network devices)
             var networkInterfaces = NetworkInterface.GetAllNetworkInterfaces();
 
-            // Populate the drop-down lists for both A and B
+            // populate the dropdowns (ni = network interface)
+
             foreach (var ni in networkInterfaces)
             {
-                string deviceName = ni.Name; // Get the name of the network device
-
+                string deviceName = ni.Name;
                 DeviceSelectDropDownA.Items.Add(deviceName);
                 DeviceSelectDropDownB.Items.Add(deviceName);
             }
 
-            // Set "Windows Default" as the initially selected option
+            // "Windows Default" as the init option
             DeviceSelectDropDownA.SelectedIndex = 0;
             DeviceSelectDropDownB.SelectedIndex = 0;
         }
-
         private void DetectCurrentIP()
         {
             string? currentIP = GetCurrentIPAddress();
@@ -146,7 +136,6 @@ namespace redunDancer
                 LogPingResult("Unable to detect current IP address.");
             }
         }
-
         private string? GetCurrentIPAddress()
         {
             string? adapterName = GetSelectedAdapterName(useSettingA);
@@ -171,7 +160,6 @@ namespace redunDancer
             }
             return null;
         }
-
         private bool IsSameNetwork(string ip1, string ip2)
         {
             if (string.IsNullOrWhiteSpace(ip1) || string.IsNullOrWhiteSpace(ip2))
@@ -181,7 +169,6 @@ namespace redunDancer
             string network2 = ip2.Substring(0, ip2.LastIndexOf('.'));
             return network1 == network2;
         }
-
         private void ActiveACheckBox_CheckedChanged(object? sender, EventArgs e)
         {
             if (initializing || checkboxesLocked) return;
@@ -194,7 +181,6 @@ namespace redunDancer
                 StartCheckboxLock();
             }
         }
-
         private void ActiveBCheckBox_CheckedChanged(object? sender, EventArgs e)
         {
             if (initializing || checkboxesLocked) return;
@@ -207,7 +193,6 @@ namespace redunDancer
                 StartCheckboxLock();
             }
         }
-
         private void StartCheckboxLock()
         {
             if (int.TryParse(mbTestPingIntervalTextBox.Text, out int interval))
@@ -231,7 +216,6 @@ namespace redunDancer
                 timer.Start();
             }
         }
-
         private void mbButtonRun_Click(object? sender, EventArgs e)
         {
             InitializeMain();
@@ -243,7 +227,6 @@ namespace redunDancer
                 pingWorker.RunWorkerAsync();
             }
         }
-
         private void mbButtonStop_Click(object? sender, EventArgs e)
         {
             InitializeMain();
@@ -254,7 +237,6 @@ namespace redunDancer
                 mbPingLogTextBox.AppendText("Ping worker stopping...\r\n");
             }
         }
-
         private void PingWorker_DoWork(object? sender, DoWorkEventArgs e)
         {
             int postSwitchDelayMultiplier = 1;
@@ -363,7 +345,6 @@ namespace redunDancer
                 elapsed += sleepInterval;
             }
         }
-
         private void SwitchSettings()
         {
             useSettingA = !useSettingA;
@@ -390,7 +371,6 @@ namespace redunDancer
             // Lock checkboxes after switching
             StartCheckboxLock();
         }
-
         private void ApplySettings(string ip, string mask, string gateway)
         {
             LogPingResult($"Applying settings: IP={ip}, Mask={mask}, Gateway={gateway}");
@@ -416,7 +396,6 @@ namespace redunDancer
                 }));
             }
         }
-
         private void SetNetworkSettings(string ip, string mask, string gateway)
         {
             try
