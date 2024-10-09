@@ -100,7 +100,7 @@ namespace redunDancer
                 }
             }
 
-            LogPingResult($"Settings checked: {isConfigCorrect}");
+            LogPingResult($"Settings validated correctly: {isConfigCorrect}");
         }
 
         private void InitializePingWorker()
@@ -259,7 +259,8 @@ namespace redunDancer
                 if (pingWorker != null && !pingWorker.IsBusy)
                 {
                     consecutiveFailures = 0; // Reset failures
-                    mbPingLogTextBox.AppendText("Ping worker started.\r\n");
+                    mbPingLogTextBox.AppendText($"{DateTime.UtcNow.ToString("HH:mm:ss")}: Ping worker started.\r\n");
+
                     pingWorker.RunWorkerAsync();
                 }
             } 
@@ -272,7 +273,7 @@ namespace redunDancer
                 if (pingWorker != null && pingWorker.IsBusy)
                 {
                     pingWorker.CancelAsync();
-                    mbPingLogTextBox.AppendText("Ping worker stopping...\r\n");
+                    mbPingLogTextBox.AppendText($"{DateTime.UtcNow.ToString("HH:mm:ss")}: Ping worker stopping...\r\n");
                 }
             };
         }
@@ -283,7 +284,7 @@ namespace redunDancer
             if (pingWorker != null && pingWorker.IsBusy)
             {
                 pingWorker.CancelAsync();
-                mbPingLogTextBox.AppendText("Ping worker stopping...\r\n");
+                mbPingLogTextBox.AppendText($"{DateTime.UtcNow.ToString("HH:mm:ss")}: Ping worker stopping...\r\n");
             }
         }
         private void PingWorker_DoWork(object? sender, DoWorkEventArgs e)

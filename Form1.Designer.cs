@@ -63,6 +63,7 @@
             DeviceSelectDropDownA = new ComboBox();
             DeviceSelectDropDownB = new ComboBox();
             networkDevicesLabel = new Label();
+            mbButtonSaveToFileAs = new Button();
             SuspendLayout();
             // 
             // mbIPTextBoxA
@@ -224,7 +225,7 @@
             // mbPingLogTextBox
             // 
             mbPingLogTextBox.BackColor = SystemColors.ActiveBorder;
-            mbPingLogTextBox.Font = new Font("Lucida Console", 7.8F, FontStyle.Regular, GraphicsUnit.Point, 238);
+            mbPingLogTextBox.Font = new Font("Lucida Console", 9F, FontStyle.Regular, GraphicsUnit.Point, 238);
             mbPingLogTextBox.ForeColor = Color.Black;
             mbPingLogTextBox.Location = new Point(587, 48);
             mbPingLogTextBox.Multiline = true;
@@ -293,7 +294,7 @@
             mbPingLogCheckBox.AutoSize = true;
             mbPingLogCheckBox.Checked = true;
             mbPingLogCheckBox.CheckState = CheckState.Checked;
-            mbPingLogCheckBox.Location = new Point(925, 21);
+            mbPingLogCheckBox.Location = new Point(587, 21);
             mbPingLogCheckBox.Name = "mbPingLogCheckBox";
             mbPingLogCheckBox.Size = new Size(56, 24);
             mbPingLogCheckBox.TabIndex = 8;
@@ -398,12 +399,22 @@
             networkDevicesLabel.TabIndex = 3;
             networkDevicesLabel.Text = "<- Network Device ->";
             // 
+            // mbButtonSaveToFileAs
+            // 
+            mbButtonSaveToFileAs.Location = new Point(903, 12);
+            mbButtonSaveToFileAs.Name = "mbButtonSaveToFileAs";
+            mbButtonSaveToFileAs.Size = new Size(78, 30);
+            mbButtonSaveToFileAs.TabIndex = 14;
+            mbButtonSaveToFileAs.Text = "Save Log";
+            mbButtonSaveToFileAs.UseVisualStyleBackColor = true;
+            // 
             // mbForm1
             // 
             AutoScaleDimensions = new SizeF(8F, 20F);
             AutoScaleMode = AutoScaleMode.Font;
             BackColor = SystemColors.ActiveBorder;
             ClientSize = new Size(993, 475);
+            Controls.Add(mbButtonSaveToFileAs);
             Controls.Add(DeviceSelectDropDownB);
             Controls.Add(DeviceSelectDropDownA);
             Controls.Add(dummyLabelMax);
@@ -481,5 +492,6 @@
         private ComboBox DeviceSelectDropDownA;
         private ComboBox DeviceSelectDropDownB;
         private Label networkDevicesLabel;
+        private Button mbButtonSaveToFileAs;
     }
 }
