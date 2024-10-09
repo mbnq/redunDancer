@@ -104,7 +104,6 @@ namespace redunDancer
 
             LogPingResult($"Settings validated correctly: {isConfigCorrect}");
         }
-
         private void InitializePingWorker()
         {
             pingWorker = new BackgroundWorker();
@@ -682,6 +681,7 @@ namespace redunDancer
             }
         }
 
+        #region SaveLoad Logic
         private void mbButtonSaveToFileAs_Click(object sender, EventArgs e)
         {
             SaveFileDialog saveFileDialog = new SaveFileDialog();
@@ -740,33 +740,46 @@ namespace redunDancer
 
         private void mbLoadButton_Click(object sender, EventArgs e)
         {
-            try
+            if (DoesSaveExists())
             {
-                mbIPTextBoxA.Text = Properties.Settings.Default.mbIPTextBoxA;
-                mbIPTextBoxB.Text = Properties.Settings.Default.mbIPTextBoxB;
-                mbMaskTextBoxA.Text = Properties.Settings.Default.mbMaskTextBoxA;
-                mbMaskTextBoxB.Text = Properties.Settings.Default.mbMaskTextBoxB;
-                mbGatewayTextBoxA.Text = Properties.Settings.Default.mbGatewayTextBoxA;
-                mbGatewayTextBoxB.Text = Properties.Settings.Default.mbGatewayTextBoxB;
-                DeviceSelectDropDownA.Text = Properties.Settings.Default.DeviceSelectDropDownA;
-                DeviceSelectDropDownB.Text = Properties.Settings.Default.DeviceSelectDropDownB;
-                mbDNS1TextBox.Text = Properties.Settings.Default.mbDNS1TextBox;
-                mbDNS2TextBox.Text = Properties.Settings.Default.mbDNS2TextBox;
-                mbTestPingIntervalTextBox.Text = Properties.Settings.Default.mbTestPingIntervalTextBox;
-                mbMaxPingTextBox.Text = Properties.Settings.Default.mbMaxPingTextBox;
-                mbTestPingRetryCountTextBox.Text = Properties.Settings.Default.mbTestPingRetryCountTextBox;
+                try
+                {
+                    mbIPTextBoxA.Text = Properties.Settings.Default.mbIPTextBoxA;
+                    mbIPTextBoxB.Text = Properties.Settings.Default.mbIPTextBoxB;
+                    mbMaskTextBoxA.Text = Properties.Settings.Default.mbMaskTextBoxA;
+                    mbMaskTextBoxB.Text = Properties.Settings.Default.mbMaskTextBoxB;
+                    mbGatewayTextBoxA.Text = Properties.Settings.Default.mbGatewayTextBoxA;
+                    mbGatewayTextBoxB.Text = Properties.Settings.Default.mbGatewayTextBoxB;
+                    DeviceSelectDropDownA.Text = Properties.Settings.Default.DeviceSelectDropDownA;
+                    DeviceSelectDropDownB.Text = Properties.Settings.Default.DeviceSelectDropDownB;
+                    mbDNS1TextBox.Text = Properties.Settings.Default.mbDNS1TextBox;
+                    mbDNS2TextBox.Text = Properties.Settings.Default.mbDNS2TextBox;
+                    mbTestPingIntervalTextBox.Text = Properties.Settings.Default.mbTestPingIntervalTextBox;
+                    mbMaxPingTextBox.Text = Properties.Settings.Default.mbMaxPingTextBox;
+                    mbTestPingRetryCountTextBox.Text = Properties.Settings.Default.mbTestPingRetryCountTextBox;
 
-                MessageBox.Show("Settings loaded successfully.", "Success", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                    MessageBox.Show("Settings loaded successfully.", "Success", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                }
+                catch (Exception ex)
+                {
+                    MessageBox.Show($"Error loading settings: {ex.Message}", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                }
             }
-            catch (Exception ex)
+            else
             {
-                MessageBox.Show($"Error loading settings: {ex.Message}", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                MessageBox.Show("Could not find savefile. Loading aborted!", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
             }
+        }
+        private bool DoesSaveExists()
+        {
+            return IsValidIPAddress(Properties.Settings.Default.mbIPTextBoxA) ||
+                   IsValidIPAddress(Properties.Settings.Default.mbIPTextBoxB);
         }
         private bool IsValidIPAddress(string ipAddress)
         {
             return string.IsNullOrWhiteSpace(ipAddress) || System.Net.IPAddress.TryParse(ipAddress, out _);
         }
 
+        #endregion
     }
 }
