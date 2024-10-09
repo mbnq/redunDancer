@@ -705,38 +705,69 @@ namespace redunDancer
 
         private void mbSaveButton_Click(object sender, EventArgs e)
         {
-            Properties.Settings.Default.mbIPTextBoxA = mbIPTextBoxA.Text;
-            Properties.Settings.Default.mbIPTextBoxB = mbIPTextBoxB.Text;
-            Properties.Settings.Default.mbMaskTextBoxA = mbMaskTextBoxA.Text;
-            Properties.Settings.Default.mbMaskTextBoxB = mbMaskTextBoxB.Text;
-            Properties.Settings.Default.mbGatewayTextBoxA = mbGatewayTextBoxA.Text;
-            Properties.Settings.Default.mbGatewayTextBoxB = mbGatewayTextBoxB.Text;
-            Properties.Settings.Default.DeviceSelectDropDownA = DeviceSelectDropDownA.Text;
-            Properties.Settings.Default.DeviceSelectDropDownB = DeviceSelectDropDownB.Text;
-            Properties.Settings.Default.mbDNS1TextBox = mbDNS1TextBox.Text;
-            Properties.Settings.Default.mbDNS2TextBox = mbDNS2TextBox.Text;
-            Properties.Settings.Default.mbTestPingIntervalTextBox = mbTestPingIntervalTextBox.Text;
-            Properties.Settings.Default.mbMaxPingTextBox = mbMaxPingTextBox.Text;
-            Properties.Settings.Default.mbTestPingRetryCountTextBox = mbTestPingRetryCountTextBox.Text;
+            try
+            {
+                // basic check
+                if (IsValidIPAddress(mbIPTextBoxA.Text) && IsValidIPAddress(mbIPTextBoxB.Text) &&
+                    IsValidIPAddress(mbDNS1TextBox.Text) && IsValidIPAddress(mbDNS2TextBox.Text))
+                {
+                    Properties.Settings.Default.mbIPTextBoxA = mbIPTextBoxA.Text;
+                    Properties.Settings.Default.mbIPTextBoxB = mbIPTextBoxB.Text;
+                    Properties.Settings.Default.mbMaskTextBoxA = mbMaskTextBoxA.Text;
+                    Properties.Settings.Default.mbMaskTextBoxB = mbMaskTextBoxB.Text;
+                    Properties.Settings.Default.mbGatewayTextBoxA = mbGatewayTextBoxA.Text;
+                    Properties.Settings.Default.mbGatewayTextBoxB = mbGatewayTextBoxB.Text;
+                    Properties.Settings.Default.DeviceSelectDropDownA = DeviceSelectDropDownA.Text;
+                    Properties.Settings.Default.DeviceSelectDropDownB = DeviceSelectDropDownB.Text;
+                    Properties.Settings.Default.mbDNS1TextBox = mbDNS1TextBox.Text;
+                    Properties.Settings.Default.mbDNS2TextBox = mbDNS2TextBox.Text;
+                    Properties.Settings.Default.mbTestPingIntervalTextBox = mbTestPingIntervalTextBox.Text;
+                    Properties.Settings.Default.mbMaxPingTextBox = mbMaxPingTextBox.Text;
+                    Properties.Settings.Default.mbTestPingRetryCountTextBox = mbTestPingRetryCountTextBox.Text;
 
-            Properties.Settings.Default.Save();
+                    Properties.Settings.Default.Save();
+                    MessageBox.Show("Settings saved successfully.", "Success", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                }
+                else
+                {
+                    MessageBox.Show("One or more IP addresses are invalid. Please check your inputs.", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                }
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show($"Error saving settings: {ex.Message}", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+            }
         }
 
         private void mbLoadButton_Click(object sender, EventArgs e)
         {
-            mbIPTextBoxA.Text = Properties.Settings.Default.mbIPTextBoxA;
-            mbIPTextBoxB.Text = Properties.Settings.Default.mbIPTextBoxB;
-            mbMaskTextBoxA.Text = Properties.Settings.Default.mbMaskTextBoxA;
-            mbMaskTextBoxB.Text = Properties.Settings.Default.mbMaskTextBoxB;
-            mbGatewayTextBoxA.Text = Properties.Settings.Default.mbGatewayTextBoxA;
-            mbGatewayTextBoxB.Text = Properties.Settings.Default.mbGatewayTextBoxB;
-            DeviceSelectDropDownA.Text = Properties.Settings.Default.DeviceSelectDropDownA;
-            DeviceSelectDropDownB.Text = Properties.Settings.Default.DeviceSelectDropDownB;
-            mbDNS1TextBox.Text = Properties.Settings.Default.mbDNS1TextBox;
-            mbDNS2TextBox.Text = Properties.Settings.Default.mbDNS2TextBox;
-            mbTestPingIntervalTextBox.Text = Properties.Settings.Default.mbTestPingIntervalTextBox;
-            mbMaxPingTextBox.Text = Properties.Settings.Default.mbMaxPingTextBox;
-            mbTestPingRetryCountTextBox.Text = Properties.Settings.Default.mbTestPingRetryCountTextBox;
+            try
+            {
+                mbIPTextBoxA.Text = Properties.Settings.Default.mbIPTextBoxA;
+                mbIPTextBoxB.Text = Properties.Settings.Default.mbIPTextBoxB;
+                mbMaskTextBoxA.Text = Properties.Settings.Default.mbMaskTextBoxA;
+                mbMaskTextBoxB.Text = Properties.Settings.Default.mbMaskTextBoxB;
+                mbGatewayTextBoxA.Text = Properties.Settings.Default.mbGatewayTextBoxA;
+                mbGatewayTextBoxB.Text = Properties.Settings.Default.mbGatewayTextBoxB;
+                DeviceSelectDropDownA.Text = Properties.Settings.Default.DeviceSelectDropDownA;
+                DeviceSelectDropDownB.Text = Properties.Settings.Default.DeviceSelectDropDownB;
+                mbDNS1TextBox.Text = Properties.Settings.Default.mbDNS1TextBox;
+                mbDNS2TextBox.Text = Properties.Settings.Default.mbDNS2TextBox;
+                mbTestPingIntervalTextBox.Text = Properties.Settings.Default.mbTestPingIntervalTextBox;
+                mbMaxPingTextBox.Text = Properties.Settings.Default.mbMaxPingTextBox;
+                mbTestPingRetryCountTextBox.Text = Properties.Settings.Default.mbTestPingRetryCountTextBox;
+
+                MessageBox.Show("Settings loaded successfully.", "Success", MessageBoxButtons.OK, MessageBoxIcon.Information);
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show($"Error loading settings: {ex.Message}", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+            }
         }
+        private bool IsValidIPAddress(string ipAddress)
+        {
+            return string.IsNullOrWhiteSpace(ipAddress) || System.Net.IPAddress.TryParse(ipAddress, out _);
+        }
+
     }
 }
