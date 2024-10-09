@@ -707,9 +707,8 @@ namespace redunDancer
         {
             try
             {
-                // basic check
-                if (IsValidIPAddress(mbIPTextBoxA.Text) && IsValidIPAddress(mbIPTextBoxB.Text) &&
-                    IsValidIPAddress(mbDNS1TextBox.Text) && IsValidIPAddress(mbDNS2TextBox.Text))
+                checkIPSettings();
+                if (isConfigCorrect)
                 {
                     Properties.Settings.Default.mbIPTextBoxA = mbIPTextBoxA.Text;
                     Properties.Settings.Default.mbIPTextBoxB = mbIPTextBoxB.Text;
@@ -730,7 +729,7 @@ namespace redunDancer
                 }
                 else
                 {
-                    MessageBox.Show("One or more IP addresses are invalid. Please check your inputs.", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                    MessageBox.Show("One or more IP addresses are invalid. Saving aborted!", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
                 }
             }
             catch (Exception ex)
