@@ -45,7 +45,7 @@ namespace redunDancer
             DetectCurrentIP();
             InitializeMain();
             unblockSettings(true);
-
+            mbLoadButton_Click(this, EventArgs.Empty);
             initializing = false;
         }
         private void InitializeMain()
