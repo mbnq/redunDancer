@@ -68,6 +68,7 @@
             // mbIPTextBoxA
             // 
             mbIPTextBoxA.Location = new Point(8, 48);
+            mbIPTextBoxA.MaxLength = 15;
             mbIPTextBoxA.Name = "mbIPTextBoxA";
             mbIPTextBoxA.Size = new Size(198, 27);
             mbIPTextBoxA.TabIndex = 1;
@@ -76,6 +77,7 @@
             // mbMaskTextBoxA
             // 
             mbMaskTextBoxA.Location = new Point(8, 81);
+            mbMaskTextBoxA.MaxLength = 15;
             mbMaskTextBoxA.Name = "mbMaskTextBoxA";
             mbMaskTextBoxA.Size = new Size(198, 27);
             mbMaskTextBoxA.TabIndex = 1;
@@ -84,6 +86,7 @@
             // mbGatewayTextBoxA
             // 
             mbGatewayTextBoxA.Location = new Point(8, 114);
+            mbGatewayTextBoxA.MaxLength = 15;
             mbGatewayTextBoxA.Name = "mbGatewayTextBoxA";
             mbGatewayTextBoxA.Size = new Size(198, 27);
             mbGatewayTextBoxA.TabIndex = 1;
@@ -92,6 +95,7 @@
             // mbIPTextBoxB
             // 
             mbIPTextBoxB.Location = new Point(380, 47);
+            mbIPTextBoxB.MaxLength = 15;
             mbIPTextBoxB.Name = "mbIPTextBoxB";
             mbIPTextBoxB.Size = new Size(198, 27);
             mbIPTextBoxB.TabIndex = 1;
@@ -99,6 +103,7 @@
             // mbMaskTextBoxB
             // 
             mbMaskTextBoxB.Location = new Point(381, 84);
+            mbMaskTextBoxB.MaxLength = 15;
             mbMaskTextBoxB.Name = "mbMaskTextBoxB";
             mbMaskTextBoxB.Size = new Size(198, 27);
             mbMaskTextBoxB.TabIndex = 1;
@@ -106,6 +111,7 @@
             // mbGatewayTextBoxB
             // 
             mbGatewayTextBoxB.Location = new Point(381, 117);
+            mbGatewayTextBoxB.MaxLength = 15;
             mbGatewayTextBoxB.Name = "mbGatewayTextBoxB";
             mbGatewayTextBoxB.Size = new Size(198, 27);
             mbGatewayTextBoxB.TabIndex = 1;
@@ -113,6 +119,7 @@
             // mbDNS1TextBox
             // 
             mbDNS1TextBox.Location = new Point(227, 215);
+            mbDNS1TextBox.MaxLength = 15;
             mbDNS1TextBox.Name = "mbDNS1TextBox";
             mbDNS1TextBox.Size = new Size(125, 27);
             mbDNS1TextBox.TabIndex = 2;
@@ -121,6 +128,7 @@
             // mbDNS2TextBox
             // 
             mbDNS2TextBox.Location = new Point(227, 248);
+            mbDNS2TextBox.MaxLength = 15;
             mbDNS2TextBox.Name = "mbDNS2TextBox";
             mbDNS2TextBox.Size = new Size(125, 27);
             mbDNS2TextBox.TabIndex = 2;
@@ -198,6 +206,7 @@
             // mbMaxPingTextBox
             // 
             mbMaxPingTextBox.Location = new Point(206, 338);
+            mbMaxPingTextBox.MaxLength = 3;
             mbMaxPingTextBox.Name = "mbMaxPingTextBox";
             mbMaxPingTextBox.Size = new Size(168, 27);
             mbMaxPingTextBox.TabIndex = 2;
@@ -244,6 +253,7 @@
             // mbTestPingIntervalTextBox
             // 
             mbTestPingIntervalTextBox.Location = new Point(206, 305);
+            mbTestPingIntervalTextBox.MaxLength = 4;
             mbTestPingIntervalTextBox.Name = "mbTestPingIntervalTextBox";
             mbTestPingIntervalTextBox.Size = new Size(168, 27);
             mbTestPingIntervalTextBox.TabIndex = 2;
@@ -261,6 +271,7 @@
             // mbTestPingRetryCountTextBox
             // 
             mbTestPingRetryCountTextBox.Location = new Point(206, 371);
+            mbTestPingRetryCountTextBox.MaxLength = 3;
             mbTestPingRetryCountTextBox.Name = "mbTestPingRetryCountTextBox";
             mbTestPingRetryCountTextBox.Size = new Size(168, 27);
             mbTestPingRetryCountTextBox.TabIndex = 2;
