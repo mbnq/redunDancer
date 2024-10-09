@@ -741,7 +741,7 @@ namespace redunDancer
 
         private void mbLoadButton_Click(object sender, EventArgs e)
         {
-            if (DoesSaveExists())
+            if (DoesSaveExists2())
             {
                 try
                 {
@@ -776,6 +776,29 @@ namespace redunDancer
             return Properties.Settings.Default.mbIPTextBoxA != null ||
                    Properties.Settings.Default.mbIPTextBoxB != null;
         }
+
+        private bool DoesSaveExists2()
+        {
+            bool _isSaveOK = true;
+
+            var saveEntries = new[]
+            {
+                Properties.Settings.Default.mbDNS1TextBox,
+                Properties.Settings.Default.mbDNS1TextBox,
+            };
+
+            foreach (var text in saveEntries)
+            {
+                if (!IPAddress.TryParse(text, out _))
+                {
+                    _isSaveOK = false;
+                    break;
+                }
+            }
+
+            return _isSaveOK;
+        }
+
         #endregion
     }
 }
