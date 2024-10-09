@@ -14,6 +14,7 @@ using System.Net.Sockets;
 using System.Management;
 using System.Net;
 using System.Diagnostics.Eventing.Reader;
+using System.Configuration;
 
 namespace redunDancer
 {
@@ -772,14 +773,9 @@ namespace redunDancer
         }
         private bool DoesSaveExists()
         {
-            return IsValidIPAddress(Properties.Settings.Default.mbIPTextBoxA) ||
-                   IsValidIPAddress(Properties.Settings.Default.mbIPTextBoxB);
+            return Properties.Settings.Default.mbIPTextBoxA != null ||
+                   Properties.Settings.Default.mbIPTextBoxB != null;
         }
-        private bool IsValidIPAddress(string ipAddress)
-        {
-            return string.IsNullOrWhiteSpace(ipAddress) || System.Net.IPAddress.TryParse(ipAddress, out _);
-        }
-
         #endregion
     }
 }
