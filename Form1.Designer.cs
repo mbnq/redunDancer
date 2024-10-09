@@ -66,6 +66,8 @@
             mbButtonSaveToFileAs = new Button();
             mbSaveButton = new Button();
             mbLoadButton = new Button();
+            saveLoadDataLabel = new Label();
+            startStopOperationsLabel = new Label();
             SuspendLayout();
             // 
             // mbIPTextBoxA
@@ -208,7 +210,7 @@
             // 
             // mbMaxPingTextBox
             // 
-            mbMaxPingTextBox.Location = new Point(206, 338);
+            mbMaxPingTextBox.Location = new Point(203, 314);
             mbMaxPingTextBox.MaxLength = 3;
             mbMaxPingTextBox.Name = "mbMaxPingTextBox";
             mbMaxPingTextBox.Size = new Size(168, 27);
@@ -218,7 +220,7 @@
             // MaxPingLabel
             // 
             MaxPingLabel.AutoSize = true;
-            MaxPingLabel.Location = new Point(130, 341);
+            MaxPingLabel.Location = new Point(127, 317);
             MaxPingLabel.Name = "MaxPingLabel";
             MaxPingLabel.Size = new Size(70, 20);
             MaxPingLabel.TabIndex = 3;
@@ -257,7 +259,7 @@
             // 
             // mbTestPingIntervalTextBox
             // 
-            mbTestPingIntervalTextBox.Location = new Point(206, 305);
+            mbTestPingIntervalTextBox.Location = new Point(203, 281);
             mbTestPingIntervalTextBox.MaxLength = 4;
             mbTestPingIntervalTextBox.Name = "mbTestPingIntervalTextBox";
             mbTestPingIntervalTextBox.Size = new Size(168, 27);
@@ -267,7 +269,7 @@
             // PingIntervalLabel
             // 
             PingIntervalLabel.AutoSize = true;
-            PingIntervalLabel.Location = new Point(93, 308);
+            PingIntervalLabel.Location = new Point(90, 284);
             PingIntervalLabel.Name = "PingIntervalLabel";
             PingIntervalLabel.Size = new Size(111, 20);
             PingIntervalLabel.TabIndex = 3;
@@ -275,7 +277,7 @@
             // 
             // mbTestPingRetryCountTextBox
             // 
-            mbTestPingRetryCountTextBox.Location = new Point(206, 371);
+            mbTestPingRetryCountTextBox.Location = new Point(203, 347);
             mbTestPingRetryCountTextBox.MaxLength = 3;
             mbTestPingRetryCountTextBox.Name = "mbTestPingRetryCountTextBox";
             mbTestPingRetryCountTextBox.Size = new Size(168, 27);
@@ -285,7 +287,7 @@
             // PingRetryCountLabel
             // 
             PingRetryCountLabel.AutoSize = true;
-            PingRetryCountLabel.Location = new Point(81, 374);
+            PingRetryCountLabel.Location = new Point(78, 350);
             PingRetryCountLabel.Name = "PingRetryCountLabel";
             PingRetryCountLabel.Size = new Size(119, 20);
             PingRetryCountLabel.TabIndex = 3;
@@ -305,14 +307,14 @@
             // 
             // mbRetryPbar
             // 
-            mbRetryPbar.Location = new Point(380, 371);
+            mbRetryPbar.Location = new Point(377, 347);
             mbRetryPbar.Name = "mbRetryPbar";
             mbRetryPbar.Size = new Size(168, 27);
             mbRetryPbar.TabIndex = 9;
             // 
             // mbPingPbar
             // 
-            mbPingPbar.Location = new Point(380, 338);
+            mbPingPbar.Location = new Point(377, 314);
             mbPingPbar.Name = "mbPingPbar";
             mbPingPbar.Size = new Size(168, 27);
             mbPingPbar.TabIndex = 9;
@@ -356,7 +358,7 @@
             // 
             dummyLabelMin.AutoSize = true;
             dummyLabelMin.Enabled = false;
-            dummyLabelMin.Location = new Point(380, 315);
+            dummyLabelMin.Location = new Point(377, 291);
             dummyLabelMin.Margin = new Padding(0);
             dummyLabelMin.Name = "dummyLabelMin";
             dummyLabelMin.Size = new Size(42, 20);
@@ -367,7 +369,7 @@
             // 
             dummyLabelMax.AutoSize = true;
             dummyLabelMax.Enabled = false;
-            dummyLabelMax.Location = new Point(503, 315);
+            dummyLabelMax.Location = new Point(500, 291);
             dummyLabelMax.Margin = new Padding(0);
             dummyLabelMax.Name = "dummyLabelMax";
             dummyLabelMax.Size = new Size(45, 20);
@@ -431,12 +433,32 @@
             mbLoadButton.UseVisualStyleBackColor = true;
             mbLoadButton.Click += mbLoadButton_Click;
             // 
+            // saveLoadDataLabel
+            // 
+            saveLoadDataLabel.AutoSize = true;
+            saveLoadDataLabel.Location = new Point(431, 411);
+            saveLoadDataLabel.Name = "saveLoadDataLabel";
+            saveLoadDataLabel.Size = new Size(102, 20);
+            saveLoadDataLabel.TabIndex = 16;
+            saveLoadDataLabel.Text = "<- Settings ->";
+            // 
+            // startStopOperationsLabel
+            // 
+            startStopOperationsLabel.AutoSize = true;
+            startStopOperationsLabel.Location = new Point(25, 411);
+            startStopOperationsLabel.Name = "startStopOperationsLabel";
+            startStopOperationsLabel.Size = new Size(175, 20);
+            startStopOperationsLabel.TabIndex = 17;
+            startStopOperationsLabel.Text = "<- Operation Controls ->";
+            // 
             // mbForm1
             // 
             AutoScaleDimensions = new SizeF(8F, 20F);
             AutoScaleMode = AutoScaleMode.Font;
             BackColor = SystemColors.ActiveBorder;
             ClientSize = new Size(993, 475);
+            Controls.Add(startStopOperationsLabel);
+            Controls.Add(saveLoadDataLabel);
             Controls.Add(mbLoadButton);
             Controls.Add(mbSaveButton);
             Controls.Add(mbButtonSaveToFileAs);
@@ -520,5 +542,7 @@
         private Button mbButtonSaveToFileAs;
         private Button mbSaveButton;
         private Button mbLoadButton;
+        private Label saveLoadDataLabel;
+        private Label startStopOperationsLabel;
     }
 }
