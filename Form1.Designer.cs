@@ -512,6 +512,7 @@
             Controls.Add(mbIPTextBoxB);
             Controls.Add(mbIPTextBoxA);
             FormBorderStyle = FormBorderStyle.FixedSingle;
+            MaximizeBox = false;
             Name = "mbForm1";
             SizeGripStyle = SizeGripStyle.Hide;
             Text = "redunDancer (mbnq.pl)";
