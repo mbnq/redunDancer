@@ -64,6 +64,8 @@
             DeviceSelectDropDownB = new ComboBox();
             networkDevicesLabel = new Label();
             mbButtonSaveToFileAs = new Button();
+            mbSaveButton = new Button();
+            mbLoadButton = new Button();
             SuspendLayout();
             // 
             // mbIPTextBoxA
@@ -409,12 +411,34 @@
             mbButtonSaveToFileAs.UseVisualStyleBackColor = true;
             mbButtonSaveToFileAs.Click += mbButtonSaveToFileAs_Click;
             // 
+            // mbSaveButton
+            // 
+            mbSaveButton.Location = new Point(484, 434);
+            mbSaveButton.Name = "mbSaveButton";
+            mbSaveButton.Size = new Size(94, 29);
+            mbSaveButton.TabIndex = 15;
+            mbSaveButton.Text = "Save";
+            mbSaveButton.UseVisualStyleBackColor = true;
+            mbSaveButton.Click += mbSaveButton_Click;
+            // 
+            // mbLoadButton
+            // 
+            mbLoadButton.Location = new Point(384, 434);
+            mbLoadButton.Name = "mbLoadButton";
+            mbLoadButton.Size = new Size(94, 29);
+            mbLoadButton.TabIndex = 15;
+            mbLoadButton.Text = "Load";
+            mbLoadButton.UseVisualStyleBackColor = true;
+            mbLoadButton.Click += mbLoadButton_Click;
+            // 
             // mbForm1
             // 
             AutoScaleDimensions = new SizeF(8F, 20F);
             AutoScaleMode = AutoScaleMode.Font;
             BackColor = SystemColors.ActiveBorder;
             ClientSize = new Size(993, 475);
+            Controls.Add(mbLoadButton);
+            Controls.Add(mbSaveButton);
             Controls.Add(mbButtonSaveToFileAs);
             Controls.Add(DeviceSelectDropDownB);
             Controls.Add(DeviceSelectDropDownA);
@@ -494,5 +518,7 @@
         private ComboBox DeviceSelectDropDownB;
         private Label networkDevicesLabel;
         private Button mbButtonSaveToFileAs;
+        private Button mbSaveButton;
+        private Button mbLoadButton;
     }
 }

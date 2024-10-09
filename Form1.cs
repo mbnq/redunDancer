@@ -74,6 +74,8 @@ namespace redunDancer
             mbTestPingRetryCountTextBox.Enabled = unblock;
             DeviceSelectDropDownA.Enabled = unblock;
             DeviceSelectDropDownB.Enabled = unblock;
+            mbLoadButton.Enabled = unblock;
+            mbSaveButton.Enabled = unblock;
         }
         private void checkIPSettings()
         {
@@ -699,6 +701,42 @@ namespace redunDancer
                     MessageBox.Show($"Was not able to save logfile: {ex.Message}", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
                 }
             }
+        }
+
+        private void mbSaveButton_Click(object sender, EventArgs e)
+        {
+            Properties.Settings.Default.mbIPTextBoxA = mbIPTextBoxA.Text;
+            Properties.Settings.Default.mbIPTextBoxB = mbIPTextBoxB.Text;
+            Properties.Settings.Default.mbMaskTextBoxA = mbMaskTextBoxA.Text;
+            Properties.Settings.Default.mbMaskTextBoxB = mbMaskTextBoxB.Text;
+            Properties.Settings.Default.mbGatewayTextBoxA = mbGatewayTextBoxA.Text;
+            Properties.Settings.Default.mbGatewayTextBoxB = mbGatewayTextBoxB.Text;
+            Properties.Settings.Default.DeviceSelectDropDownA = DeviceSelectDropDownA.Text;
+            Properties.Settings.Default.DeviceSelectDropDownB = DeviceSelectDropDownB.Text;
+            Properties.Settings.Default.mbDNS1TextBox = mbDNS1TextBox.Text;
+            Properties.Settings.Default.mbDNS2TextBox = mbDNS2TextBox.Text;
+            Properties.Settings.Default.mbTestPingIntervalTextBox = mbTestPingIntervalTextBox.Text;
+            Properties.Settings.Default.mbMaxPingTextBox = mbMaxPingTextBox.Text;
+            Properties.Settings.Default.mbTestPingRetryCountTextBox = mbTestPingRetryCountTextBox.Text;
+
+            Properties.Settings.Default.Save();
+        }
+
+        private void mbLoadButton_Click(object sender, EventArgs e)
+        {
+            mbIPTextBoxA.Text = Properties.Settings.Default.mbIPTextBoxA;
+            mbIPTextBoxB.Text = Properties.Settings.Default.mbIPTextBoxB;
+            mbMaskTextBoxA.Text = Properties.Settings.Default.mbMaskTextBoxA;
+            mbMaskTextBoxB.Text = Properties.Settings.Default.mbMaskTextBoxB;
+            mbGatewayTextBoxA.Text = Properties.Settings.Default.mbGatewayTextBoxA;
+            mbGatewayTextBoxB.Text = Properties.Settings.Default.mbGatewayTextBoxB;
+            DeviceSelectDropDownA.Text = Properties.Settings.Default.DeviceSelectDropDownA;
+            DeviceSelectDropDownB.Text = Properties.Settings.Default.DeviceSelectDropDownB;
+            mbDNS1TextBox.Text = Properties.Settings.Default.mbDNS1TextBox;
+            mbDNS2TextBox.Text = Properties.Settings.Default.mbDNS2TextBox;
+            mbTestPingIntervalTextBox.Text = Properties.Settings.Default.mbTestPingIntervalTextBox;
+            mbMaxPingTextBox.Text = Properties.Settings.Default.mbMaxPingTextBox;
+            mbTestPingRetryCountTextBox.Text = Properties.Settings.Default.mbTestPingRetryCountTextBox;
         }
     }
 }
