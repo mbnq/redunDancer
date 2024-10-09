@@ -497,7 +497,9 @@
             Controls.Add(mbMaskTextBoxA);
             Controls.Add(mbIPTextBoxB);
             Controls.Add(mbIPTextBoxA);
+            FormBorderStyle = FormBorderStyle.FixedSingle;
             Name = "mbForm1";
+            SizeGripStyle = SizeGripStyle.Hide;
             Text = "redunDancer (mbnq.pl)";
             ResumeLayout(false);
             PerformLayout();
