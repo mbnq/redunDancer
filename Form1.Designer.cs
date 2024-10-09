@@ -68,11 +68,12 @@
             mbLoadButton = new Button();
             saveLoadDataLabel = new Label();
             startStopOperationsLabel = new Label();
+            mbPingLogImportantOnlyCheckBox = new CheckBox();
             SuspendLayout();
             // 
             // mbIPTextBoxA
             // 
-            mbIPTextBoxA.Location = new Point(8, 48);
+            mbIPTextBoxA.Location = new Point(17, 48);
             mbIPTextBoxA.MaxLength = 15;
             mbIPTextBoxA.Name = "mbIPTextBoxA";
             mbIPTextBoxA.Size = new Size(198, 27);
@@ -81,7 +82,7 @@
             // 
             // mbMaskTextBoxA
             // 
-            mbMaskTextBoxA.Location = new Point(8, 81);
+            mbMaskTextBoxA.Location = new Point(17, 81);
             mbMaskTextBoxA.MaxLength = 15;
             mbMaskTextBoxA.Name = "mbMaskTextBoxA";
             mbMaskTextBoxA.Size = new Size(198, 27);
@@ -90,7 +91,7 @@
             // 
             // mbGatewayTextBoxA
             // 
-            mbGatewayTextBoxA.Location = new Point(8, 114);
+            mbGatewayTextBoxA.Location = new Point(17, 114);
             mbGatewayTextBoxA.MaxLength = 15;
             mbGatewayTextBoxA.Name = "mbGatewayTextBoxA";
             mbGatewayTextBoxA.Size = new Size(198, 27);
@@ -99,7 +100,7 @@
             // 
             // mbIPTextBoxB
             // 
-            mbIPTextBoxB.Location = new Point(380, 48);
+            mbIPTextBoxB.Location = new Point(389, 48);
             mbIPTextBoxB.MaxLength = 15;
             mbIPTextBoxB.Name = "mbIPTextBoxB";
             mbIPTextBoxB.Size = new Size(198, 27);
@@ -107,7 +108,7 @@
             // 
             // mbMaskTextBoxB
             // 
-            mbMaskTextBoxB.Location = new Point(380, 81);
+            mbMaskTextBoxB.Location = new Point(389, 81);
             mbMaskTextBoxB.MaxLength = 15;
             mbMaskTextBoxB.Name = "mbMaskTextBoxB";
             mbMaskTextBoxB.Size = new Size(198, 27);
@@ -115,7 +116,7 @@
             // 
             // mbGatewayTextBoxB
             // 
-            mbGatewayTextBoxB.Location = new Point(380, 114);
+            mbGatewayTextBoxB.Location = new Point(389, 114);
             mbGatewayTextBoxB.MaxLength = 15;
             mbGatewayTextBoxB.Name = "mbGatewayTextBoxB";
             mbGatewayTextBoxB.Size = new Size(198, 27);
@@ -123,7 +124,7 @@
             // 
             // mbDNS1TextBox
             // 
-            mbDNS1TextBox.Location = new Point(227, 215);
+            mbDNS1TextBox.Location = new Point(236, 215);
             mbDNS1TextBox.MaxLength = 15;
             mbDNS1TextBox.Name = "mbDNS1TextBox";
             mbDNS1TextBox.Size = new Size(125, 27);
@@ -132,7 +133,7 @@
             // 
             // mbDNS2TextBox
             // 
-            mbDNS2TextBox.Location = new Point(227, 248);
+            mbDNS2TextBox.Location = new Point(236, 248);
             mbDNS2TextBox.MaxLength = 15;
             mbDNS2TextBox.Name = "mbDNS2TextBox";
             mbDNS2TextBox.Size = new Size(125, 27);
@@ -142,7 +143,7 @@
             // IPLabel
             // 
             IPLabel.AutoSize = true;
-            IPLabel.Location = new Point(234, 51);
+            IPLabel.Location = new Point(243, 51);
             IPLabel.Name = "IPLabel";
             IPLabel.Size = new Size(118, 20);
             IPLabel.TabIndex = 3;
@@ -151,7 +152,7 @@
             // MaskLabel
             // 
             MaskLabel.AutoSize = true;
-            MaskLabel.Location = new Point(227, 84);
+            MaskLabel.Location = new Point(236, 84);
             MaskLabel.Name = "MaskLabel";
             MaskLabel.Size = new Size(133, 20);
             MaskLabel.TabIndex = 3;
@@ -160,7 +161,7 @@
             // GatewayLabel
             // 
             GatewayLabel.AutoSize = true;
-            GatewayLabel.Location = new Point(212, 117);
+            GatewayLabel.Location = new Point(221, 117);
             GatewayLabel.Name = "GatewayLabel";
             GatewayLabel.Size = new Size(159, 20);
             GatewayLabel.TabIndex = 3;
@@ -169,7 +170,7 @@
             // DNS1Label
             // 
             DNS1Label.AutoSize = true;
-            DNS1Label.Location = new Point(174, 218);
+            DNS1Label.Location = new Point(183, 218);
             DNS1Label.Name = "DNS1Label";
             DNS1Label.Size = new Size(47, 20);
             DNS1Label.TabIndex = 3;
@@ -178,7 +179,7 @@
             // DNS2Label
             // 
             DNS2Label.AutoSize = true;
-            DNS2Label.Location = new Point(174, 251);
+            DNS2Label.Location = new Point(183, 251);
             DNS2Label.Name = "DNS2Label";
             DNS2Label.Size = new Size(47, 20);
             DNS2Label.TabIndex = 3;
@@ -189,7 +190,7 @@
             ActiveACheckBox.AutoSize = true;
             ActiveACheckBox.Checked = true;
             ActiveACheckBox.CheckState = CheckState.Checked;
-            ActiveACheckBox.Location = new Point(12, 21);
+            ActiveACheckBox.Location = new Point(21, 21);
             ActiveACheckBox.Name = "ActiveACheckBox";
             ActiveACheckBox.Size = new Size(41, 24);
             ActiveACheckBox.TabIndex = 4;
@@ -199,7 +200,7 @@
             // ActiveBCheckBox
             // 
             ActiveBCheckBox.AutoSize = true;
-            ActiveBCheckBox.Location = new Point(539, 21);
+            ActiveBCheckBox.Location = new Point(548, 21);
             ActiveBCheckBox.Name = "ActiveBCheckBox";
             ActiveBCheckBox.RightToLeft = RightToLeft.Yes;
             ActiveBCheckBox.Size = new Size(40, 24);
@@ -210,7 +211,7 @@
             // 
             // mbMaxPingTextBox
             // 
-            mbMaxPingTextBox.Location = new Point(203, 314);
+            mbMaxPingTextBox.Location = new Point(212, 314);
             mbMaxPingTextBox.MaxLength = 3;
             mbMaxPingTextBox.Name = "mbMaxPingTextBox";
             mbMaxPingTextBox.Size = new Size(168, 27);
@@ -220,7 +221,7 @@
             // MaxPingLabel
             // 
             MaxPingLabel.AutoSize = true;
-            MaxPingLabel.Location = new Point(127, 317);
+            MaxPingLabel.Location = new Point(136, 317);
             MaxPingLabel.Name = "MaxPingLabel";
             MaxPingLabel.Size = new Size(70, 20);
             MaxPingLabel.TabIndex = 3;
@@ -231,7 +232,7 @@
             mbPingLogTextBox.BackColor = SystemColors.ActiveBorder;
             mbPingLogTextBox.Font = new Font("Lucida Console", 9F, FontStyle.Regular, GraphicsUnit.Point, 238);
             mbPingLogTextBox.ForeColor = Color.Black;
-            mbPingLogTextBox.Location = new Point(587, 48);
+            mbPingLogTextBox.Location = new Point(611, 48);
             mbPingLogTextBox.Multiline = true;
             mbPingLogTextBox.Name = "mbPingLogTextBox";
             mbPingLogTextBox.ReadOnly = true;
@@ -241,7 +242,7 @@
             // 
             // mbButtonRun
             // 
-            mbButtonRun.Location = new Point(12, 434);
+            mbButtonRun.Location = new Point(21, 434);
             mbButtonRun.Name = "mbButtonRun";
             mbButtonRun.Size = new Size(94, 29);
             mbButtonRun.TabIndex = 7;
@@ -250,7 +251,7 @@
             // 
             // mbButtonStop
             // 
-            mbButtonStop.Location = new Point(113, 434);
+            mbButtonStop.Location = new Point(122, 434);
             mbButtonStop.Name = "mbButtonStop";
             mbButtonStop.Size = new Size(94, 29);
             mbButtonStop.TabIndex = 7;
@@ -259,7 +260,7 @@
             // 
             // mbTestPingIntervalTextBox
             // 
-            mbTestPingIntervalTextBox.Location = new Point(203, 281);
+            mbTestPingIntervalTextBox.Location = new Point(212, 281);
             mbTestPingIntervalTextBox.MaxLength = 4;
             mbTestPingIntervalTextBox.Name = "mbTestPingIntervalTextBox";
             mbTestPingIntervalTextBox.Size = new Size(168, 27);
@@ -269,7 +270,7 @@
             // PingIntervalLabel
             // 
             PingIntervalLabel.AutoSize = true;
-            PingIntervalLabel.Location = new Point(90, 284);
+            PingIntervalLabel.Location = new Point(99, 284);
             PingIntervalLabel.Name = "PingIntervalLabel";
             PingIntervalLabel.Size = new Size(111, 20);
             PingIntervalLabel.TabIndex = 3;
@@ -277,7 +278,7 @@
             // 
             // mbTestPingRetryCountTextBox
             // 
-            mbTestPingRetryCountTextBox.Location = new Point(203, 347);
+            mbTestPingRetryCountTextBox.Location = new Point(212, 347);
             mbTestPingRetryCountTextBox.MaxLength = 3;
             mbTestPingRetryCountTextBox.Name = "mbTestPingRetryCountTextBox";
             mbTestPingRetryCountTextBox.Size = new Size(168, 27);
@@ -287,7 +288,7 @@
             // PingRetryCountLabel
             // 
             PingRetryCountLabel.AutoSize = true;
-            PingRetryCountLabel.Location = new Point(78, 350);
+            PingRetryCountLabel.Location = new Point(87, 350);
             PingRetryCountLabel.Name = "PingRetryCountLabel";
             PingRetryCountLabel.Size = new Size(119, 20);
             PingRetryCountLabel.TabIndex = 3;
@@ -298,7 +299,7 @@
             mbPingLogCheckBox.AutoSize = true;
             mbPingLogCheckBox.Checked = true;
             mbPingLogCheckBox.CheckState = CheckState.Checked;
-            mbPingLogCheckBox.Location = new Point(587, 21);
+            mbPingLogCheckBox.Location = new Point(611, 21);
             mbPingLogCheckBox.Name = "mbPingLogCheckBox";
             mbPingLogCheckBox.Size = new Size(56, 24);
             mbPingLogCheckBox.TabIndex = 8;
@@ -307,14 +308,14 @@
             // 
             // mbRetryPbar
             // 
-            mbRetryPbar.Location = new Point(377, 347);
+            mbRetryPbar.Location = new Point(386, 347);
             mbRetryPbar.Name = "mbRetryPbar";
             mbRetryPbar.Size = new Size(168, 27);
             mbRetryPbar.TabIndex = 9;
             // 
             // mbPingPbar
             // 
-            mbPingPbar.Location = new Point(377, 314);
+            mbPingPbar.Location = new Point(386, 314);
             mbPingPbar.Name = "mbPingPbar";
             mbPingPbar.Size = new Size(168, 27);
             mbPingPbar.TabIndex = 9;
@@ -323,7 +324,7 @@
             // 
             checkBoxDhcpA.AutoSize = true;
             checkBoxDhcpA.Enabled = false;
-            checkBoxDhcpA.Location = new Point(59, 21);
+            checkBoxDhcpA.Location = new Point(68, 21);
             checkBoxDhcpA.Name = "checkBoxDhcpA";
             checkBoxDhcpA.Size = new Size(108, 24);
             checkBoxDhcpA.TabIndex = 10;
@@ -334,7 +335,7 @@
             // 
             checkBoxDhcpB.AutoSize = true;
             checkBoxDhcpB.Enabled = false;
-            checkBoxDhcpB.Location = new Point(425, 21);
+            checkBoxDhcpB.Location = new Point(434, 21);
             checkBoxDhcpB.Name = "checkBoxDhcpB";
             checkBoxDhcpB.RightToLeft = RightToLeft.Yes;
             checkBoxDhcpB.Size = new Size(108, 24);
@@ -347,7 +348,7 @@
             mbAlwaysOnTopCheckBox.AutoSize = true;
             mbAlwaysOnTopCheckBox.Checked = true;
             mbAlwaysOnTopCheckBox.CheckState = CheckState.Checked;
-            mbAlwaysOnTopCheckBox.Location = new Point(225, 439);
+            mbAlwaysOnTopCheckBox.Location = new Point(234, 439);
             mbAlwaysOnTopCheckBox.Name = "mbAlwaysOnTopCheckBox";
             mbAlwaysOnTopCheckBox.Size = new Size(127, 24);
             mbAlwaysOnTopCheckBox.TabIndex = 11;
@@ -358,7 +359,7 @@
             // 
             dummyLabelMin.AutoSize = true;
             dummyLabelMin.Enabled = false;
-            dummyLabelMin.Location = new Point(377, 291);
+            dummyLabelMin.Location = new Point(386, 291);
             dummyLabelMin.Margin = new Padding(0);
             dummyLabelMin.Name = "dummyLabelMin";
             dummyLabelMin.Size = new Size(42, 20);
@@ -369,7 +370,7 @@
             // 
             dummyLabelMax.AutoSize = true;
             dummyLabelMax.Enabled = false;
-            dummyLabelMax.Location = new Point(500, 291);
+            dummyLabelMax.Location = new Point(509, 291);
             dummyLabelMax.Margin = new Padding(0);
             dummyLabelMax.Name = "dummyLabelMax";
             dummyLabelMax.Size = new Size(45, 20);
@@ -380,7 +381,7 @@
             // 
             DeviceSelectDropDownA.DropDownStyle = ComboBoxStyle.DropDownList;
             DeviceSelectDropDownA.FormattingEnabled = true;
-            DeviceSelectDropDownA.Location = new Point(8, 150);
+            DeviceSelectDropDownA.Location = new Point(17, 150);
             DeviceSelectDropDownA.Name = "DeviceSelectDropDownA";
             DeviceSelectDropDownA.Size = new Size(199, 28);
             DeviceSelectDropDownA.TabIndex = 13;
@@ -389,7 +390,7 @@
             // 
             DeviceSelectDropDownB.DropDownStyle = ComboBoxStyle.DropDownList;
             DeviceSelectDropDownB.FormattingEnabled = true;
-            DeviceSelectDropDownB.Location = new Point(380, 150);
+            DeviceSelectDropDownB.Location = new Point(389, 150);
             DeviceSelectDropDownB.Name = "DeviceSelectDropDownB";
             DeviceSelectDropDownB.Size = new Size(199, 28);
             DeviceSelectDropDownB.TabIndex = 13;
@@ -397,7 +398,7 @@
             // networkDevicesLabel
             // 
             networkDevicesLabel.AutoSize = true;
-            networkDevicesLabel.Location = new Point(217, 153);
+            networkDevicesLabel.Location = new Point(226, 153);
             networkDevicesLabel.Name = "networkDevicesLabel";
             networkDevicesLabel.Size = new Size(154, 20);
             networkDevicesLabel.TabIndex = 3;
@@ -405,7 +406,7 @@
             // 
             // mbButtonSaveToFileAs
             // 
-            mbButtonSaveToFileAs.Location = new Point(903, 12);
+            mbButtonSaveToFileAs.Location = new Point(927, 12);
             mbButtonSaveToFileAs.Name = "mbButtonSaveToFileAs";
             mbButtonSaveToFileAs.Size = new Size(78, 30);
             mbButtonSaveToFileAs.TabIndex = 14;
@@ -415,7 +416,7 @@
             // 
             // mbSaveButton
             // 
-            mbSaveButton.Location = new Point(484, 434);
+            mbSaveButton.Location = new Point(493, 434);
             mbSaveButton.Name = "mbSaveButton";
             mbSaveButton.Size = new Size(94, 29);
             mbSaveButton.TabIndex = 15;
@@ -425,7 +426,7 @@
             // 
             // mbLoadButton
             // 
-            mbLoadButton.Location = new Point(384, 434);
+            mbLoadButton.Location = new Point(393, 434);
             mbLoadButton.Name = "mbLoadButton";
             mbLoadButton.Size = new Size(94, 29);
             mbLoadButton.TabIndex = 15;
@@ -436,7 +437,7 @@
             // saveLoadDataLabel
             // 
             saveLoadDataLabel.AutoSize = true;
-            saveLoadDataLabel.Location = new Point(431, 411);
+            saveLoadDataLabel.Location = new Point(440, 411);
             saveLoadDataLabel.Name = "saveLoadDataLabel";
             saveLoadDataLabel.Size = new Size(102, 20);
             saveLoadDataLabel.TabIndex = 16;
@@ -445,18 +446,30 @@
             // startStopOperationsLabel
             // 
             startStopOperationsLabel.AutoSize = true;
-            startStopOperationsLabel.Location = new Point(25, 411);
+            startStopOperationsLabel.Location = new Point(34, 411);
             startStopOperationsLabel.Name = "startStopOperationsLabel";
             startStopOperationsLabel.Size = new Size(175, 20);
             startStopOperationsLabel.TabIndex = 17;
             startStopOperationsLabel.Text = "<- Operation Controls ->";
+            // 
+            // mbPingLogImportantOnlyCheckBox
+            // 
+            mbPingLogImportantOnlyCheckBox.AutoSize = true;
+            mbPingLogImportantOnlyCheckBox.Checked = true;
+            mbPingLogImportantOnlyCheckBox.CheckState = CheckState.Checked;
+            mbPingLogImportantOnlyCheckBox.Location = new Point(673, 21);
+            mbPingLogImportantOnlyCheckBox.Name = "mbPingLogImportantOnlyCheckBox";
+            mbPingLogImportantOnlyCheckBox.Size = new Size(131, 24);
+            mbPingLogImportantOnlyCheckBox.TabIndex = 8;
+            mbPingLogImportantOnlyCheckBox.Text = "Important Only";
+            mbPingLogImportantOnlyCheckBox.UseVisualStyleBackColor = true;
             // 
             // mbForm1
             // 
             AutoScaleDimensions = new SizeF(8F, 20F);
             AutoScaleMode = AutoScaleMode.Font;
             BackColor = SystemColors.ActiveBorder;
-            ClientSize = new Size(993, 475);
+            ClientSize = new Size(1017, 475);
             Controls.Add(startStopOperationsLabel);
             Controls.Add(saveLoadDataLabel);
             Controls.Add(mbLoadButton);
@@ -471,6 +484,7 @@
             Controls.Add(checkBoxDhcpA);
             Controls.Add(mbPingPbar);
             Controls.Add(mbRetryPbar);
+            Controls.Add(mbPingLogImportantOnlyCheckBox);
             Controls.Add(mbPingLogCheckBox);
             Controls.Add(mbButtonStop);
             Controls.Add(mbButtonRun);
@@ -546,5 +560,6 @@
         private Button mbLoadButton;
         private Label saveLoadDataLabel;
         private Label startStopOperationsLabel;
+        private CheckBox mbPingLogImportantOnlyCheckBox;
     }
 }
