@@ -12,6 +12,8 @@ using System.Diagnostics;
 using System.Net.NetworkInformation;
 using System.Net.Sockets;
 using System.Management;
+using System.Net;
+using System.Diagnostics.Eventing.Reader;
 
 namespace redunDancer
 {
@@ -22,6 +24,7 @@ namespace redunDancer
         private int consecutiveFailures = 0;
         private bool checkboxesLocked = false;
         private bool initializing = true;
+        private bool isConfigCorrect = false;
 
         public mbForm1()
         {
@@ -72,6 +75,34 @@ namespace redunDancer
             DeviceSelectDropDownA.Enabled = unblock;
             DeviceSelectDropDownB.Enabled = unblock;
         }
+        private void checkIPSettings()
+        {
+            isConfigCorrect = true;
+
+            var textBoxes = new[]
+            {
+                mbIPTextBoxA,
+                mbIPTextBoxB,
+                mbMaskTextBoxA,
+                mbMaskTextBoxB,
+                mbGatewayTextBoxA,
+                mbGatewayTextBoxB,
+                mbDNS1TextBox,
+                mbDNS2TextBox
+            };
+
+            foreach (var textBox in textBoxes)
+            {
+                if (!string.IsNullOrWhiteSpace(textBox.Text) && !IPAddress.TryParse(textBox.Text, out _))
+                {
+                    isConfigCorrect = false;
+                    break;
+                }
+            }
+
+            LogPingResult($"Settings checked: {isConfigCorrect}");
+        }
+
         private void InitializePingWorker()
         {
             pingWorker = new BackgroundWorker();
@@ -105,7 +136,7 @@ namespace redunDancer
             string? currentIP = GetCurrentIPAddress();
             if (currentIP != null)
             {
-                LogPingResult($"Current IP Address: {currentIP}");
+                LogPingResult($"Current LocalIP: {currentIP}");
 
                 // Determine if current IP matches Setting A or B
                 if (IsSameNetwork(currentIP, mbIPTextBoxA.Text))
@@ -128,12 +159,12 @@ namespace redunDancer
                     useSettingA = true;
                     ActiveACheckBox.Checked = true;
                     ActiveBCheckBox.Checked = false;
-                    LogPingResult("Current IP does not match Settings A or B. Defaulting to Setting A.");
+                    LogPingResult("LocalIP not match A nor B. Setting to A as def.");
                 }
             }
             else
             {
-                LogPingResult("Unable to detect current IP address.");
+                LogPingResult("Unable to detect current LocalIP.");
             }
         }
         private string? GetCurrentIPAddress()
@@ -218,14 +249,32 @@ namespace redunDancer
         }
         private void mbButtonRun_Click(object? sender, EventArgs e)
         {
+
             InitializeMain();
             unblockSettings(false);
-            if (pingWorker != null && !pingWorker.IsBusy)
+            checkIPSettings();
+
+            if (isConfigCorrect)
             {
-                consecutiveFailures = 0; // Reset failures
-                mbPingLogTextBox.AppendText("Ping worker started.\r\n");
-                pingWorker.RunWorkerAsync();
-            }
+                if (pingWorker != null && !pingWorker.IsBusy)
+                {
+                    consecutiveFailures = 0; // Reset failures
+                    mbPingLogTextBox.AppendText("Ping worker started.\r\n");
+                    pingWorker.RunWorkerAsync();
+                }
+            } 
+            else 
+            {
+                MessageBox.Show("IP settings are incorrect! Aborted.", "Warning");
+
+                InitializeMain();
+                unblockSettings(true);
+                if (pingWorker != null && pingWorker.IsBusy)
+                {
+                    pingWorker.CancelAsync();
+                    mbPingLogTextBox.AppendText("Ping worker stopping...\r\n");
+                }
+            };
         }
         private void mbButtonStop_Click(object? sender, EventArgs e)
         {
