@@ -94,7 +94,7 @@
             // 
             // mbIPTextBoxB
             // 
-            mbIPTextBoxB.Location = new Point(380, 47);
+            mbIPTextBoxB.Location = new Point(380, 48);
             mbIPTextBoxB.MaxLength = 15;
             mbIPTextBoxB.Name = "mbIPTextBoxB";
             mbIPTextBoxB.Size = new Size(198, 27);
@@ -102,7 +102,7 @@
             // 
             // mbMaskTextBoxB
             // 
-            mbMaskTextBoxB.Location = new Point(381, 84);
+            mbMaskTextBoxB.Location = new Point(380, 81);
             mbMaskTextBoxB.MaxLength = 15;
             mbMaskTextBoxB.Name = "mbMaskTextBoxB";
             mbMaskTextBoxB.Size = new Size(198, 27);
@@ -110,7 +110,7 @@
             // 
             // mbGatewayTextBoxB
             // 
-            mbGatewayTextBoxB.Location = new Point(381, 117);
+            mbGatewayTextBoxB.Location = new Point(380, 114);
             mbGatewayTextBoxB.MaxLength = 15;
             mbGatewayTextBoxB.Name = "mbGatewayTextBoxB";
             mbGatewayTextBoxB.Size = new Size(198, 27);
@@ -137,7 +137,7 @@
             // IPLabel
             // 
             IPLabel.AutoSize = true;
-            IPLabel.Location = new Point(234, 54);
+            IPLabel.Location = new Point(234, 51);
             IPLabel.Name = "IPLabel";
             IPLabel.Size = new Size(118, 20);
             IPLabel.TabIndex = 3;
@@ -146,7 +146,7 @@
             // MaskLabel
             // 
             MaskLabel.AutoSize = true;
-            MaskLabel.Location = new Point(227, 86);
+            MaskLabel.Location = new Point(227, 84);
             MaskLabel.Name = "MaskLabel";
             MaskLabel.Size = new Size(133, 20);
             MaskLabel.TabIndex = 3;
@@ -155,7 +155,7 @@
             // GatewayLabel
             // 
             GatewayLabel.AutoSize = true;
-            GatewayLabel.Location = new Point(216, 117);
+            GatewayLabel.Location = new Point(212, 117);
             GatewayLabel.Name = "GatewayLabel";
             GatewayLabel.Size = new Size(159, 20);
             GatewayLabel.TabIndex = 3;
@@ -224,12 +224,12 @@
             // mbPingLogTextBox
             // 
             mbPingLogTextBox.Font = new Font("Lucida Console", 7.8F, FontStyle.Regular, GraphicsUnit.Point, 238);
-            mbPingLogTextBox.Location = new Point(586, 48);
+            mbPingLogTextBox.Location = new Point(587, 48);
             mbPingLogTextBox.Multiline = true;
             mbPingLogTextBox.Name = "mbPingLogTextBox";
             mbPingLogTextBox.ReadOnly = true;
             mbPingLogTextBox.ScrollBars = ScrollBars.Both;
-            mbPingLogTextBox.Size = new Size(358, 415);
+            mbPingLogTextBox.Size = new Size(394, 415);
             mbPingLogTextBox.TabIndex = 5;
             // 
             // mbButtonRun
@@ -291,7 +291,7 @@
             mbPingLogCheckBox.AutoSize = true;
             mbPingLogCheckBox.Checked = true;
             mbPingLogCheckBox.CheckState = CheckState.Checked;
-            mbPingLogCheckBox.Location = new Point(586, 21);
+            mbPingLogCheckBox.Location = new Point(925, 21);
             mbPingLogCheckBox.Name = "mbPingLogCheckBox";
             mbPingLogCheckBox.Size = new Size(56, 24);
             mbPingLogCheckBox.TabIndex = 8;
@@ -372,7 +372,7 @@
             // DeviceSelectDropDownA
             // 
             DeviceSelectDropDownA.FormattingEnabled = true;
-            DeviceSelectDropDownA.Location = new Point(7, 150);
+            DeviceSelectDropDownA.Location = new Point(8, 150);
             DeviceSelectDropDownA.Name = "DeviceSelectDropDownA";
             DeviceSelectDropDownA.Size = new Size(199, 28);
             DeviceSelectDropDownA.TabIndex = 13;
@@ -380,7 +380,7 @@
             // DeviceSelectDropDownB
             // 
             DeviceSelectDropDownB.FormattingEnabled = true;
-            DeviceSelectDropDownB.Location = new Point(381, 150);
+            DeviceSelectDropDownB.Location = new Point(380, 150);
             DeviceSelectDropDownB.Name = "DeviceSelectDropDownB";
             DeviceSelectDropDownB.Size = new Size(199, 28);
             DeviceSelectDropDownB.TabIndex = 13;
@@ -388,7 +388,7 @@
             // networkDevicesLabel
             // 
             networkDevicesLabel.AutoSize = true;
-            networkDevicesLabel.Location = new Point(216, 153);
+            networkDevicesLabel.Location = new Point(217, 153);
             networkDevicesLabel.Name = "networkDevicesLabel";
             networkDevicesLabel.Size = new Size(154, 20);
             networkDevicesLabel.TabIndex = 3;
@@ -398,7 +398,7 @@
             // 
             AutoScaleDimensions = new SizeF(8F, 20F);
             AutoScaleMode = AutoScaleMode.Font;
-            ClientSize = new Size(956, 475);
+            ClientSize = new Size(993, 475);
             Controls.Add(DeviceSelectDropDownB);
             Controls.Add(DeviceSelectDropDownA);
             Controls.Add(dummyLabelMax);
