@@ -407,6 +407,7 @@
             mbButtonSaveToFileAs.TabIndex = 14;
             mbButtonSaveToFileAs.Text = "Save Log";
             mbButtonSaveToFileAs.UseVisualStyleBackColor = true;
+            mbButtonSaveToFileAs.Click += mbButtonSaveToFileAs_Click;
             // 
             // mbForm1
             // 

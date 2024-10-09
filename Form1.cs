@@ -263,8 +263,8 @@ namespace redunDancer
 
                     pingWorker.RunWorkerAsync();
                 }
-            } 
-            else 
+            }
+            else
             {
                 MessageBox.Show("IP settings are incorrect! Aborted.", "Warning");
 
@@ -333,7 +333,7 @@ namespace redunDancer
                         else
                         {
                             consecutiveFailures++;
-                            LogPingResult($"{ipAddress} failed or exceeded max ping:{(reply.Status == IPStatus.Success ? reply.RoundtripTime.ToString(): "N/A")} ms | IP:{currentIP}");
+                            LogPingResult($"{ipAddress} failed or exceeded max ping:{(reply.Status == IPStatus.Success ? reply.RoundtripTime.ToString() : "N/A")} ms | IP:{currentIP}");
                             mbPingPbar.Value = mbPingPbar.Maximum;
                         }
                     }
@@ -676,6 +676,27 @@ namespace redunDancer
                 if (!string.IsNullOrEmpty(error))
                 {
                     LogPingResult($"Error: {error}");
+                }
+            }
+        }
+
+        private void mbButtonSaveToFileAs_Click(object sender, EventArgs e)
+        {
+            SaveFileDialog saveFileDialog = new SaveFileDialog();
+            saveFileDialog.Filter = "Text files (*.txt)|*.txt|Log files (*.log)|*.log|All files (*.*)|*.*";
+            saveFileDialog.Title = "Save PingLog";
+            saveFileDialog.FileName = "PingLog.txt";
+
+            if (saveFileDialog.ShowDialog() == DialogResult.OK)
+            {
+                try
+                {
+                    File.WriteAllText(saveFileDialog.FileName, mbPingLogTextBox.Text);
+                    MessageBox.Show("Log saved successfully!", "Success", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                }
+                catch (Exception ex)
+                {
+                    MessageBox.Show($"Was not able to save logfile: {ex.Message}", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
                 }
             }
         }
