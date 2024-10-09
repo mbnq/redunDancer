@@ -223,7 +223,9 @@
             // 
             // mbPingLogTextBox
             // 
+            mbPingLogTextBox.BackColor = SystemColors.ActiveBorder;
             mbPingLogTextBox.Font = new Font("Lucida Console", 7.8F, FontStyle.Regular, GraphicsUnit.Point, 238);
+            mbPingLogTextBox.ForeColor = Color.Black;
             mbPingLogTextBox.Location = new Point(587, 48);
             mbPingLogTextBox.Multiline = true;
             mbPingLogTextBox.Name = "mbPingLogTextBox";
@@ -398,6 +400,7 @@
             // 
             AutoScaleDimensions = new SizeF(8F, 20F);
             AutoScaleMode = AutoScaleMode.Font;
+            BackColor = SystemColors.ActiveBorder;
             ClientSize = new Size(993, 475);
             Controls.Add(DeviceSelectDropDownB);
             Controls.Add(DeviceSelectDropDownA);
