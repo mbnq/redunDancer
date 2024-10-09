@@ -424,7 +424,7 @@
             Controls.Add(mbIPTextBoxB);
             Controls.Add(mbIPTextBoxA);
             Name = "mbForm1";
-            Text = "redunDancer";
+            Text = "redunDancer (mbnq.pl)";
             ResumeLayout(false);
             PerformLayout();
         }
