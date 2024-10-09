@@ -194,7 +194,7 @@
             // ActiveBCheckBox
             // 
             ActiveBCheckBox.AutoSize = true;
-            ActiveBCheckBox.Location = new Point(538, 21);
+            ActiveBCheckBox.Location = new Point(539, 21);
             ActiveBCheckBox.Name = "ActiveBCheckBox";
             ActiveBCheckBox.RightToLeft = RightToLeft.Yes;
             ActiveBCheckBox.Size = new Size(40, 24);
@@ -243,7 +243,7 @@
             // 
             // mbButtonStop
             // 
-            mbButtonStop.Location = new Point(112, 434);
+            mbButtonStop.Location = new Point(113, 434);
             mbButtonStop.Name = "mbButtonStop";
             mbButtonStop.Size = new Size(94, 29);
             mbButtonStop.TabIndex = 7;
@@ -318,21 +318,21 @@
             checkBoxDhcpA.Enabled = false;
             checkBoxDhcpA.Location = new Point(59, 21);
             checkBoxDhcpA.Name = "checkBoxDhcpA";
-            checkBoxDhcpA.Size = new Size(70, 24);
+            checkBoxDhcpA.Size = new Size(108, 24);
             checkBoxDhcpA.TabIndex = 10;
-            checkBoxDhcpA.Text = "DHCP";
+            checkBoxDhcpA.Text = "From DHCP";
             checkBoxDhcpA.UseVisualStyleBackColor = true;
             // 
             // checkBoxDhcpB
             // 
             checkBoxDhcpB.AutoSize = true;
             checkBoxDhcpB.Enabled = false;
-            checkBoxDhcpB.Location = new Point(462, 21);
+            checkBoxDhcpB.Location = new Point(425, 21);
             checkBoxDhcpB.Name = "checkBoxDhcpB";
             checkBoxDhcpB.RightToLeft = RightToLeft.Yes;
-            checkBoxDhcpB.Size = new Size(70, 24);
+            checkBoxDhcpB.Size = new Size(108, 24);
             checkBoxDhcpB.TabIndex = 10;
-            checkBoxDhcpB.Text = "DHCP";
+            checkBoxDhcpB.Text = "From DHCP";
             checkBoxDhcpB.UseVisualStyleBackColor = true;
             // 
             // mbAlwaysOnTopCheckBox
@@ -340,7 +340,7 @@
             mbAlwaysOnTopCheckBox.AutoSize = true;
             mbAlwaysOnTopCheckBox.Checked = true;
             mbAlwaysOnTopCheckBox.CheckState = CheckState.Checked;
-            mbAlwaysOnTopCheckBox.Location = new Point(212, 437);
+            mbAlwaysOnTopCheckBox.Location = new Point(225, 439);
             mbAlwaysOnTopCheckBox.Name = "mbAlwaysOnTopCheckBox";
             mbAlwaysOnTopCheckBox.Size = new Size(127, 24);
             mbAlwaysOnTopCheckBox.TabIndex = 11;
