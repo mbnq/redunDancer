@@ -277,7 +277,7 @@
             mbTestPingRetryCountTextBox.Name = "mbTestPingRetryCountTextBox";
             mbTestPingRetryCountTextBox.Size = new Size(168, 27);
             mbTestPingRetryCountTextBox.TabIndex = 2;
-            mbTestPingRetryCountTextBox.Text = "3";
+            mbTestPingRetryCountTextBox.Text = "4";
             // 
             // PingRetryCountLabel
             // 
@@ -373,6 +373,7 @@
             // 
             // DeviceSelectDropDownA
             // 
+            DeviceSelectDropDownA.DropDownStyle = ComboBoxStyle.DropDownList;
             DeviceSelectDropDownA.FormattingEnabled = true;
             DeviceSelectDropDownA.Location = new Point(8, 150);
             DeviceSelectDropDownA.Name = "DeviceSelectDropDownA";
@@ -381,6 +382,7 @@
             // 
             // DeviceSelectDropDownB
             // 
+            DeviceSelectDropDownB.DropDownStyle = ComboBoxStyle.DropDownList;
             DeviceSelectDropDownB.FormattingEnabled = true;
             DeviceSelectDropDownB.Location = new Point(380, 150);
             DeviceSelectDropDownB.Name = "DeviceSelectDropDownB";
