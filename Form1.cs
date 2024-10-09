@@ -277,13 +277,13 @@ namespace redunDancer
                         if (reply.Status == IPStatus.Success && reply.RoundtripTime <= maxPing)
                         {
                             consecutiveFailures = 0;
-                            LogPingResult($"Ping to {ipAddress} successful: {reply.RoundtripTime} ms | Current IP: {currentIP}");
+                            LogPingResult($"{ipAddress}: {reply.RoundtripTime}ms | IP:{currentIP}");
                             mbPingPbar.Value = (int)Math.Min(reply.RoundtripTime, mbPingPbar.Maximum);
                         }
                         else
                         {
                             consecutiveFailures++;
-                            LogPingResult($"Ping to {ipAddress} failed or exceeded max ping: {(reply.Status == IPStatus.Success ? reply.RoundtripTime.ToString() : "N/A")} ms | Current IP: {currentIP}");
+                            LogPingResult($"{ipAddress} failed or exceeded max ping:{(reply.Status == IPStatus.Success ? reply.RoundtripTime.ToString(): "N/A")} ms | IP:{currentIP}");
                             mbPingPbar.Value = mbPingPbar.Maximum;
                         }
                     }
@@ -291,7 +291,7 @@ namespace redunDancer
                 catch (Exception ex)
                 {
                     consecutiveFailures++;
-                    LogPingResult($"Ping to {ipAddress} failed: {ex.Message} | Current IP: {currentIP}");
+                    LogPingResult($"Ping to {ipAddress} failed:{ex.Message} | IP:{currentIP}");
                 }
 
                 if (consecutiveFailures >= retryCount)
@@ -319,7 +319,7 @@ namespace redunDancer
                 {
                     if (mbPingLogCheckBox.Checked)
                     {
-                        mbPingLogTextBox.AppendText($"{DateTime.Now}: {message}\r\n");
+                        mbPingLogTextBox.AppendText($"{DateTime.UtcNow.ToString("HH:mm:ss")}: {message}\r\n");
                     }
                 }));
             }
@@ -327,7 +327,7 @@ namespace redunDancer
             {
                 if (mbPingLogCheckBox.Checked)
                 {
-                    mbPingLogTextBox.AppendText($"{DateTime.Now}: {message}\r\n");
+                    mbPingLogTextBox.AppendText($"{DateTime.UtcNow.ToString("HH:mm:ss")}: {message}\r\n");
                 }
             }
         }
