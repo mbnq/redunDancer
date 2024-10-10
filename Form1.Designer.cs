@@ -455,8 +455,6 @@
             // mbPingLogImportantOnlyCheckBox
             // 
             mbPingLogImportantOnlyCheckBox.AutoSize = true;
-            mbPingLogImportantOnlyCheckBox.Checked = true;
-            mbPingLogImportantOnlyCheckBox.CheckState = CheckState.Checked;
             mbPingLogImportantOnlyCheckBox.Location = new Point(673, 21);
             mbPingLogImportantOnlyCheckBox.Name = "mbPingLogImportantOnlyCheckBox";
             mbPingLogImportantOnlyCheckBox.Size = new Size(131, 24);

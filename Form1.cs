@@ -26,6 +26,7 @@ namespace redunDancer
         private bool checkboxesLocked = false;
         private bool initializing = true;
         private bool isConfigCorrect = false;
+        private bool importantMessagesOnly = false;
 
         public mbForm1()
         {
@@ -56,6 +57,7 @@ namespace redunDancer
             mbPingPbar.Value = 0;
             checkBoxDhcpA.Checked = false;
             checkBoxDhcpB.Checked = false;
+            importantMessagesOnly = mbPingLogImportantOnlyCheckBox.Checked;
 
             this.TopMost = mbAlwaysOnTopCheckBox.Checked;
         }
@@ -103,7 +105,7 @@ namespace redunDancer
                 }
             }
 
-            LogPingResult($"Settings validated correctly: {isConfigCorrect}");
+            LogPingResult($"Settings validated correctly: {isConfigCorrect}", true);
         }
         private void InitializePingWorker()
         {
@@ -138,7 +140,7 @@ namespace redunDancer
             string? currentIP = GetCurrentIPAddress();
             if (currentIP != null)
             {
-                LogPingResult($"Current LocalIP: {currentIP}");
+                LogPingResult($"Current LocalIP: {currentIP}", true);
 
                 // Determine if current IP matches Setting A or B
                 if (IsSameNetwork(currentIP, mbIPTextBoxA.Text))
@@ -146,14 +148,14 @@ namespace redunDancer
                     useSettingA = true;
                     ActiveACheckBox.Checked = true;
                     ActiveBCheckBox.Checked = false;
-                    LogPingResult("Using Setting A based on current IP.");
+                    LogPingResult("Using Setting A based on current IP.", true);
                 }
                 else if (IsSameNetwork(currentIP, mbIPTextBoxB.Text))
                 {
                     useSettingA = false;
                     ActiveACheckBox.Checked = false;
                     ActiveBCheckBox.Checked = true;
-                    LogPingResult("Using Setting B based on current IP.");
+                    LogPingResult("Using Setting B based on current IP.", true);
                 }
                 else
                 {
@@ -161,12 +163,12 @@ namespace redunDancer
                     useSettingA = true;
                     ActiveACheckBox.Checked = true;
                     ActiveBCheckBox.Checked = false;
-                    LogPingResult("LocalIP not match A nor B. Setting to A as def.");
+                    LogPingResult("LocalIP not match A nor B. Setting to A as def.", true);
                 }
             }
             else
             {
-                LogPingResult("Unable to detect current LocalIP.");
+                LogPingResult("Unable to detect current LocalIP.", true);
             }
         }
         private string? GetCurrentIPAddress()
@@ -329,13 +331,13 @@ namespace redunDancer
                         if (reply.Status == IPStatus.Success && reply.RoundtripTime <= maxPing)
                         {
                             consecutiveFailures = 0;
-                            LogPingResult($"{ipAddress}: {reply.RoundtripTime}ms | IP:{currentIP}");
+                            LogPingResult($"{ipAddress}: {reply.RoundtripTime}ms | IP:{currentIP}", false);
                             mbPingPbar.Value = (int)Math.Min(reply.RoundtripTime, mbPingPbar.Maximum);
                         }
                         else
                         {
                             consecutiveFailures++;
-                            LogPingResult($"{ipAddress} failed or exceeded max ping:{(reply.Status == IPStatus.Success ? reply.RoundtripTime.ToString() : "N/A")} ms | IP:{currentIP}");
+                            LogPingResult($"{ipAddress} failed or exceeded max ping:{(reply.Status == IPStatus.Success ? reply.RoundtripTime.ToString() : "N/A")} ms | IP:{currentIP}", true);
                             mbPingPbar.Value = mbPingPbar.Maximum;
                         }
                     }
@@ -343,7 +345,7 @@ namespace redunDancer
                 catch (Exception ex)
                 {
                     consecutiveFailures++;
-                    LogPingResult($"Ping to {ipAddress} failed:{ex.Message} | IP:{currentIP}");
+                    LogPingResult($"Ping to {ipAddress} failed:{ex.Message} | IP:{currentIP}", true);
                 }
 
                 if (consecutiveFailures >= retryCount)
@@ -363,7 +365,50 @@ namespace redunDancer
                 }
             }
         }
-        private void LogPingResult(string message)
+        private void LogPingResult(string message, bool isImportant=true)
+        {
+            if (importantMessagesOnly)
+            {
+                if (mbPingLogTextBox.InvokeRequired)
+                {
+                    mbPingLogTextBox.Invoke(new Action(() =>
+                    {
+                        if (mbPingLogCheckBox.Checked && isImportant)
+                        {
+                            mbPingLogTextBox.AppendText($"{DateTime.UtcNow.ToString("HH:mm:ss")}: {message}\r\n");
+                        }
+                    }));
+                }
+                else
+                {
+                    if (mbPingLogCheckBox.Checked && isImportant)
+                    {
+                        mbPingLogTextBox.AppendText($"{DateTime.UtcNow.ToString("HH:mm:ss")}: {message}\r\n");
+                    }
+                } 
+            }
+            else
+            {
+                if (mbPingLogTextBox.InvokeRequired)
+                {
+                    mbPingLogTextBox.Invoke(new Action(() =>
+                    {
+                        if (mbPingLogCheckBox.Checked)
+                        {
+                            mbPingLogTextBox.AppendText($"{DateTime.UtcNow.ToString("HH:mm:ss")}: {message}\r\n");
+                        }
+                    }));
+                }
+                else
+                {
+                    if (mbPingLogCheckBox.Checked)
+                    {
+                        mbPingLogTextBox.AppendText($"{DateTime.UtcNow.ToString("HH:mm:ss")}: {message}\r\n");
+                    }
+                }
+            }
+        }
+        private void LogPingResult0(string message, bool isImportant=true)
         {
             if (mbPingLogTextBox.InvokeRequired)
             {
@@ -383,6 +428,7 @@ namespace redunDancer
                 }
             }
         }
+
         private void SleepWithCancellation(int milliseconds)
         {
             int sleepInterval = 100; // Sleep in 100ms intervals
@@ -425,7 +471,7 @@ namespace redunDancer
         }
         private void ApplySettings(string ip, string mask, string gateway)
         {
-            LogPingResult($"Applying settings: IP={ip}, Mask={mask}, Gateway={gateway}");
+            LogPingResult($"Applying settings: IP={ip}, Mask={mask}, Gateway={gateway}", true);
             SetNetworkSettings(ip, mask, gateway);
 
             // Determine if we are using DHCP and update the corresponding checkbox
@@ -456,7 +502,7 @@ namespace redunDancer
 
                 if (adapterName == null)
                 {
-                    LogPingResult("Failed to retrieve network adapter.");
+                    LogPingResult("Failed to retrieve network adapter.", true);
                     return;
                 }
 
@@ -478,12 +524,12 @@ namespace redunDancer
                     RunNetshCommand(setDNSCmd1);
                     RunNetshCommand(setDNSCmd2);
 
-                    LogPingResult($"Network settings applied to {adapterName}: IP={ip}, Mask={mask}, Gateway={gateway}, DNS1={mbDNS1TextBox.Text}, DNS2={mbDNS2TextBox.Text}");
+                    LogPingResult($"Network settings applied to {adapterName}: IP={ip}, Mask={mask}, Gateway={gateway}, DNS1={mbDNS1TextBox.Text}, DNS2={mbDNS2TextBox.Text}", true);
                 }
             }
             catch (Exception ex)
             {
-                LogPingResult($"Error applying network settings: {ex.Message}");
+                LogPingResult($"Error applying network settings: {ex.Message}", true);
             }
         }
 
@@ -493,7 +539,7 @@ namespace redunDancer
             string dhcpDNSCmd = $"interface ip set dnsservers name=\"{adapterName}\" dhcp";
             RunNetshCommand(dhcpIPCmd);
             RunNetshCommand(dhcpDNSCmd);
-            LogPingResult($"Set network settings to DHCP on adapter {adapterName}.");
+            LogPingResult($"Set network settings to DHCP on adapter {adapterName}.", true);
         }
 
         private void GetIPSettings(string adapterName, bool isSettingA, bool populateTextBoxes)
@@ -514,7 +560,7 @@ namespace redunDancer
                     string gateway = ipProperties.GatewayAddresses
                         .FirstOrDefault()?.Address.ToString() ?? "";
 
-                    LogPingResult($"Obtained IP settings: IP={ip}, Mask={mask}, Gateway={gateway}");
+                    LogPingResult($"Obtained IP settings: IP={ip}, Mask={mask}, Gateway={gateway}", true);
 
                     // Determine if DHCP is being used
                     bool isUsingDHCP = string.IsNullOrWhiteSpace(ip) || string.IsNullOrWhiteSpace(mask) || string.IsNullOrWhiteSpace(gateway);
@@ -551,7 +597,7 @@ namespace redunDancer
                 }
                 else
                 {
-                    LogPingResult("Failed to obtain IP settings.");
+                    LogPingResult("Failed to obtain IP settings.", true);
                 }
             }
         }
@@ -653,7 +699,7 @@ namespace redunDancer
 
         private void RunNetshCommand(string command)
         {
-            LogPingResult($"Running netsh command: {command}");
+            LogPingResult($"Running netsh command: {command}", true);
 
             ProcessStartInfo psi = new ProcessStartInfo("netsh", command)
             {
@@ -672,12 +718,12 @@ namespace redunDancer
 
                 if (!string.IsNullOrEmpty(output))
                 {
-                    LogPingResult(output);
+                    LogPingResult(output, false);
                 }
 
                 if (!string.IsNullOrEmpty(error))
                 {
-                    LogPingResult($"Error: {error}");
+                    LogPingResult($"Error: {error}", true);
                 }
             }
         }
@@ -711,6 +757,7 @@ namespace redunDancer
                 checkIPSettings();
                 if (isConfigCorrect)
                 {
+                    // strings
                     Properties.Settings.Default.mbIPTextBoxA = mbIPTextBoxA.Text;
                     Properties.Settings.Default.mbIPTextBoxB = mbIPTextBoxB.Text;
                     Properties.Settings.Default.mbMaskTextBoxA = mbMaskTextBoxA.Text;
@@ -724,6 +771,11 @@ namespace redunDancer
                     Properties.Settings.Default.mbTestPingIntervalTextBox = mbTestPingIntervalTextBox.Text;
                     Properties.Settings.Default.mbMaxPingTextBox = mbMaxPingTextBox.Text;
                     Properties.Settings.Default.mbTestPingRetryCountTextBox = mbTestPingRetryCountTextBox.Text;
+
+                    // bools
+                    Properties.Settings.Default.mbPingLogImportantOnlyCheckBox = mbPingLogImportantOnlyCheckBox.Checked;
+                    Properties.Settings.Default.mbAlwaysOnTopCheckBox = mbAlwaysOnTopCheckBox.Checked;
+                    Properties.Settings.Default.mbPingLogCheckBox = mbPingLogCheckBox.Checked;
 
                     Properties.Settings.Default.Save();
                     MessageBox.Show("Settings saved successfully.", "Success", MessageBoxButtons.OK, MessageBoxIcon.Information);
@@ -745,6 +797,7 @@ namespace redunDancer
             {
                 try
                 {
+                    // strings
                     mbIPTextBoxA.Text = Properties.Settings.Default.mbIPTextBoxA;
                     mbIPTextBoxB.Text = Properties.Settings.Default.mbIPTextBoxB;
                     mbMaskTextBoxA.Text = Properties.Settings.Default.mbMaskTextBoxA;
@@ -758,6 +811,11 @@ namespace redunDancer
                     mbTestPingIntervalTextBox.Text = Properties.Settings.Default.mbTestPingIntervalTextBox;
                     mbMaxPingTextBox.Text = Properties.Settings.Default.mbMaxPingTextBox;
                     mbTestPingRetryCountTextBox.Text = Properties.Settings.Default.mbTestPingRetryCountTextBox;
+                    
+                    // bools
+                    mbPingLogImportantOnlyCheckBox.Checked = Properties.Settings.Default.mbPingLogImportantOnlyCheckBox;
+                    mbAlwaysOnTopCheckBox.Checked = Properties.Settings.Default.mbAlwaysOnTopCheckBox;
+                    mbPingLogCheckBox.Checked = Properties.Settings.Default.mbPingLogCheckBox;
 
                     MessageBox.Show("Settings loaded successfully.", "Success", MessageBoxButtons.OK, MessageBoxIcon.Information);
                 }

@@ -178,5 +178,41 @@ namespace redunDancer.Properties {
                 this["mbTestPingRetryCountTextBox"] = value;
             }
         }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("False")]
+        public bool mbPingLogImportantOnlyCheckBox {
+            get {
+                return ((bool)(this["mbPingLogImportantOnlyCheckBox"]));
+            }
+            set {
+                this["mbPingLogImportantOnlyCheckBox"] = value;
+            }
+        }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("True")]
+        public bool mbAlwaysOnTopCheckBox {
+            get {
+                return ((bool)(this["mbAlwaysOnTopCheckBox"]));
+            }
+            set {
+                this["mbAlwaysOnTopCheckBox"] = value;
+            }
+        }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("True")]
+        public bool mbPingLogCheckBox {
+            get {
+                return ((bool)(this["mbPingLogCheckBox"]));
+            }
+            set {
+                this["mbPingLogCheckBox"] = value;
+            }
+        }
     }
 }
