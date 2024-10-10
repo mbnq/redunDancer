@@ -16,7 +16,7 @@ namespace redunDancer
     internal static class Program
     {
         #region variables and constants
-        public const string mbVersion = "0.0.0.2";
+        public const string mbVersion = "0.0.0.4";
         #endregion
 
         #region DPI
