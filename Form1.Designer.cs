@@ -461,6 +461,7 @@
             mbPingLogImportantOnlyCheckBox.TabIndex = 8;
             mbPingLogImportantOnlyCheckBox.Text = "Important Only";
             mbPingLogImportantOnlyCheckBox.UseVisualStyleBackColor = true;
+            mbPingLogImportantOnlyCheckBox.CheckedChanged += mbPingLogImportantOnlyCheckBox_CheckedChanged;
             // 
             // mbForm1
             // 

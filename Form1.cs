@@ -369,7 +369,7 @@ namespace redunDancer
                 }
             }
         }
-        private void LogPingResult(string message, bool isImportant=true)
+        private void LogPingResult(string message, bool isImportant = true)
         {
             if (importantMessagesOnly)
             {
@@ -389,7 +389,7 @@ namespace redunDancer
                     {
                         mbPingLogTextBox.AppendText($"{DateTime.UtcNow.ToString("HH:mm:ss")}: {message}\r\n");
                     }
-                } 
+                }
             }
             else
             {
@@ -412,7 +412,7 @@ namespace redunDancer
                 }
             }
         }
-        private void LogPingResult0(string message, bool isImportant=true)
+        private void LogPingResult0(string message, bool isImportant = true)
         {
             if (mbPingLogTextBox.InvokeRequired)
             {
@@ -818,7 +818,7 @@ namespace redunDancer
                     mbTestPingIntervalTextBox.Text = Properties.Settings.Default.mbTestPingIntervalTextBox;
                     mbMaxPingTextBox.Text = Properties.Settings.Default.mbMaxPingTextBox;
                     mbTestPingRetryCountTextBox.Text = Properties.Settings.Default.mbTestPingRetryCountTextBox;
-                    
+
                     // bools
                     mbPingLogImportantOnlyCheckBox.Checked = Properties.Settings.Default.mbPingLogImportantOnlyCheckBox;
                     mbAlwaysOnTopCheckBox.Checked = Properties.Settings.Default.mbAlwaysOnTopCheckBox;
@@ -868,5 +868,10 @@ namespace redunDancer
         }
 
         #endregion
+
+        private void mbPingLogImportantOnlyCheckBox_CheckedChanged(object sender, EventArgs e)
+        {
+            if (mbPingLogImportantOnlyCheckBox.Checked) { importantMessagesOnly = true; } else { importantMessagesOnly = false; };
+        }
     }
 }
