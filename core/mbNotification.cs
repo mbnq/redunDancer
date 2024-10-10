@@ -43,6 +43,10 @@ public class mbNotificationForm : Form
         int screenHeight = Screen.PrimaryScreen.WorkingArea.Height;
         this.Location = new Point(screenWidth - this.Width - 10, screenHeight - this.Height - 10);
 
+        this.Click += (s, e) => this.Hide();
+        mbTitleLabel.Click += (s, e) => this.Hide();
+        mbMessageLabel.Click += (s, e) => this.Hide();
+
         this.Opacity = 0;
         this.Show();
 
