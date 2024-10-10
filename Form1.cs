@@ -15,6 +15,7 @@ using System.Management;
 using System.Net;
 using System.Diagnostics.Eventing.Reader;
 using System.Configuration;
+using static System.Runtime.InteropServices.JavaScript.JSType;
 
 namespace redunDancer
 {
@@ -27,6 +28,7 @@ namespace redunDancer
         private bool initializing = true;
         private bool isConfigCorrect = false;
         private bool importantMessagesOnly = false;
+        private bool silentRun = false;
 
         public mbForm1()
         {
@@ -46,7 +48,9 @@ namespace redunDancer
             DetectCurrentIP();
             InitializeMain();
             unblockSettings(true);
-            mbLoadButton_Click(this, EventArgs.Empty);
+
+            silentRun = true; mbLoadButton_Click(this, EventArgs.Empty); silentRun = false;
+
             initializing = false;
         }
         private void InitializeMain()
@@ -779,15 +783,18 @@ namespace redunDancer
 
                     Properties.Settings.Default.Save();
                     MessageBox.Show("Settings saved successfully.", "Success", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                    LogPingResult("Settings saved successfully.", true);
                 }
                 else
                 {
                     MessageBox.Show("One or more IP addresses are invalid. Saving aborted!", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                    LogPingResult("One or more IP addresses are invalid. Saving aborted!", true);
                 }
             }
             catch (Exception ex)
             {
                 MessageBox.Show($"Error saving settings: {ex.Message}", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                LogPingResult("Error saving settings!", true);
             }
         }
 
@@ -817,16 +824,19 @@ namespace redunDancer
                     mbAlwaysOnTopCheckBox.Checked = Properties.Settings.Default.mbAlwaysOnTopCheckBox;
                     mbPingLogCheckBox.Checked = Properties.Settings.Default.mbPingLogCheckBox;
 
-                    MessageBox.Show("Settings loaded successfully.", "Success", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                    if (!silentRun) MessageBox.Show("Settings loaded successfully.", "Success", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                    LogPingResult("Settings loaded successfully.", true);
                 }
                 catch (Exception ex)
                 {
                     MessageBox.Show($"Error loading settings: {ex.Message}", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                    LogPingResult("Error loading settings!", true);
                 }
             }
             else
             {
                 MessageBox.Show("Could not find savefile. Loading aborted!", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                LogPingResult("Could not find savefile. Loading aborted!", true);
             }
         }
         private bool DoesSaveExists()
