@@ -10,7 +10,7 @@ public class mbNotificationForm : Form
 {
     private Label mbTitleLabel, mbMessageLabel;
 
-    public mbNotificationForm(string message, int timeout = 3000)
+    public mbNotificationForm(string title, string message, int timeout = 3000)
     {
 
         this.Size = new Size(200, 100);
@@ -18,6 +18,15 @@ public class mbNotificationForm : Form
         this.FormBorderStyle = FormBorderStyle.None;
         this.TopMost = true;
         this.ShowInTaskbar = false;
+
+        mbTitleLabel = new Label();
+        mbTitleLabel.Text = title;
+        mbTitleLabel.AutoSize = false;
+        mbTitleLabel.TextAlign = ContentAlignment.MiddleCenter;
+        mbTitleLabel.Dock = DockStyle.Top;
+        mbTitleLabel.Font = new Font("Consolas", 12, FontStyle.Regular);
+        mbTitleLabel.Height = 20;
+        mbTitleLabel.BackColor = Color.Gray;
 
         mbMessageLabel = new Label();
         mbMessageLabel.Text = message;
@@ -27,6 +36,7 @@ public class mbNotificationForm : Form
         mbMessageLabel.Font = new Font("Consolas", 12);
 
         // ---
+        this.Controls.Add(mbTitleLabel);
         this.Controls.Add(mbMessageLabel);
 
         int screenWidth = Screen.PrimaryScreen.WorkingArea.Width;

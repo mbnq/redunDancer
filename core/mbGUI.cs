@@ -46,7 +46,6 @@ namespace redunDancer
             silentRun = true; mbLoadButton_Click(this, EventArgs.Empty); silentRun = false;
 
             initializing = false;
-            PopUpNotification("Network settings updated successfully!", 5000);
         }
         private void InitializeMain()
         {
@@ -107,9 +106,9 @@ namespace redunDancer
 
             LogPingResult($"Settings validated correctly: {isConfigCorrect}", true);
         }
-        public void PopUpNotification(string message, int timeout)
+        public void PopUpNotification(string title, string message, int timeout)
         {
-            mbNotificationForm notification = new mbNotificationForm(message, timeout);
+            mbNotificationForm notification = new mbNotificationForm(title, message, timeout);
             notification.Show();
         }
         private void StartCheckboxLock()
