@@ -463,7 +463,7 @@
             mbPingLogImportantOnlyCheckBox.UseVisualStyleBackColor = true;
             mbPingLogImportantOnlyCheckBox.CheckedChanged += mbPingLogImportantOnlyCheckBox_CheckedChanged;
             // 
-            // mbForm1
+            // mbRedunDancerMain
             // 
             AutoScaleDimensions = new SizeF(8F, 20F);
             AutoScaleMode = AutoScaleMode.Font;
@@ -512,7 +512,7 @@
             Controls.Add(mbIPTextBoxA);
             FormBorderStyle = FormBorderStyle.FixedSingle;
             MaximizeBox = false;
-            Name = "mbForm1";
+            Name = "mbRedunDancerMain";
             SizeGripStyle = SizeGripStyle.Hide;
             Text = "redunDancer (mbnq.pl)";
             ResumeLayout(false);

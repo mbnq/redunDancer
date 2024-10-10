@@ -40,6 +40,7 @@ namespace redunDancer
 
             DetectCurrentIP();
             InitializeMain();
+            InitializeTray();
             unblockSettings(true);
 
             silentRun = true; mbLoadButton_Click(this, EventArgs.Empty); silentRun = false;
