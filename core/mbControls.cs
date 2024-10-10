@@ -51,7 +51,7 @@ namespace redunDancer
                 if (pingWorker != null && !pingWorker.IsBusy)
                 {
                     consecutiveFailures = 0; // Reset failures
-                    mbPingLogTextBox.AppendText($"{DateTime.UtcNow.ToString("HH:mm:ss")}: Ping worker started.\r\n");
+                    mbPingLogTextBox.AppendText($"{DateTime.UtcNow.ToString("HH:mm:ss")}: Started...\r\n");
 
                     pingWorker.RunWorkerAsync();
                 }
@@ -65,7 +65,7 @@ namespace redunDancer
                 if (pingWorker != null && pingWorker.IsBusy)
                 {
                     pingWorker.CancelAsync();
-                    mbPingLogTextBox.AppendText($"{DateTime.UtcNow.ToString("HH:mm:ss")}: Ping worker stopping...\r\n");
+                    mbPingLogTextBox.AppendText($"{DateTime.UtcNow.ToString("HH:mm:ss")}: Stopping...\r\n");
                 }
             };
         }
@@ -76,7 +76,7 @@ namespace redunDancer
             if (pingWorker != null && pingWorker.IsBusy)
             {
                 pingWorker.CancelAsync();
-                mbPingLogTextBox.AppendText($"{DateTime.UtcNow.ToString("HH:mm:ss")}: Ping worker stopping...\r\n");
+                mbPingLogTextBox.AppendText($"{DateTime.UtcNow.ToString("HH:mm:ss")}: Stopping...\r\n");
             }
         }
     }

@@ -35,7 +35,6 @@ namespace redunDancer
                 }
             }
         }
-
         private void mbSaveButton_Click(object sender, EventArgs e)
         {
             try
@@ -79,7 +78,6 @@ namespace redunDancer
                 LogPingResult("Error saving settings!", true);
             }
         }
-
         private void mbLoadButton_Click(object sender, EventArgs e)
         {
             if (DoesSaveExists2())
@@ -121,12 +119,6 @@ namespace redunDancer
                 LogPingResult("Could not find savefile. Loading aborted!", true);
             }
         }
-        private bool DoesSaveExists()
-        {
-            return Properties.Settings.Default.mbIPTextBoxA != null ||
-                   Properties.Settings.Default.mbIPTextBoxB != null;
-        }
-
         private bool DoesSaveExists2()
         {
             bool _isSaveOK = true;
