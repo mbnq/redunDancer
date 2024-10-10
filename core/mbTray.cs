@@ -38,7 +38,10 @@ namespace redunDancer
 
         private void mbRedunDancerMain_Resize(object? sender, EventArgs e)
         {
-            if (this.WindowState == FormWindowState.Minimized) HideToTray();
+            if (this.WindowState == FormWindowState.Minimized)
+            {
+                HideToTray();
+            }
         }
 
         private void HideToTray()

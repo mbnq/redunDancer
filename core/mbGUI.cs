@@ -106,7 +106,6 @@ namespace redunDancer
 
             LogPingResult($"Settings validated correctly: {isConfigCorrect}", true);
         }
-
         private void StartCheckboxLock()
         {
             if (int.TryParse(mbTestPingIntervalTextBox.Text, out int interval))
