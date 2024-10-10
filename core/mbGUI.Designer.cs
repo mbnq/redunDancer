@@ -1,6 +1,6 @@
 ﻿namespace redunDancer
 {
-    partial class mbForm1
+    partial class mbRedunDancerMain
     {
         /// <summary>
         ///  Required designer variable.

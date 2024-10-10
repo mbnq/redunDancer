@@ -11,7 +11,7 @@ using System.Net;
 
 namespace redunDancer
 {
-    public partial class mbForm1 : Form
+    public partial class mbRedunDancerMain
     {
 
         #region SaveLoad Logic

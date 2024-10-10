@@ -9,7 +9,7 @@
 
 namespace redunDancer
 {
-    public partial class mbForm1 : Form
+    public partial class mbRedunDancerMain
     {
         private void ActiveACheckBox_CheckedChanged(object? sender, EventArgs e)
         {

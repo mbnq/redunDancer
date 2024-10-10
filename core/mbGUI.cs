@@ -19,7 +19,7 @@ using static System.Runtime.InteropServices.JavaScript.JSType;
 
 namespace redunDancer
 {
-    public partial class mbForm1 : Form
+    public partial class mbRedunDancerMain : Form
     {
         private BackgroundWorker? pingWorker;
         private bool useSettingA;
@@ -30,7 +30,7 @@ namespace redunDancer
         private bool importantMessagesOnly = false;
         private bool silentRun = false;
 
-        public mbForm1()
+        public mbRedunDancerMain()
         {
             initializing = true;
 
