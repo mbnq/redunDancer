@@ -175,6 +175,7 @@ namespace redunDancer
                 if (consecutiveFailures >= retryCount)
                 {
                     SwitchSettings();
+                    PopUpNotification("redunDancer", "Switching network.", 5000);
                     consecutiveFailures = 0;
                     postSwitchDelayMultiplier = 2; // Double the delay after switching
                 }
@@ -281,6 +282,7 @@ namespace redunDancer
                 if (adapterName == null)
                 {
                     LogPingResult("Failed to retrieve network adapter.", true);
+                    PopUpNotification("redunDancer", "Failed to retrieve network adapter.", 5000);
                     return;
                 }
 
