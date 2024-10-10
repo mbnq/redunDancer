@@ -10,6 +10,7 @@
     <PackageIcon>mbRedunDancer.ico</PackageIcon>
     <SupportedOSPlatformVersion>7.0</SupportedOSPlatformVersion>
     <ApplicationIcon>gfx\mbRedunDancer.ico</ApplicationIcon>
+    <Version>$(mbVersion)</Version>
   </PropertyGroup>
 
   <ItemGroup>

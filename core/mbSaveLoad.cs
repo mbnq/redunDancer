@@ -115,8 +115,8 @@ namespace redunDancer
             }
             else
             {
-                MessageBox.Show("Could not find savefile. Loading aborted!", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
-                LogPingResult("Could not find savefile. Loading aborted!", true);
+                if (!silentRun) MessageBox.Show("Could not find savefile. Loading aborted!", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                if (!silentRun) LogPingResult("Could not find savefile. Loading aborted!", true);
             }
         }
         private bool DoesSaveExists2()
