@@ -13,6 +13,7 @@ namespace redunDancer
     {
         private NotifyIcon notifyIcon = null!;
         private ContextMenuStrip contextMenu = null!;
+        public ToolStripItem contextMenuStartOption;
 
         private void InitializeTray()
         {
@@ -23,6 +24,10 @@ namespace redunDancer
 
             contextMenu = new ContextMenuStrip();
             contextMenu.Items.Add("Show", null, ShowForm);
+            contextMenu.Items.Add(new ToolStripSeparator());
+            contextMenuStartOption = contextMenu.Items.Add("Start", null, mbButtonRun_Click);
+            contextMenu.Items.Add("Stop", null, mbButtonStop_Click);
+            contextMenu.Items.Add(new ToolStripSeparator());
             contextMenu.Items.Add("Exit", null, ExitApplication);
 
             notifyIcon.ContextMenuStrip = contextMenu;

@@ -78,7 +78,7 @@ namespace redunDancer
                 LogPingResult("Error saving settings!", true);
             }
         }
-        private void mbLoadButton_Click(object sender, EventArgs e)
+        private void mbLoadButton_Click(object? sender, EventArgs e)
         {
             if (DoesSaveExists2())
             {

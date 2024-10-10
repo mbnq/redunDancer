@@ -77,6 +77,7 @@ namespace redunDancer
             DeviceSelectDropDownB.Enabled = unblock;
             mbLoadButton.Enabled = unblock;
             mbSaveButton.Enabled = unblock;
+            contextMenuStartOption.Enabled = unblock;
         }
         private void checkIPSettings()
         {

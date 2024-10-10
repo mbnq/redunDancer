@@ -488,7 +488,7 @@ namespace redunDancer
                 Verb = "runas" // Run as administrator
             };
 
-            using (Process process = Process.Start(psi))
+            using (Process? process = Process.Start(psi))
             {
                 process.WaitForExit();
                 string output = process.StandardOutput.ReadToEnd();
