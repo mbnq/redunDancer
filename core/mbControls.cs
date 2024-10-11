@@ -39,6 +39,10 @@ namespace redunDancer
         {
             if (mbPingLogImportantOnlyCheckBox.Checked) { importantMessagesOnly = true; } else { importantMessagesOnly = false; };
         }
+        private void mbNotificationsCheckBox_CheckedChanged(object sender, EventArgs e)
+        {
+            if (mbNotificationsCheckBox.Checked) { showNotifications = true; } else { showNotifications = false; };
+        }
         private void mbButtonRun_Click(object? sender, EventArgs e)
         {
 

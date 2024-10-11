@@ -17,11 +17,12 @@ namespace redunDancer
         private BackgroundWorker? pingWorker;
         private bool useSettingA;
         private int consecutiveFailures = 0;
-        private bool checkboxesLocked = false;
-        private bool initializing = true;
-        private bool isConfigCorrect = false;
-        private bool importantMessagesOnly = false;
-        private bool silentRun = false;
+        public bool checkboxesLocked = false;
+        public bool initializing = true;
+        public bool isConfigCorrect = false;
+        public bool importantMessagesOnly = false;
+        public bool silentRun = false;
+        public static bool showNotifications = true;
 
         public mbRedunDancerMain()
         {
@@ -133,7 +134,7 @@ namespace redunDancer
                 };
                 timer.Start();
             }
-        } 
+        }
         private void SwitchSettings()
         {
             useSettingA = !useSettingA;
@@ -160,5 +161,6 @@ namespace redunDancer
             // Lock checkboxes after switching
             StartCheckboxLock();
         }
+
     }
 }

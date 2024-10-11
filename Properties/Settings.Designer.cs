@@ -214,5 +214,17 @@ namespace redunDancer.Properties {
                 this["mbPingLogCheckBox"] = value;
             }
         }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("True")]
+        public bool mbNotificationsCheckBox {
+            get {
+                return ((bool)(this["mbNotificationsCheckBox"]));
+            }
+            set {
+                this["mbNotificationsCheckBox"] = value;
+            }
+        }
     }
 }

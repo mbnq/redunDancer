@@ -6,6 +6,8 @@
     mbnq00 on gmail
 
 */
+using redunDancer;
+
 public class mbNotificationForm : Form
 {
     private Label mbTitleLabel, mbMessageLabel;
@@ -51,7 +53,7 @@ public class mbNotificationForm : Form
         this.Show();
 
         // ---
-        mbStartWithFadeIn(timeout);
+        if (mbRedunDancerMain.showNotifications) mbStartWithFadeIn(timeout);
     }
     private async void mbStartWithFadeIn(int timeout)
     {

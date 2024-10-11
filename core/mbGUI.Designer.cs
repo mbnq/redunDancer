@@ -69,6 +69,7 @@
             saveLoadDataLabel = new Label();
             startStopOperationsLabel = new Label();
             mbPingLogImportantOnlyCheckBox = new CheckBox();
+            mbNotificationsCheckBox = new CheckBox();
             SuspendLayout();
             // 
             // mbIPTextBoxA
@@ -348,7 +349,7 @@
             mbAlwaysOnTopCheckBox.AutoSize = true;
             mbAlwaysOnTopCheckBox.Checked = true;
             mbAlwaysOnTopCheckBox.CheckState = CheckState.Checked;
-            mbAlwaysOnTopCheckBox.Location = new Point(234, 439);
+            mbAlwaysOnTopCheckBox.Location = new Point(234, 411);
             mbAlwaysOnTopCheckBox.Name = "mbAlwaysOnTopCheckBox";
             mbAlwaysOnTopCheckBox.Size = new Size(127, 24);
             mbAlwaysOnTopCheckBox.TabIndex = 11;
@@ -463,12 +464,26 @@
             mbPingLogImportantOnlyCheckBox.UseVisualStyleBackColor = true;
             mbPingLogImportantOnlyCheckBox.CheckedChanged += mbPingLogImportantOnlyCheckBox_CheckedChanged;
             // 
+            // mbNotificationsCheckBox
+            // 
+            mbNotificationsCheckBox.AutoSize = true;
+            mbNotificationsCheckBox.Checked = true;
+            mbNotificationsCheckBox.CheckState = CheckState.Checked;
+            mbNotificationsCheckBox.Location = new Point(234, 437);
+            mbNotificationsCheckBox.Name = "mbNotificationsCheckBox";
+            mbNotificationsCheckBox.Size = new Size(116, 24);
+            mbNotificationsCheckBox.TabIndex = 18;
+            mbNotificationsCheckBox.Text = "Notifications";
+            mbNotificationsCheckBox.UseVisualStyleBackColor = true;
+            mbNotificationsCheckBox.CheckedChanged += mbNotificationsCheckBox_CheckedChanged;
+            // 
             // mbRedunDancerMain
             // 
             AutoScaleDimensions = new SizeF(8F, 20F);
             AutoScaleMode = AutoScaleMode.Font;
             BackColor = SystemColors.ActiveBorder;
             ClientSize = new Size(1017, 475);
+            Controls.Add(mbNotificationsCheckBox);
             Controls.Add(startStopOperationsLabel);
             Controls.Add(saveLoadDataLabel);
             Controls.Add(mbLoadButton);
@@ -561,5 +576,6 @@
         private Label saveLoadDataLabel;
         private Label startStopOperationsLabel;
         private CheckBox mbPingLogImportantOnlyCheckBox;
+        private CheckBox mbNotificationsCheckBox;
     }
 }
