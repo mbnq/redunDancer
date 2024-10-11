@@ -6,6 +6,7 @@
     mbnq00 on gmail
 
 */
+
 using redunDancer;
 
 public class mbNotificationForm : Form

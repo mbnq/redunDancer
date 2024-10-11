@@ -52,6 +52,8 @@ namespace redunDancer
             mbInitialWidth = this.Width;
             mbLogBoxShowHide();
 
+            MBBackgroundManager.SetBackgroundImage(this);
+
             initializing = false;
 
             if (mbAutostartCheckbox.Checked)
