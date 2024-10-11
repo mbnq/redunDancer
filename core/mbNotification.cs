@@ -49,31 +49,22 @@ public class mbNotificationForm : Form
         mbTitleLabel.Click += (s, e) => this.Hide();
         mbMessageLabel.Click += (s, e) => this.Hide();
 
-        this.Opacity = 0;
-        this.Show();
+        this.Opacity = 50;
 
-        // ---
-        if (mbRedunDancerMain.showNotifications) mbStartWithFadeIn(timeout);
-    }
-    private async void mbStartWithFadeIn(int timeout)
-    {
-        while (this.Opacity < 1.0)
+        if (mbRedunDancerMain.showNotifications)
         {
-            this.Opacity += 0.05;
-            await Task.Delay(50);
+            this.Show();
+            mbKillWithDelay(timeout);
         }
+    }
+
+    private async void mbKillWithDelay(int timeout)
+    {
         await Task.Delay(timeout);
-        mbFadeOut();
-    }
-    private async void mbFadeOut()
-    {
-        while (this.Opacity > 0.0)
-        {
-            this.Opacity -= 0.05;
-            await Task.Delay(50);
-        }
         this.Close();
     }
+
+    // ---
     protected override bool ShowWithoutActivation
     {
         get { return true; }
