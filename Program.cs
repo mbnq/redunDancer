@@ -22,6 +22,7 @@ namespace redunDancer
         #endregion
 
         #region DPI
+        /*
         [DllImport("user32.dll")]
         static extern bool SetProcessDPIAware();
 
@@ -29,6 +30,7 @@ namespace redunDancer
         private static extern bool SetProcessDpiAwarenessContext(IntPtr dpiFlag);
         private static readonly IntPtr DPI_AWARENESS_CONTEXT_PER_MONITOR_AWARE_V2 = new IntPtr(-4);
         private static readonly IntPtr DPI_AWARENESS_CONTEXT_SYSTEM_AWARE = new IntPtr(-2);
+        */
         #endregion
 
         [STAThread]
