@@ -25,6 +25,7 @@ namespace redunDancer
         public static bool showNotifications = true;
         public static bool mbLogBoxShown = true;
         public static int mbInitialWidth = 0;
+        public static string mbCurrentGlobalIP = "";
 
         public mbRedunDancerMain()
         {
@@ -170,6 +171,7 @@ namespace redunDancer
             }
 
             // Lock checkboxes after switching
+            UpdateNotifyIconText();
             StartCheckboxLock();
         }
         public void mbLogBoxShowHide()

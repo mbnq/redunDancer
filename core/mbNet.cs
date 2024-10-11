@@ -99,6 +99,7 @@ namespace redunDancer
                 {
                     if (ip.Address.AddressFamily == AddressFamily.InterNetwork)
                     {
+                        mbCurrentGlobalIP = ip.Address.ToString();
                         return ip.Address.ToString();
                     }
                 }
@@ -146,6 +147,7 @@ namespace redunDancer
                 }
 
                 string? currentIP = GetCurrentIPAddress();
+                if (currentIP != null) notifyIcon.Text = "redunDancer " + "(" + currentIP + ")";
 
                 try
                 {

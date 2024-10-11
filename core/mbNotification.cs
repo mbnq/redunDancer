@@ -17,7 +17,7 @@ public class mbNotificationForm : Form
 
         this.Size = new Size(200, 100);
         this.StartPosition = FormStartPosition.Manual;
-        this.FormBorderStyle = FormBorderStyle.None;
+        this.FormBorderStyle = FormBorderStyle.FixedToolWindow;
         this.TopMost = true;
         this.ShowInTaskbar = false;
 
