@@ -23,7 +23,7 @@ namespace redunDancer
         public bool importantMessagesOnly = false;
         public bool silentRun = false;
         public static bool showNotifications = true;
-        public static bool hideLogBox = false;
+        public static bool mbLogBoxShown = true;
         public static int mbInitialWidth = 0;
 
         public mbRedunDancerMain()
@@ -49,8 +49,9 @@ namespace redunDancer
             silentRun = true; mbLoadButton_Click(this, EventArgs.Empty); silentRun = false;
 
             mbInitialWidth = this.Width;
+            mbLogBoxShowHide();
 
-        initializing = false;
+            initializing = false;
         }
         private void InitializeMain()
         {
@@ -165,6 +166,18 @@ namespace redunDancer
             // Lock checkboxes after switching
             StartCheckboxLock();
         }
-
+        public void mbLogBoxShowHide()
+        {
+            if (mbLogBoxShown)
+            {
+                this.Width = mbInitialWidth;
+                mbHideLogBoxButton.Text = "<<";
+            } 
+            else 
+            {
+                this.Width = mbInitialWidth - (mbPingLogTextBox.Width + 14);
+                mbHideLogBoxButton.Text = ">>";
+            }
+        }
     }
 }

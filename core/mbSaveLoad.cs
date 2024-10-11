@@ -62,6 +62,7 @@ namespace redunDancer
                     Properties.Settings.Default.mbAlwaysOnTopCheckBox = mbAlwaysOnTopCheckBox.Checked;
                     Properties.Settings.Default.mbPingLogCheckBox = mbPingLogCheckBox.Checked;
                     Properties.Settings.Default.mbNotificationsCheckBox = mbNotificationsCheckBox.Checked;
+                    Properties.Settings.Default.mbLogBoxShown = mbLogBoxShown;
 
                     Properties.Settings.Default.Save();
                     MessageBox.Show("Settings saved successfully.", "Success", MessageBoxButtons.OK, MessageBoxIcon.Information);
@@ -105,6 +106,10 @@ namespace redunDancer
                     mbAlwaysOnTopCheckBox.Checked = Properties.Settings.Default.mbAlwaysOnTopCheckBox;
                     mbPingLogCheckBox.Checked = Properties.Settings.Default.mbPingLogCheckBox;
                     mbNotificationsCheckBox.Checked = Properties.Settings.Default.mbNotificationsCheckBox;
+                    mbLogBoxShown = Properties.Settings.Default.mbLogBoxShown;
+
+                    // fnc
+                    if (!initializing) mbLogBoxShowHide();
 
                     if (!silentRun) MessageBox.Show("Settings loaded successfully.", "Success", MessageBoxButtons.OK, MessageBoxIcon.Information);
                     LogPingResult("Settings loaded successfully.", true);

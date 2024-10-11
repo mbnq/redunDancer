@@ -85,17 +85,15 @@ namespace redunDancer
         }
         private void mbHideLogBoxButton_Click(object sender, EventArgs e)
         {
-            if (hideLogBox)
+            if (mbLogBoxShown)
             {
-                mbHideLogBoxButton.Text = "<<";
-                this.Width = mbInitialWidth;
-                hideLogBox = false;
+                mbLogBoxShown = false;
+                mbLogBoxShowHide();
             }
             else
             {
-                mbHideLogBoxButton.Text = ">>";
-                this.Width = mbInitialWidth - (mbPingLogTextBox.Width + 14);
-                hideLogBox = true;
+                mbLogBoxShown = true;
+                mbLogBoxShowHide();
             }
         }
     }

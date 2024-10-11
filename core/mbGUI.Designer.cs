@@ -232,7 +232,7 @@
             // 
             // mbPingLogTextBox
             // 
-            mbPingLogTextBox.BackColor = SystemColors.ActiveBorder;
+            mbPingLogTextBox.BackColor = Color.FromArgb(224, 224, 224);
             mbPingLogTextBox.Font = new Font("Lucida Console", 9F, FontStyle.Regular, GraphicsUnit.Point, 238);
             mbPingLogTextBox.ForeColor = Color.Black;
             mbPingLogTextBox.Location = new Point(611, 48);
@@ -313,14 +313,14 @@
             // 
             mbRetryPbar.Location = new Point(386, 347);
             mbRetryPbar.Name = "mbRetryPbar";
-            mbRetryPbar.Size = new Size(168, 27);
+            mbRetryPbar.Size = new Size(201, 27);
             mbRetryPbar.TabIndex = 9;
             // 
             // mbPingPbar
             // 
             mbPingPbar.Location = new Point(386, 314);
             mbPingPbar.Name = "mbPingPbar";
-            mbPingPbar.Size = new Size(168, 27);
+            mbPingPbar.Size = new Size(201, 27);
             mbPingPbar.TabIndex = 9;
             // 
             // checkBoxDhcpA
@@ -362,7 +362,7 @@
             // 
             dummyLabelMin.AutoSize = true;
             dummyLabelMin.Enabled = false;
-            dummyLabelMin.Location = new Point(386, 291);
+            dummyLabelMin.Location = new Point(383, 291);
             dummyLabelMin.Margin = new Padding(0);
             dummyLabelMin.Name = "dummyLabelMin";
             dummyLabelMin.Size = new Size(42, 20);
@@ -373,7 +373,7 @@
             // 
             dummyLabelMax.AutoSize = true;
             dummyLabelMax.Enabled = false;
-            dummyLabelMax.Location = new Point(509, 291);
+            dummyLabelMax.Location = new Point(548, 291);
             dummyLabelMax.Margin = new Padding(0);
             dummyLabelMax.Name = "dummyLabelMax";
             dummyLabelMax.Size = new Size(45, 20);
@@ -503,7 +503,7 @@
             // 
             AutoScaleDimensions = new SizeF(8F, 20F);
             AutoScaleMode = AutoScaleMode.Font;
-            BackColor = Color.GhostWhite;
+            BackColor = Color.White;
             ClientSize = new Size(1017, 475);
             Controls.Add(mbHideLogPanelLabel);
             Controls.Add(mbHideLogBoxButton);
