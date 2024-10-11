@@ -52,6 +52,12 @@ namespace redunDancer
             mbLogBoxShowHide();
 
             initializing = false;
+
+            if (mbAutostartCheckbox.Checked)
+            {
+                mbButtonRun_Click(this, EventArgs.Empty);
+                this.WindowState = FormWindowState.Minimized;
+            }
         }
         private void InitializeMain()
         {

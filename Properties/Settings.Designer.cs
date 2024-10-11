@@ -238,5 +238,17 @@ namespace redunDancer.Properties {
                 this["mbLogBoxShown"] = value;
             }
         }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("False")]
+        public bool mbAutostartCheckbox {
+            get {
+                return ((bool)(this["mbAutostartCheckbox"]));
+            }
+            set {
+                this["mbAutostartCheckbox"] = value;
+            }
+        }
     }
 }

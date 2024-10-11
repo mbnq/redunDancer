@@ -72,6 +72,7 @@
             mbNotificationsCheckBox = new CheckBox();
             mbHideLogBoxButton = new Button();
             mbHideLogPanelLabel = new Label();
+            mbAutostartCheckbox = new CheckBox();
             SuspendLayout();
             // 
             // mbIPTextBoxA
@@ -214,7 +215,7 @@
             // 
             // mbMaxPingTextBox
             // 
-            mbMaxPingTextBox.Location = new Point(212, 337);
+            mbMaxPingTextBox.Location = new Point(212, 332);
             mbMaxPingTextBox.MaxLength = 3;
             mbMaxPingTextBox.Name = "mbMaxPingTextBox";
             mbMaxPingTextBox.Size = new Size(168, 27);
@@ -224,7 +225,7 @@
             // MaxPingLabel
             // 
             MaxPingLabel.AutoSize = true;
-            MaxPingLabel.Location = new Point(136, 340);
+            MaxPingLabel.Location = new Point(136, 335);
             MaxPingLabel.Name = "MaxPingLabel";
             MaxPingLabel.Size = new Size(70, 20);
             MaxPingLabel.TabIndex = 3;
@@ -263,7 +264,7 @@
             // 
             // mbTestPingIntervalTextBox
             // 
-            mbTestPingIntervalTextBox.Location = new Point(212, 304);
+            mbTestPingIntervalTextBox.Location = new Point(212, 299);
             mbTestPingIntervalTextBox.MaxLength = 4;
             mbTestPingIntervalTextBox.Name = "mbTestPingIntervalTextBox";
             mbTestPingIntervalTextBox.Size = new Size(168, 27);
@@ -273,7 +274,7 @@
             // PingIntervalLabel
             // 
             PingIntervalLabel.AutoSize = true;
-            PingIntervalLabel.Location = new Point(99, 307);
+            PingIntervalLabel.Location = new Point(99, 302);
             PingIntervalLabel.Name = "PingIntervalLabel";
             PingIntervalLabel.Size = new Size(111, 20);
             PingIntervalLabel.TabIndex = 3;
@@ -281,7 +282,7 @@
             // 
             // mbTestPingRetryCountTextBox
             // 
-            mbTestPingRetryCountTextBox.Location = new Point(212, 370);
+            mbTestPingRetryCountTextBox.Location = new Point(212, 365);
             mbTestPingRetryCountTextBox.MaxLength = 3;
             mbTestPingRetryCountTextBox.Name = "mbTestPingRetryCountTextBox";
             mbTestPingRetryCountTextBox.Size = new Size(168, 27);
@@ -291,7 +292,7 @@
             // PingRetryCountLabel
             // 
             PingRetryCountLabel.AutoSize = true;
-            PingRetryCountLabel.Location = new Point(87, 373);
+            PingRetryCountLabel.Location = new Point(87, 368);
             PingRetryCountLabel.Name = "PingRetryCountLabel";
             PingRetryCountLabel.Size = new Size(119, 20);
             PingRetryCountLabel.TabIndex = 3;
@@ -311,14 +312,14 @@
             // 
             // mbRetryPbar
             // 
-            mbRetryPbar.Location = new Point(386, 370);
+            mbRetryPbar.Location = new Point(386, 365);
             mbRetryPbar.Name = "mbRetryPbar";
             mbRetryPbar.Size = new Size(201, 27);
             mbRetryPbar.TabIndex = 9;
             // 
             // mbPingPbar
             // 
-            mbPingPbar.Location = new Point(386, 337);
+            mbPingPbar.Location = new Point(386, 332);
             mbPingPbar.Name = "mbPingPbar";
             mbPingPbar.Size = new Size(201, 27);
             mbPingPbar.TabIndex = 9;
@@ -363,7 +364,7 @@
             // 
             dummyLabelMin.AutoSize = true;
             dummyLabelMin.Enabled = false;
-            dummyLabelMin.Location = new Point(383, 314);
+            dummyLabelMin.Location = new Point(383, 309);
             dummyLabelMin.Margin = new Padding(0);
             dummyLabelMin.Name = "dummyLabelMin";
             dummyLabelMin.Size = new Size(42, 20);
@@ -374,7 +375,7 @@
             // 
             dummyLabelMax.AutoSize = true;
             dummyLabelMax.Enabled = false;
-            dummyLabelMax.Location = new Point(548, 314);
+            dummyLabelMax.Location = new Point(548, 309);
             dummyLabelMax.Margin = new Padding(0);
             dummyLabelMax.Name = "dummyLabelMax";
             dummyLabelMax.Size = new Size(45, 20);
@@ -500,12 +501,23 @@
             mbHideLogPanelLabel.TabIndex = 20;
             mbHideLogPanelLabel.Text = "Log";
             // 
+            // mbAutostartCheckbox
+            // 
+            mbAutostartCheckbox.AutoSize = true;
+            mbAutostartCheckbox.Location = new Point(244, 416);
+            mbAutostartCheckbox.Name = "mbAutostartCheckbox";
+            mbAutostartCheckbox.Size = new Size(108, 24);
+            mbAutostartCheckbox.TabIndex = 21;
+            mbAutostartCheckbox.Text = "Start on Init";
+            mbAutostartCheckbox.UseVisualStyleBackColor = true;
+            // 
             // mbRedunDancerMain
             // 
             AutoScaleDimensions = new SizeF(8F, 20F);
             AutoScaleMode = AutoScaleMode.Font;
             BackColor = Color.White;
             ClientSize = new Size(1017, 510);
+            Controls.Add(mbAutostartCheckbox);
             Controls.Add(mbHideLogPanelLabel);
             Controls.Add(mbHideLogBoxButton);
             Controls.Add(mbNotificationsCheckBox);
@@ -604,5 +616,6 @@
         private CheckBox mbNotificationsCheckBox;
         private Button mbHideLogBoxButton;
         private Label mbHideLogPanelLabel;
+        private CheckBox mbAutostartCheckbox;
     }
 }
