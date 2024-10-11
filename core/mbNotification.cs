@@ -49,8 +49,6 @@ public class mbNotificationForm : Form
         mbTitleLabel.Click += (s, e) => this.Hide();
         mbMessageLabel.Click += (s, e) => this.Hide();
 
-        this.Opacity = 50;
-
         if (mbRedunDancerMain.showNotifications)
         {
             this.Show();
@@ -60,6 +58,7 @@ public class mbNotificationForm : Form
 
     private async void mbKillWithDelay(int timeout)
     {
+        this.Opacity = 80;
         await Task.Delay(timeout);
         this.Close();
     }

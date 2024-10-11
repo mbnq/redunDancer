@@ -62,6 +62,7 @@ namespace redunDancer
                     Properties.Settings.Default.mbAlwaysOnTopCheckBox = mbAlwaysOnTopCheckBox.Checked;
                     Properties.Settings.Default.mbPingLogCheckBox = mbPingLogCheckBox.Checked;
                     Properties.Settings.Default.mbNotificationsCheckBox = mbNotificationsCheckBox.Checked;
+                    Properties.Settings.Default.mbAutostartCheckbox = mbAutostartCheckbox.Checked;
                     Properties.Settings.Default.mbLogBoxShown = mbLogBoxShown;
 
                     Properties.Settings.Default.Save();
@@ -106,6 +107,7 @@ namespace redunDancer
                     mbAlwaysOnTopCheckBox.Checked = Properties.Settings.Default.mbAlwaysOnTopCheckBox;
                     mbPingLogCheckBox.Checked = Properties.Settings.Default.mbPingLogCheckBox;
                     mbNotificationsCheckBox.Checked = Properties.Settings.Default.mbNotificationsCheckBox;
+                    mbAutostartCheckbox.Checked = Properties.Settings.Default.mbAutostartCheckbox;
                     mbLogBoxShown = Properties.Settings.Default.mbLogBoxShown;
 
                     // fnc

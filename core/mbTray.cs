@@ -41,7 +41,7 @@ namespace redunDancer
             if (this.WindowState == FormWindowState.Minimized)
             {
                 HideToTray();
-                PopUpNotification("redunDancer", "I'm here if you need me!", 5000);
+                PopUpNotification("redunDancer", "I'm here!", 3000);
             }
         }
 
