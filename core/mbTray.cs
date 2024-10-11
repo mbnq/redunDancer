@@ -22,6 +22,8 @@ namespace redunDancer
             notifyIcon.Visible = false;
             notifyIcon.Text = "redunDancer";
 
+            // notifyIcon.MouseMove += (sender, e) => { GetCurrentIPAddress();  notifyIcon.Text = "redunDancer " + "(" + mbCurrentGlobalIP + ")"; };
+
             contextMenu = new ContextMenuStrip();
             contextMenu.Items.Add("Show", null, ShowForm);
             contextMenu.Items.Add(new ToolStripSeparator());
@@ -34,6 +36,14 @@ namespace redunDancer
 
             this.Resize += mbRedunDancerMain_Resize;
             notifyIcon.DoubleClick += NotifyIcon_DoubleClick;
+
+            UpdateNotifyIconText();
+        }
+
+        private void UpdateNotifyIconText()
+        {
+            GetCurrentIPAddress();
+            notifyIcon.Text = $"redunDancer ({mbCurrentGlobalIP})";
         }
 
         private void mbRedunDancerMain_Resize(object? sender, EventArgs e)
