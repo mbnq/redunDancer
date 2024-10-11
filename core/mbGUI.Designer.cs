@@ -127,7 +127,7 @@
             // 
             // mbDNS1TextBox
             // 
-            mbDNS1TextBox.Location = new Point(243, 195);
+            mbDNS1TextBox.Location = new Point(244, 202);
             mbDNS1TextBox.MaxLength = 15;
             mbDNS1TextBox.Name = "mbDNS1TextBox";
             mbDNS1TextBox.Size = new Size(125, 27);
@@ -136,7 +136,7 @@
             // 
             // mbDNS2TextBox
             // 
-            mbDNS2TextBox.Location = new Point(243, 233);
+            mbDNS2TextBox.Location = new Point(244, 240);
             mbDNS2TextBox.MaxLength = 15;
             mbDNS2TextBox.Name = "mbDNS2TextBox";
             mbDNS2TextBox.Size = new Size(125, 27);
@@ -164,7 +164,7 @@
             // GatewayLabel
             // 
             GatewayLabel.AutoSize = true;
-            GatewayLabel.Location = new Point(221, 117);
+            GatewayLabel.Location = new Point(224, 117);
             GatewayLabel.Name = "GatewayLabel";
             GatewayLabel.Size = new Size(159, 20);
             GatewayLabel.TabIndex = 3;
@@ -173,7 +173,7 @@
             // DNS1Label
             // 
             DNS1Label.AutoSize = true;
-            DNS1Label.Location = new Point(190, 202);
+            DNS1Label.Location = new Point(191, 209);
             DNS1Label.Name = "DNS1Label";
             DNS1Label.Size = new Size(47, 20);
             DNS1Label.TabIndex = 3;
@@ -182,7 +182,7 @@
             // DNS2Label
             // 
             DNS2Label.AutoSize = true;
-            DNS2Label.Location = new Point(190, 236);
+            DNS2Label.Location = new Point(191, 243);
             DNS2Label.Name = "DNS2Label";
             DNS2Label.Size = new Size(47, 20);
             DNS2Label.TabIndex = 3;
@@ -351,7 +351,7 @@
             mbAlwaysOnTopCheckBox.AutoSize = true;
             mbAlwaysOnTopCheckBox.Checked = true;
             mbAlwaysOnTopCheckBox.CheckState = CheckState.Checked;
-            mbAlwaysOnTopCheckBox.Location = new Point(234, 446);
+            mbAlwaysOnTopCheckBox.Location = new Point(244, 446);
             mbAlwaysOnTopCheckBox.Name = "mbAlwaysOnTopCheckBox";
             mbAlwaysOnTopCheckBox.Size = new Size(127, 24);
             mbAlwaysOnTopCheckBox.TabIndex = 11;
@@ -374,7 +374,7 @@
             // 
             dummyLabelMax.AutoSize = true;
             dummyLabelMax.Enabled = false;
-            dummyLabelMax.Location = new Point(548, 302);
+            dummyLabelMax.Location = new Point(548, 314);
             dummyLabelMax.Margin = new Padding(0);
             dummyLabelMax.Name = "dummyLabelMax";
             dummyLabelMax.Size = new Size(45, 20);
@@ -450,7 +450,7 @@
             // startStopOperationsLabel
             // 
             startStopOperationsLabel.AutoSize = true;
-            startStopOperationsLabel.Location = new Point(34, 446);
+            startStopOperationsLabel.Location = new Point(31, 446);
             startStopOperationsLabel.Name = "startStopOperationsLabel";
             startStopOperationsLabel.Size = new Size(175, 20);
             startStopOperationsLabel.TabIndex = 17;
@@ -472,7 +472,7 @@
             mbNotificationsCheckBox.AutoSize = true;
             mbNotificationsCheckBox.Checked = true;
             mbNotificationsCheckBox.CheckState = CheckState.Checked;
-            mbNotificationsCheckBox.Location = new Point(234, 472);
+            mbNotificationsCheckBox.Location = new Point(244, 476);
             mbNotificationsCheckBox.Name = "mbNotificationsCheckBox";
             mbNotificationsCheckBox.Size = new Size(116, 24);
             mbNotificationsCheckBox.TabIndex = 18;
