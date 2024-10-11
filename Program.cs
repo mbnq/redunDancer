@@ -15,6 +15,8 @@ namespace redunDancer
 {
     internal static class Program
     {
+        static Mutex redunDancerMutex = new Mutex(true, "{readunDancer}");
+
         #region variables and constants
         public const string mbVersion = "0.0.0.4";
         #endregion
@@ -32,6 +34,14 @@ namespace redunDancer
         [STAThread]
         static void Main()
         {
+
+            if (!redunDancerMutex.WaitOne(TimeSpan.Zero, true))
+            {
+                MessageBox.Show("Another instance of the application is already running.", "Warning", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                Application.Exit();
+                return;
+            }
+
             if (!IsAdministrator())
             {
                 // Restart the application with admin rights
@@ -58,6 +68,7 @@ namespace redunDancer
             Application.EnableVisualStyles();
             Application.SetCompatibleTextRenderingDefault(false);
             Application.Run(new mbRedunDancerMain());
+            redunDancerMutex.ReleaseMutex();
         }
 
         private static bool IsAdministrator()
