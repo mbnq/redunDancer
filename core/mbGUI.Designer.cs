@@ -70,6 +70,8 @@
             startStopOperationsLabel = new Label();
             mbPingLogImportantOnlyCheckBox = new CheckBox();
             mbNotificationsCheckBox = new CheckBox();
+            mbHideLogBoxButton = new Button();
+            mbHideLogPanelLabel = new Label();
             SuspendLayout();
             // 
             // mbIPTextBoxA
@@ -477,12 +479,34 @@
             mbNotificationsCheckBox.UseVisualStyleBackColor = true;
             mbNotificationsCheckBox.CheckedChanged += mbNotificationsCheckBox_CheckedChanged;
             // 
+            // mbHideLogBoxButton
+            // 
+            mbHideLogBoxButton.Font = new Font("Arial", 7.8F, FontStyle.Regular, GraphicsUnit.Point, 238);
+            mbHideLogBoxButton.Location = new Point(548, 230);
+            mbHideLogBoxButton.Name = "mbHideLogBoxButton";
+            mbHideLogBoxButton.Size = new Size(39, 29);
+            mbHideLogBoxButton.TabIndex = 19;
+            mbHideLogBoxButton.Text = "<<";
+            mbHideLogBoxButton.UseVisualStyleBackColor = true;
+            mbHideLogBoxButton.Click += mbHideLogBoxButton_Click;
+            // 
+            // mbHideLogPanelLabel
+            // 
+            mbHideLogPanelLabel.AutoSize = true;
+            mbHideLogPanelLabel.Location = new Point(509, 233);
+            mbHideLogPanelLabel.Name = "mbHideLogPanelLabel";
+            mbHideLogPanelLabel.Size = new Size(34, 20);
+            mbHideLogPanelLabel.TabIndex = 20;
+            mbHideLogPanelLabel.Text = "Log";
+            // 
             // mbRedunDancerMain
             // 
             AutoScaleDimensions = new SizeF(8F, 20F);
             AutoScaleMode = AutoScaleMode.Font;
-            BackColor = SystemColors.ActiveBorder;
+            BackColor = Color.GhostWhite;
             ClientSize = new Size(1017, 475);
+            Controls.Add(mbHideLogPanelLabel);
+            Controls.Add(mbHideLogBoxButton);
             Controls.Add(mbNotificationsCheckBox);
             Controls.Add(startStopOperationsLabel);
             Controls.Add(saveLoadDataLabel);
@@ -577,5 +601,7 @@
         private Label startStopOperationsLabel;
         private CheckBox mbPingLogImportantOnlyCheckBox;
         private CheckBox mbNotificationsCheckBox;
+        private Button mbHideLogBoxButton;
+        private Label mbHideLogPanelLabel;
     }
 }

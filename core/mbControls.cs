@@ -83,5 +83,20 @@ namespace redunDancer
                 mbPingLogTextBox.AppendText($"{DateTime.UtcNow.ToString("HH:mm:ss")}: Stopping...\r\n");
             }
         }
+        private void mbHideLogBoxButton_Click(object sender, EventArgs e)
+        {
+            if (hideLogBox)
+            {
+                mbHideLogBoxButton.Text = "<<";
+                this.Width = mbInitialWidth;
+                hideLogBox = false;
+            }
+            else
+            {
+                mbHideLogBoxButton.Text = ">>";
+                this.Width = mbInitialWidth - (mbPingLogTextBox.Width + 14);
+                hideLogBox = true;
+            }
+        }
     }
 }

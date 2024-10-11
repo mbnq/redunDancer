@@ -23,6 +23,8 @@ namespace redunDancer
         public bool importantMessagesOnly = false;
         public bool silentRun = false;
         public static bool showNotifications = true;
+        public static bool hideLogBox = false;
+        public static int mbInitialWidth = 0;
 
         public mbRedunDancerMain()
         {
@@ -46,7 +48,9 @@ namespace redunDancer
 
             silentRun = true; mbLoadButton_Click(this, EventArgs.Empty); silentRun = false;
 
-            initializing = false;
+            mbInitialWidth = this.Width;
+
+        initializing = false;
         }
         private void InitializeMain()
         {
