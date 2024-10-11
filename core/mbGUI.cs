@@ -172,12 +172,13 @@ namespace redunDancer
             {
                 this.Width = mbInitialWidth;
                 mbHideLogBoxButton.Text = "<<";
-            } 
-            else 
+            }
+            else
             {
                 this.Width = mbInitialWidth - (mbPingLogTextBox.Width + 14);
                 mbHideLogBoxButton.Text = ">>";
             }
         }
+
     }
 }

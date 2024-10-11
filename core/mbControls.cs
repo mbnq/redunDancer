@@ -43,6 +43,10 @@ namespace redunDancer
         {
             if (mbNotificationsCheckBox.Checked) { showNotifications = true; } else { showNotifications = false; };
         }
+        private void mbAlwaysOnTopCheckBox_CheckedChanged(object sender, EventArgs e)
+        {
+            this.TopMost = mbAlwaysOnTopCheckBox.Checked;
+        }
         private void mbButtonRun_Click(object? sender, EventArgs e)
         {
 

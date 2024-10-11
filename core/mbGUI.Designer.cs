@@ -357,6 +357,7 @@
             mbAlwaysOnTopCheckBox.TabIndex = 11;
             mbAlwaysOnTopCheckBox.Text = "Always on Top";
             mbAlwaysOnTopCheckBox.UseVisualStyleBackColor = true;
+            mbAlwaysOnTopCheckBox.CheckedChanged += mbAlwaysOnTopCheckBox_CheckedChanged;
             // 
             // dummyLabelMin
             // 
