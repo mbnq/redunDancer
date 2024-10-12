@@ -3,7 +3,7 @@
 `redunDancer` is a network redundancy tool designed to automatically switch between two different network configurations in case of connectivity issues. 
 The application allows the user to monitor network performance, configure IP settings, and manage network profiles through an easy-to-use graphical user interface.
 
-![image](https://github.com/user-attachments/assets/7109d2f5-415c-4465-a1b9-d257d0775a9a)
+![image](https://github.com/user-attachments/assets/696a41a6-f54c-4e36-b1d5-8cefced486cc)
 
 ## Key Features
 
