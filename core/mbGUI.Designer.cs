@@ -252,7 +252,7 @@
             // 
             // mbPingLogTextBox
             // 
-            mbPingLogTextBox.BackColor = SystemColors.ControlLight;
+            mbPingLogTextBox.BackColor = Color.White;
             mbPingLogTextBox.BorderStyle = BorderStyle.FixedSingle;
             mbPingLogTextBox.Font = new Font("Lucida Console", 9F, FontStyle.Regular, GraphicsUnit.Point, 238);
             mbPingLogTextBox.ForeColor = Color.Black;
