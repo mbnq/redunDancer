@@ -130,12 +130,11 @@ namespace redunDancer
         {
             if (int.TryParse(mbTestPingIntervalTextBox.Text, out int interval))
             {
-                int lockDuration = interval * 5 * 1000; // Convert to milliseconds
+                int lockDuration = interval * 5 * 1000; // to ms
                 checkboxesLocked = true;
                 ActiveACheckBox.Enabled = false;
                 ActiveBCheckBox.Enabled = false;
 
-                // Use System.Windows.Forms.Timer
                 System.Windows.Forms.Timer timer = new System.Windows.Forms.Timer();
                 timer.Interval = lockDuration;
                 timer.Tick += (s, e) =>
@@ -172,7 +171,6 @@ namespace redunDancer
                 }));
             }
 
-            // Lock checkboxes after switching
             UpdateNotifyIconText();
             StartCheckboxLock();
         }

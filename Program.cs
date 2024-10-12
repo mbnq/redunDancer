@@ -9,7 +9,6 @@
 
 using System.Security.Principal;
 using System.Diagnostics;
-using System.Runtime.InteropServices;
 
 namespace redunDancer
 {
@@ -18,10 +17,11 @@ namespace redunDancer
         static Mutex redunDancerMutex = new Mutex(true, "{readunDancer}");
 
         #region variables and constants
-        public const string mbVersion = "0.0.1.2";
+        public const string mbVersion = "0.0.1.4";
         #endregion
 
         #region DPI
+        // not really needed, leftover from template
         /*
         [DllImport("user32.dll")]
         static extern bool SetProcessDPIAware();

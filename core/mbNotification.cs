@@ -8,7 +8,6 @@
 */
 
 using redunDancer;
-
 public class mbNotificationForm : Form
 {
     private Label mbTitleLabel, mbMessageLabel;
@@ -27,7 +26,7 @@ public class mbNotificationForm : Form
         mbTitleLabel.AutoSize = false;
         mbTitleLabel.TextAlign = ContentAlignment.MiddleCenter;
         mbTitleLabel.Dock = DockStyle.Top;
-        mbTitleLabel.Font = new Font("Consolas", 12, FontStyle.Regular);
+        mbTitleLabel.Font = new Font("Consolas", 10, FontStyle.Regular);
         mbTitleLabel.Height = 20;
         mbTitleLabel.BackColor = Color.Gray;
 
@@ -36,7 +35,7 @@ public class mbNotificationForm : Form
         mbMessageLabel.AutoSize = false;
         mbMessageLabel.TextAlign = ContentAlignment.MiddleCenter;
         mbMessageLabel.Dock = DockStyle.Fill;
-        mbMessageLabel.Font = new Font("Consolas", 12);
+        mbMessageLabel.Font = new Font("Consolas", 10);
 
         // ---
         this.Controls.Add(mbTitleLabel);
@@ -56,7 +55,6 @@ public class mbNotificationForm : Form
             mbKillWithDelay(timeout);
         }
     }
-
     private async void mbKillWithDelay(int timeout)
     {
         this.Opacity = 80;

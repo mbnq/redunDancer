@@ -69,7 +69,6 @@ namespace redunDancer
                 }
                 else
                 {
-                    // Default to Setting A if no match
                     useSettingA = true;
                     ActiveACheckBox.Checked = true;
                     ActiveBCheckBox.Checked = false;
@@ -85,8 +84,7 @@ namespace redunDancer
         {
             string? adapterName = GetSelectedAdapterName(useSettingA);
 
-            if (adapterName == null)
-                return null;
+            if (adapterName == null) return null;
 
             NetworkInterface? ni = NetworkInterface.GetAllNetworkInterfaces()
                 .FirstOrDefault(n => n.Name == adapterName);
@@ -108,42 +106,39 @@ namespace redunDancer
         }
         private bool IsSameNetwork(string ip1, string ip2)
         {
-            if (string.IsNullOrWhiteSpace(ip1) || string.IsNullOrWhiteSpace(ip2))
-                return false;
+            if (string.IsNullOrWhiteSpace(ip1) || string.IsNullOrWhiteSpace(ip2)) return false;
 
             string network1 = ip1.Substring(0, ip1.LastIndexOf('.'));
             string network2 = ip2.Substring(0, ip2.LastIndexOf('.'));
             return network1 == network2;
         }
-
         private void PingWorker_DoWork(object? sender, DoWorkEventArgs e)
         {
             int postSwitchDelayMultiplier = 1;
 
             while (pingWorker != null && !pingWorker.CancellationPending)
             {
-                // Get the IP, ping settings, and retry count from textboxes
+
                 string ipAddress = useSettingA ? mbDNS1TextBox.Text : mbDNS2TextBox.Text;
 
-                // Parse values safely, handle exceptions
                 int maxPing;
                 int interval;
                 int retryCount;
 
                 if (!int.TryParse(mbMaxPingTextBox.Text, out maxPing))
                 {
-                    maxPing = 100; // Default value
+                    maxPing = 100; // def
                 }
 
                 if (!int.TryParse(mbTestPingIntervalTextBox.Text, out interval))
                 {
-                    interval = 1; // Default value
+                    interval = 1; // def
                 }
-                interval *= 1000; // Convert to milliseconds
+                interval *= 1000; // to ms
 
                 if (!int.TryParse(mbTestPingRetryCountTextBox.Text, out retryCount))
                 {
-                    retryCount = 3; // Default value
+                    retryCount = 3; // def
                 }
 
                 string? currentIP = GetCurrentIPAddress();
@@ -179,17 +174,13 @@ namespace redunDancer
                     SwitchSettings();
                     PopUpNotification("redunDancer", "Switching network.", 5000);
                     consecutiveFailures = 0;
-                    postSwitchDelayMultiplier = 2; // Double the delay after switching
+                    postSwitchDelayMultiplier = 2;
                 }
 
                 mbRetryPbar.Value = consecutiveFailures;
                 SleepWithCancellation(interval * postSwitchDelayMultiplier);
 
-                // Reset the multiplier back to 1 after the extended delay
-                if (postSwitchDelayMultiplier > 1)
-                {
-                    postSwitchDelayMultiplier = 1;
-                }
+                if (postSwitchDelayMultiplier > 1) postSwitchDelayMultiplier = 1;
             }
         }
         private void LogPingResult(string message, bool isImportant = true)
@@ -237,7 +228,7 @@ namespace redunDancer
         }
         private void SleepWithCancellation(int milliseconds)
         {
-            int sleepInterval = 100; // Sleep in 100ms intervals
+            int sleepInterval = 100;
             int elapsed = 0;
             while (elapsed < milliseconds)
             {
@@ -255,7 +246,7 @@ namespace redunDancer
             LogPingResult($"Applying settings: IP={ip}, Mask={mask}, Gateway={gateway}", true);
             SetNetworkSettings(ip, mask, gateway);
 
-            // Determine if we are using DHCP and update the corresponding checkbox
+            // determine if we are using DHCP and update the corresponding checkbox
             bool isUsingDHCP = string.IsNullOrWhiteSpace(ip) || string.IsNullOrWhiteSpace(mask) || string.IsNullOrWhiteSpace(gateway);
 
             if (useSettingA)
@@ -263,7 +254,7 @@ namespace redunDancer
                 Invoke(new Action(() =>
                 {
                     checkBoxDhcpA.Checked = isUsingDHCP;
-                    checkBoxDhcpA.Enabled = false; // Disable to show it's an indicator
+                    checkBoxDhcpA.Enabled = false;
                 }));
             }
             else
@@ -271,7 +262,7 @@ namespace redunDancer
                 Invoke(new Action(() =>
                 {
                     checkBoxDhcpB.Checked = isUsingDHCP;
-                    checkBoxDhcpB.Enabled = false; // Disable to show it's an indicator
+                    checkBoxDhcpB.Enabled = false;
                 }));
             }
         }
@@ -290,14 +281,13 @@ namespace redunDancer
 
                 if (string.IsNullOrWhiteSpace(ip) || string.IsNullOrWhiteSpace(mask) || string.IsNullOrWhiteSpace(gateway))
                 {
-                    // Set to DHCP
                     SetDHCP(adapterName);
                     Task.Delay(2000).Wait();
                     GetIPSettings(adapterName, useSettingA, false);
                 }
                 else
                 {
-                    // Set static IP settings
+                    // static IP settings
                     string setIPCmd = $"interface ip set address name=\"{adapterName}\" static {ip} {mask} {gateway} 1";
                     string setDNSCmd1 = $"interface ip set dnsservers name=\"{adapterName}\" static {mbDNS1TextBox.Text} primary";
                     string setDNSCmd2 = $"interface ip add dnsservers name=\"{adapterName}\" address={mbDNS2TextBox.Text} index=2";
@@ -312,6 +302,7 @@ namespace redunDancer
             catch (Exception ex)
             {
                 LogPingResult($"Error applying network settings: {ex.Message}", true);
+                PopUpNotification("redunDancer", "Error applying network settings!", 5000);
             }
         }
 
@@ -344,16 +335,15 @@ namespace redunDancer
 
                     LogPingResult($"Obtained IP settings: IP={ip}, Mask={mask}, Gateway={gateway}", true);
 
-                    // Determine if DHCP is being used
+                    // determine if DHCP is being used
                     bool isUsingDHCP = string.IsNullOrWhiteSpace(ip) || string.IsNullOrWhiteSpace(mask) || string.IsNullOrWhiteSpace(gateway);
 
-                    // Update the checkboxes for DHCP
                     if (isSettingA)
                     {
                         Invoke(new Action(() =>
                         {
                             checkBoxDhcpA.Checked = isUsingDHCP;
-                            checkBoxDhcpA.Enabled = false; // Disable to show it's an indicator
+                            checkBoxDhcpA.Enabled = false;
                             if (populateTextBoxes)
                             {
                                 mbIPTextBoxA.Text = ip;
@@ -367,7 +357,7 @@ namespace redunDancer
                         Invoke(new Action(() =>
                         {
                             checkBoxDhcpB.Checked = isUsingDHCP;
-                            checkBoxDhcpB.Enabled = false; // Disable to show it's an indicator
+                            checkBoxDhcpB.Enabled = false;
                             if (populateTextBoxes)
                             {
                                 mbIPTextBoxB.Text = ip;
@@ -380,10 +370,10 @@ namespace redunDancer
                 else
                 {
                     LogPingResult("Failed to obtain IP settings.", true);
+                    PopUpNotification("redunDancer", "Failed to obtain IP settings.", 5000);
                 }
             }
         }
-
         private string? GetDefaultAdapterName()
         {
             foreach (NetworkInterface ni in NetworkInterface.GetAllNetworkInterfaces())
@@ -397,7 +387,6 @@ namespace redunDancer
             }
             return null;
         }
-
         private string? GetSelectedAdapterName(bool isSettingA)
         {
             string? selectedAdapter = null;
@@ -440,7 +429,6 @@ namespace redunDancer
                 return selectedAdapter;
             }
         }
-
         private string? GetNetshInterfaceName(bool isSettingA)
         {
             string? adapterName = GetSelectedAdapterName(isSettingA);
@@ -449,7 +437,6 @@ namespace redunDancer
 
             return GetNetshInterfaceNameByAdapterName(adapterName);
         }
-
         private string? GetNetshInterfaceNameByAdapterName(string adapterName)
         {
             NetworkInterface? ni = NetworkInterface.GetAllNetworkInterfaces()
@@ -461,7 +448,6 @@ namespace redunDancer
             }
             return null;
         }
-
         private string? GetNetshInterfaceNameById(string adapterId)
         {
             string query = $"SELECT * FROM Win32_NetworkAdapter WHERE GUID = '{adapterId}'";
@@ -478,7 +464,6 @@ namespace redunDancer
             }
             return null;
         }
-
         private void RunNetshCommand(string command)
         {
             LogPingResult($"Running netsh command: {command}", true);
@@ -486,10 +471,10 @@ namespace redunDancer
             ProcessStartInfo psi = new ProcessStartInfo("netsh", command)
             {
                 RedirectStandardOutput = true,
-                RedirectStandardError = true, // Capture errors
+                RedirectStandardError = true,
                 UseShellExecute = false,
                 CreateNoWindow = true,
-                Verb = "runas" // Run as administrator
+                Verb = "runas" // run as admin
             };
 
             using (Process? process = Process.Start(psi))
