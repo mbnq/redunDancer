@@ -49,15 +49,11 @@ public class mbNotificationForm : Form
         mbTitleLabel.Click += (s, e) => this.Hide();
         mbMessageLabel.Click += (s, e) => this.Hide();
 
-        if (mbRedunDancerMain.showNotifications)
-        {
-            this.Show();
-            mbKillWithDelay(timeout);
-        }
+        this.Show();
+        mbKillWithDelay(timeout);
     }
     private async void mbKillWithDelay(int timeout)
     {
-        this.Opacity = 80;
         await Task.Delay(timeout);
         this.Close();
     }

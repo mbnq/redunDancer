@@ -123,8 +123,11 @@ namespace redunDancer
         }
         public void PopUpNotification(string title, string message, int timeout)
         {
-            mbNotificationForm notification = new mbNotificationForm(title, message, timeout);
-            notification.Show();
+            if (showNotifications)
+            {
+                mbNotificationForm notification = new mbNotificationForm(title, message, timeout);
+                notification.Show(); 
+            }
         }
         private void StartCheckboxLock()
         {
