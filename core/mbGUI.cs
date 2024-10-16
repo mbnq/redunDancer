@@ -121,7 +121,7 @@ namespace redunDancer
 
             LogPingResult($"Settings validated correctly: {isConfigCorrect}", true);
         }
-        public void PopUpNotification(string title, string message, int timeout)
+        public void PopUpNotification_old(string title, string message, int timeout)
         {
             if (showNotifications)
             {
@@ -129,6 +129,23 @@ namespace redunDancer
                 notification.Show(); 
             }
         }
+
+        public void PopUpNotification(string title, string message, int timeout)
+        {
+            if (showNotifications)
+            {
+                if (this.InvokeRequired)
+                {
+                    this.Invoke(new Action(() => PopUpNotification(title, message, timeout)));
+                }
+                else
+                {
+                    mbNotificationForm notification = new mbNotificationForm(title, message, timeout);
+                    notification.Show();
+                }
+            }
+        }
+
         private void StartCheckboxLock()
         {
             if (int.TryParse(mbTestPingIntervalTextBox.Text, out int interval))

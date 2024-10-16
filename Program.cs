@@ -17,7 +17,7 @@ namespace redunDancer
         static Mutex redunDancerMutex = new Mutex(true, "{readunDancer}");
 
         #region variables and constants
-        public const string mbVersion = "0.0.1.6";
+        public const string mbVersion = "0.0.1.7";
         #endregion
 
         #region DPI
